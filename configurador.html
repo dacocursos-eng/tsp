@@ -48,10 +48,10 @@ ol{padding-left:1.2rem}
 
 <section class="step" id="s1">
   <h2>Conectar el proyecto</h2>
-  <p class="hint">Este paso lo hace quien creó el proyecto, o cualquiera de ustedes con rol Maintainer u Owner.</p>
+  <p class="hint">Este paso lo hace quien creó el proyecto, o cualquiera de ustedes con el rol <b>Encargado de mantenimiento (Maintainer)</b> o <b>Propietario (Owner)</b>.</p>
   <ol class="hint">
     <li>En GitLab, creen un proyecto en blanco dentro del grupo del equipo, con visibilidad Privado.</li>
-    <li>Creen un token en su avatar &gt; Editar perfil (Edit profile) &gt; Acceso (Access) &gt; Tokens de acceso personal (Personal access tokens), con el permiso <code>api</code>.</li>
+    <li>Creen un token en su avatar &gt; <b>Editar perfil</b> &gt; <b>Acceso</b> &gt; <b>Tokens de acceso personal</b> &gt; <b>Generar token</b> &gt; <b>Token heredado</b>, con el alcance <code>api</code>.</li>
   </ol>
   <label for="tk">Token personal</label>
   <input id="tk" type="password" autocomplete="off" placeholder="glpat-...">
@@ -593,7 +593,7 @@ $("bConn").onclick = async () => {
     MEMBERS = (await getAll(`/projects/${PID}/members/all`)).filter(m=>m.state==="active" && !m.bot && !/(^|[-_])bot([-_]|$)|^duo-|project_\d+_bot|group_\d+_bot/i.test(m.username));
     const lvl = (PROJECT.permissions && Math.max((PROJECT.permissions.project_access||{}).access_level||0,(PROJECT.permissions.group_access||{}).access_level||0)) || 0;
     let warn = "";
-    if(lvl < 40) warn = "<br>Su rol en el proyecto es menor que Maintainer. Pidan al creador del proyecto que realice la preparación o que les asigne el rol Maintainer.";
+    if(lvl < 40) warn = "<br>Su rol en el proyecto es menor que Encargado de mantenimiento (Maintainer). Pidan al creador del proyecto que realice la preparación o que les asigne ese rol.";
     msg("connMsg", lvl<40?"warn":"ok", `Conectado como <b>${escHtml(me.name)}</b> (@${escHtml(me.username)}) al proyecto <b>${escHtml(PROJECT.name_with_namespace)}</b>. Integrantes encontrados: ${MEMBERS.length}.${warn}`);
     $("s2").classList.remove("locked"); $("s3").classList.remove("locked");
   }catch(e){
@@ -630,7 +630,7 @@ $("bSetup").onclick = async () => {
     }
     if(actions.length){
       try{ await api("POST",`/projects/${PID}/repository/commits`,{branch,commit_message:"Agregar plantillas del proyecto TSP",actions}); actions.forEach(a=>log(L,"ok","Plantilla creada: "+a.file_path)); }
-      catch(e){ errors++; log(L,"bad","Plantillas: "+e.message+(e.status===403?" (la rama principal está protegida; se requiere rol Maintainer)":"")); }
+      catch(e){ errors++; log(L,"bad","Plantillas: "+e.message+(e.status===403?" (la rama principal está protegida; se requiere el rol Encargado de mantenimiento)":"")); }
     }
     // Wiki
     let pages=[];

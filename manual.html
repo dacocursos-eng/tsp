@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manual paso a paso · Proyecto TSP en GitLab</title>
+<style>
+:root{
+  --bg:#f6f5f2; --panel:#ffffff; --ink:#1d2430; --muted:#5b6575; --line:#e3e1dc;
+  --accent:#1f4e79; --accent-soft:#e7eef6; --accent2:#7a4b12; --accent2-soft:#f6eee2;
+  --code:#f1efe9; --radius:10px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+a{color:var(--accent)}
+code{background:var(--code);padding:.1em .35em;border-radius:4px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+pre{background:var(--code);padding:.6rem .8rem;border-radius:6px;font-size:.9rem;overflow:auto;margin:.5rem 0}
+header.top{background:var(--accent);color:#fff;padding:1.2rem 1.5rem}
+header.top .wrap{max-width:1320px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+header.top h1{margin:0;font-size:1.45rem;font-weight:650}
+header.top a{color:#fff;font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,.55);border-radius:999px;padding:.3rem .9rem;font-size:.92rem}
+header.top a:hover{background:rgba(255,255,255,.12)}
+.layout{max-width:1320px;margin:0 auto;display:grid;grid-template-columns:250px 1fr;gap:1.5rem;padding:1.25rem 1.5rem}
+nav.side{position:sticky;top:1rem;align-self:start}
+nav.side ul{list-style:none;margin:0;padding:0}
+nav.side li a{display:block;padding:.42rem .65rem;border-radius:6px;color:var(--ink);text-decoration:none;font-size:.95rem}
+nav.side li a:hover{background:var(--accent-soft)}
+nav.side li a.active{background:var(--accent);color:#fff}
+nav.side .who{display:block;font-size:.75rem;color:var(--muted)}
+nav.side li a.active .who{color:#dbe6f2}
+.slide{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.slide-head{padding:1rem 1.3rem .4rem;display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap}
+.slide-head .proc{font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;color:var(--accent2);font-weight:650}
+.slide-head .count{font-size:.85rem;color:var(--muted)}
+.slide h2{margin:.1rem 0 0;font-size:1.35rem;line-height:1.3;padding:0 1.3rem}
+.slide .text{padding:.5rem 1.3rem .9rem;max-width:920px}
+.slide .text p{margin:.35rem 0}
+.slide .text ul{margin:.3rem 0;padding-left:1.25rem}
+.note{background:var(--accent2-soft);border-left:4px solid var(--accent2);padding:.5rem .8rem;border-radius:4px;margin:.6rem 0 .2rem;font-size:.95rem}
+.shot{background:#ecebe7;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:.8rem;display:flex;justify-content:center}
+.shot img{max-width:100%;height:auto;border-radius:6px;box-shadow:0 1px 6px rgba(0,0,0,.15);cursor:zoom-in;display:block}
+.controls{display:flex;align-items:center;justify-content:space-between;gap:.8rem;padding:.8rem 1.3rem;flex-wrap:wrap}
+.controls button{font:inherit;font-weight:600;border:1px solid var(--accent);background:#fff;color:var(--accent);border-radius:8px;padding:.45rem 1rem;cursor:pointer}
+.controls button.primary{background:var(--accent);color:#fff}
+.controls button:disabled{opacity:.35;cursor:default}
+.dots{display:flex;gap:.3rem;flex-wrap:wrap;justify-content:center;flex:1}
+.dots button{width:.75rem;height:.75rem;padding:0;border-radius:50%;border:1px solid var(--accent);background:#fff}
+.dots button.on{background:var(--accent)}
+.intro{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:.9rem 1.3rem;margin-bottom:1rem}
+.intro p{margin:.2rem 0}
+.hint{font-size:.85rem;color:var(--muted);margin:.6rem 0 0}
+.lb{position:fixed;inset:0;background:rgba(10,14,20,.88);display:none;align-items:center;justify-content:center;padding:1rem;z-index:10;cursor:zoom-out}
+.lb.on{display:flex}
+.lb img{max-width:100%;max-height:100%;border-radius:4px}
+@media (max-width:860px){.layout{grid-template-columns:1fr}nav.side{position:static}nav.side ul{display:flex;flex-wrap:wrap;gap:.3rem}nav.side li a{border:1px solid var(--line);background:#fff}}
+@media print{nav.side,.controls,header.top a{display:none}.layout{display:block}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <h1>Manual paso a paso: proyecto TSP en GitLab</h1>
+  <a href="index.html">Volver a la guía del proyecto</a>
+</div></header>
+
+<div class="layout">
+<nav class="side" aria-label="Procedimientos"><ul id="toc"></ul></nav>
+<main>
+  <div class="intro" id="intro"></div>
+  <article class="slide" aria-live="polite">
+    <div class="slide-head"><span class="proc" id="proc"></span><span class="count" id="count"></span></div>
+    <h2 id="title"></h2>
+    <div class="text" id="text"></div>
+    <div class="shot"><img id="img" alt=""></div>
+    <div class="controls">
+      <button id="prev">Anterior</button>
+      <div class="dots" id="dots"></div>
+      <button id="next" class="primary">Siguiente</button>
+    </div>
+  </article>
+  <p class="hint">Pueden avanzar con las flechas del teclado. Seleccionen la imagen para verla en tamaño completo.</p>
+</main>
+</div>
+<div class="lb" id="lb"><img id="lbimg" alt=""></div>
+
+<script>
+const PROCS = [
+{id:"cuenta", t:"Cuenta de GitLab", who:"Cada uno",
+ intro:"Cada uno de ustedes necesita una cuenta en gitlab.com con su nombre completo en el perfil, para que sus registros de tiempo, comentarios y defectos queden asociados a su nombre.",
+ steps:[
+ {img:"cuenta-01-menu", h:"Abran su perfil",
+  p:"<p>Ingresen a <b>gitlab.com</b> con su cuenta. Si aún no la tienen, seleccionen <b>Registrarse (Register)</b> y confirmen su correo electrónico.</p><p>Luego seleccionen su avatar, en la esquina superior derecha, y elijan <b>Editar perfil (Edit profile)</b>.</p>"},
+ {img:"cuenta-02-nombre", h:"Escriban su nombre completo",
+  p:"<p>En el campo <b>Nombre (Full name)</b> escriban su nombre y apellidos tal como aparecen en el aula virtual.</p><p>Bajen hasta el final de la página y seleccionen <b>Actualizar la configuración del perfil</b>.</p>"}
+ ]},
+{id:"grupo", t:"Grupo del equipo", who:"Uno de ustedes",
+ intro:"Uno de ustedes crea el grupo privado del equipo e invita a los demás integrantes. Un grupo privado gratuito admite máximo cinco integrantes.",
+ steps:[
+ {img:"grupo-01-menu", h:"Creen un grupo nuevo",
+  p:"<p>Seleccionen el botón <b>+</b> de la barra superior y elijan <b>Nuevo grupo (New group)</b>. Luego seleccionen <b>Crear grupo (Create group)</b>.</p>"},
+ {img:"grupo-02-nombre", h:"Escriban el nombre del equipo",
+  p:"<p>En <b>Nombre del grupo</b> escriban el nombre de su equipo. GitLab completa la <b>URL del grupo</b> automáticamente.</p><p>En <b>Nivel de visibilidad</b> elijan <b>Privado</b>.</p>"},
+ {img:"grupo-03-crear", h:"Respondan las preguntas y creen el grupo",
+  p:"<p>En <b>¿Quién usará este grupo?</b> elijan <b>Mi empresa o equipo</b>. Las demás preguntas son opcionales.</p><p>Seleccionen <b>Crear grupo</b> al final del formulario. Las invitaciones las hacen en el paso siguiente.</p>"},
+ {img:"grupo-04-miembros", h:"Abran la lista de miembros",
+  p:"<p>Dentro del grupo, en el menú izquierdo, vayan a <b>Gestionar (Manage)</b> &gt; <b>Miembros (Members)</b> y seleccionen <b>Invitar miembros (Invite members)</b>.</p>"},
+ {img:"grupo-05-invitar", h:"Inviten a sus compañeros",
+  p:"<p>Escriban el nombre de usuario de GitLab de cada compañero.</p><p>En <b>Rol</b> elijan <b>Encargado de mantenimiento (Maintainer)</b>, para que todos puedan crear ramas, fusionar y editar la wiki. Seleccionen <b>Invitar</b>.</p><div class=\"note\">Cada compañero recibe la invitación en su correo y debe aceptarla.</div>"}
+ ]},
+{id:"proyecto", t:"Proyecto del catálogo", who:"Uno de ustedes",
+ intro:"Dentro del grupo se crea el proyecto donde van a quedar las tareas, el código, la wiki y todos los registros del equipo.",
+ steps:[
+ {img:"proyecto-01-tipo", h:"Creen un proyecto en blanco",
+  p:"<p>Desde la página del grupo, seleccionen <b>Nuevo proyecto (New project)</b> y elijan <b>Crear proyecto en blanco (Create blank project)</b>.</p>"},
+ {img:"proyecto-02-nombre", h:"Escriban el nombre del proyecto",
+  p:"<p>En <b>Nombre del proyecto</b> escriban el nombre de su catálogo. Verifiquen que en la <b>URL del proyecto</b> aparezca el grupo de su equipo.</p>"},
+ {img:"proyecto-03-crear", h:"Elijan la visibilidad y creen el proyecto",
+  p:"<p>En <b>Nivel de visibilidad</b> elijan <b>Privado</b>. Dejen marcada la opción de inicializar el repositorio con un README y seleccionen <b>Crear proyecto</b>.</p>"}
+ ]},
+{id:"token", t:"Token personal", who:"Quien prepara el proyecto",
+ intro:"El configurador se comunica con GitLab mediante un token personal. El token funciona como una contraseña: es personal, GitLab lo muestra una sola vez y no se comparte con nadie.",
+ steps:[
+ {img:"token-01-pagina", h:"Abran la página de tokens",
+  p:"<p>Seleccionen su avatar &gt; <b>Editar perfil (Edit profile)</b>. En el menú izquierdo vayan a <b>Acceso (Access)</b> &gt; <b>Tokens de acceso personal (Personal access tokens)</b>.</p>"},
+ {img:"token-02-menu", h:"Generen un token heredado",
+  p:"<p>Seleccionen <b>Generar token (Generate token)</b> y elijan <b>Token heredado (Legacy token)</b>.</p>"},
+ {img:"token-03-formulario", h:"Escriban el nombre y la fecha de vencimiento",
+  p:"<p>En <b>Nombre del token</b> escriban, por ejemplo, <code>configurador-tsp</code>.</p><p>En <b>Fecha de vencimiento</b> elijan una fecha posterior al 8 de diciembre.</p>"},
+ {img:"token-04-alcance-api", h:"Marquen el alcance api",
+  p:"<p>En la lista de alcances marquen únicamente <code>api</code>. Bajen y seleccionen <b>Generar token</b>.</p>"},
+ {img:"token-05-creado", h:"Copien el token",
+  p:"<p>Seleccionen el botón de copiar, al lado del campo con puntos, y guarden el token en un lugar seguro mientras usan el configurador.</p><div class=\"note\">Cuando terminen de usar el configurador pueden revocar el token desde esta misma página, en la columna <b>Acciones</b>.</div>"}
+ ]},
+{id:"configurador", t:"Configurador", who:"Quien prepara el proyecto",
+ intro:"El configurador crea en su proyecto las etiquetas, los hitos, las plantillas y las páginas de la wiki, y traslada a GitLab las tareas de la tabla 3.2 de su Plan de lanzamiento.",
+ steps:[
+ {img:"conf-01-conectado", h:"Conecten el configurador con su proyecto",
+  p:"<p>Abran el <a href=\"configurador.html\">configurador</a>. Peguen el token en <b>Token personal</b> y la dirección de su proyecto en <b>Dirección del proyecto</b>, por ejemplo <code>https://gitlab.com/su-grupo/su-proyecto</code>.</p><p>Seleccionen <b>Conectar</b>. El mensaje verde confirma su nombre, el proyecto y cuántos integrantes encontró.</p>"},
+ {img:"conf-02-preparado", h:"Preparen el proyecto",
+  p:"<p>Seleccionen <b>Preparar el proyecto</b>. El registro muestra cada elemento creado: etiquetas, hitos Semana 5 a Semana 8, plantillas y páginas de la wiki.</p><p>Si repiten este paso, lo que ya existe se conserva.</p>"},
+ {img:"conf-03-vista-previa", h:"Revisen la vista previa de las tareas",
+  p:"<p>En <b>Trasladar las tareas</b> peguen la tabla 3.2 de su Plan de lanzamiento, copiada desde Word, y seleccionen <b>Revisar las tareas</b>.</p><p>Para cada responsable de la tabla elijan su usuario de GitLab. En la columna <b>Destino</b> verifiquen el hito asignado a cada tarea.</p>"},
+ {img:"conf-04-tareas-creadas", h:"Creen las tareas",
+  p:"<p>Seleccionen <b>Crear las tareas en GitLab</b>. Cada tarea queda como un elemento de trabajo con su responsable, su estimación y su hito.</p><p>Las tareas de las semanas 1 a 4 quedan cerradas, con la etiqueta <code>plan-anterior</code>, como registro del plan inicial.</p>"}
+ ]},
+{id:"clonar", t:"Clonar el repositorio", who:"Cada uno",
+ intro:"Cada uno trabaja el código en su computador con Git. Para eso clona una copia del repositorio del proyecto.",
+ steps:[
+ {img:"git-01-clonar", h:"Copien la dirección HTTPS",
+  p:"<p>En la página principal del proyecto seleccionen <b>Código (Code)</b> y copien la dirección de <b>Clonar con HTTPS</b>.</p><p>En una terminal ejecuten:</p><pre>git clone https://gitlab.com/su-grupo/su-proyecto.git</pre><p>Cuando Git pida usuario y contraseña, escriban su nombre de usuario de GitLab y, como contraseña, un token personal con el alcance <code>write_repository</code>.</p>"}
+ ]},
+{id:"wiki", t:"Páginas de la wiki", who:"Todos",
+ intro:"La wiki reúne los documentos del equipo: planteamiento, equipo y roles, estrategia, plan de calidad, listas de chequeo y postmortem. El configurador las crea con su estructura y ustedes las diligencian.",
+ steps:[
+ {img:"wiki-01-pagina", h:"Abran la página",
+  p:"<p>En el menú izquierdo del proyecto seleccionen <b>Wiki</b>. En el panel <b>Páginas de Wiki</b> elijan la página que van a diligenciar y seleccionen <b>Editar</b>.</p>"},
+ {img:"wiki-02-editar", h:"Diligencien y guarden",
+  p:"<p>Completen las tablas y secciones de la página. Pueden copiar el contenido de su Plan de lanzamiento y actualizarlo.</p><p>Seleccionen <b>Guardar cambios</b>. GitLab conserva el historial de cada versión.</p>"}
+ ]},
+{id:"tiempo", t:"Registro de tiempo", who:"Cada uno",
+ intro:"Cada uno registra el tiempo de sus tareas el mismo día en que trabaja, con la fase y la fecha, directamente en el elemento de trabajo de la tarea.",
+ steps:[
+ {img:"tarea-01-detalle", h:"Abran la tarea",
+  p:"<p>En <b>Elementos de trabajo</b> abran su tarea. La tabla muestra el ID en el plan, el requisito, la fase planeada, la dependencia y la evidencia de terminación. A la derecha aparecen el responsable, la etiqueta y el hito.</p>"},
+ {img:"tiempo-01-comentario", h:"Escriban el comentario de tiempo",
+  p:"<p>En el cuadro de comentario, al final de la actividad, escriban la fase en la primera línea y el tiempo en la segunda:</p><pre>Implementación\n/spend 1h 30m 2026-11-17</pre><p>Usen solo horas y minutos. La fecha va en formato año-mes-día y no puede ser futura. Seleccionen <b>Comentario</b>.</p>"},
+ {img:"tiempo-02-registrado", h:"Verifiquen el registro",
+  p:"<p>En la actividad aparece el comentario con la fase y una línea que confirma el tiempo agregado. El panel derecho muestra el tiempo acumulado frente a la estimación.</p>"}
+ ]},
+{id:"plantillas", t:"Issues con plantilla", who:"Todos",
+ intro:"Los riesgos, los cambios de plan, las actas, las reuniones y los defectos se registran como elementos de trabajo creados a partir de las plantillas del proyecto. Este ejemplo registra un riesgo.",
+ steps:[
+ {img:"issue-01-lista", h:"Abran los elementos de trabajo",
+  p:"<p>En el menú izquierdo seleccionen <b>Elementos de trabajo</b>. La lista muestra las tareas con su hito. Seleccionen <b>Nuevo elemento</b> para crear uno.</p>"},
+ {img:"issue-02-nuevo", h:"Escriban el título",
+  p:"<p>En <b>Cargo (obligatorio)</b> escriban el título con el formato del proyecto, por ejemplo <code>Riesgo: un integrante no puede trabajar durante una semana</code>.</p><div class=\"note\">GitLab traduce el campo del título como <b>Cargo</b>. Corresponde al título del elemento.</div>"},
+ {img:"issue-03-plantillas", h:"Elijan la plantilla",
+  p:"<p>En <b>Descripción</b> abran la lista <b>Elegir una plantilla</b> y seleccionen la que corresponde: <code>riesgo</code>, <code>cambio-de-plan</code>, <code>acta-de-relanzamiento</code>, <code>reunion-semanal</code> o <code>defecto</code>.</p>"},
+ {img:"issue-04-plantilla", h:"Diligencien la plantilla",
+  p:"<p>La descripción se llena con la tabla y las secciones de la plantilla. Completen cada campo.</p><p>La plantilla agrega su etiqueta principal al crear el elemento, por ejemplo <code>riesgo</code>.</p>"},
+ {img:"issue-05-etiquetas", h:"Agreguen las etiquetas",
+  p:"<p>En el panel derecho, en <b>Etiquetas</b>, seleccionen <b>Editar</b>, escriban parte del nombre y elijan las etiquetas. Para un riesgo, una de impacto y una de probabilidad. Seleccionen <b>Aplicar</b>.</p>"},
+ {img:"issue-06-hito", h:"Asignen el hito",
+  p:"<p>En <b>Hito</b> seleccionen <b>Editar</b> y elijan la semana en que se registra, por ejemplo <b>Semana 5</b>.</p>"},
+ {img:"issue-07-listo", h:"Asignen al responsable y creen el elemento",
+  p:"<p>En <b>Personas asignadas</b> elijan al responsable de seguimiento. Seleccionen <b>Crear issue</b>.</p>"}
+ ]},
+{id:"actas", t:"Actas y reunión semanal", who:"Todos",
+ intro:"Cada sesión del relanzamiento se registra con la plantilla acta-de-relanzamiento y cada reunión semanal con la plantilla reunion-semanal. El tiempo de la reunión lo registra cada participante en el acta, con la fase Gestión.",
+ steps:[
+ {img:"acta-01-creada", h:"Acta de una sesión del relanzamiento",
+  p:"<p>Creen el elemento con la plantilla <code>acta-de-relanzamiento</code>, como en el procedimiento <a href=\"#plantillas\">Issues con plantilla</a>, y asignen el hito <b>Semana 5</b>.</p><p>Completen fecha, horario, modalidad, moderador, quien registra y asistentes. Marquen los temas tratados en la sesión y desarrollen cada uno.</p>"},
+ {img:"sem-01-creada", h:"Reunión semanal",
+  p:"<p>Cada semana creen un elemento con la plantilla <code>reunion-semanal</code> y el hito de la semana.</p><p>Completen los datos de la reunión, la revisión de compromisos, la tabla de estado del proyecto, las metas y riesgos, y las decisiones.</p>"},
+ {img:"sem-02-reporte", h:"Cada rol escribe su reporte",
+  p:"<p>Cada integrante agrega un comentario en el elemento de la reunión con este formato:</p><pre>- **Reporte de:** (rol)\n- **Horas trabajadas esta semana:**\n- **Tareas terminadas:**\n- **Tareas para la próxima semana:**\n- **Novedades del rol:**\n- **Dificultades:**</pre><p>Al mencionar una tarea con <code>#</code> y su número, GitLab crea el enlace.</p>"},
+ {img:"sem-03-publicado", h:"Verifiquen el reporte publicado",
+  p:"<p>Después de seleccionar <b>Comentario</b>, el reporte aparece en la actividad con su nombre y la fecha.</p><p>Si participaron en la reunión, registren también su tiempo en un comentario aparte:</p><pre>Gestión\n/spend 45m 2026-11-20</pre>"}
+ ]},
+{id:"mr", t:"Merge request e inspección", who:"Autor e inspectores",
+ intro:"Cada tarea de código se desarrolla en su propia rama y se integra a la rama principal mediante un merge request, después de la inspección de dos compañeros.",
+ steps:[
+ {img:"mr-01-boton", h:"Creen el merge request desde la tarea",
+  p:"<p>En el elemento de trabajo de la tarea seleccionen <b>Crear solicitud de fusión</b>.</p>"},
+ {img:"mr-02-rama", h:"Confirmen la rama",
+  p:"<p>En <b>Rama objetivo</b> dejen <code>main</code>. En <b>Nombre de la rama de origen</b> GitLab propone un nombre con el número y el título de la tarea. Seleccionen <b>Crear solicitud de fusión</b>.</p>"},
+ {img:"mr-03-plantilla", h:"Elijan la plantilla de inspección",
+  p:"<p>En <b>Descripción</b> abran <b>Elegir una plantilla</b> y seleccionen <code>inspeccion</code>.</p>"},
+ {img:"mr-04-plantilla-aplicada", h:"Apliquen la plantilla",
+  p:"<p>GitLab avisa que la plantilla reemplaza la descripción. Seleccionen <b>Aplicar plantilla</b>.</p>"},
+ {img:"mr-05-closes", h:"Completen el número de la tarea",
+  p:"<p>En la primera línea completen el número de la tarea: <code>Closes #7</code>. Así, al fusionar, GitLab cierra la tarea automáticamente.</p><p>En la tabla de inspección escriban los usuarios de los dos inspectores.</p>"},
+ {img:"mr-06-revisor", h:"Asignen el revisor",
+  p:"<p>Más abajo, en <b>Personas asignadas</b>, seleccionen <b>Asignarme</b>. En <b>Revisores</b> elijan a uno de los inspectores. La versión gratuita de GitLab permite un solo revisor por merge request.</p>"},
+ {img:"mr-07-crear", h:"Creen el merge request",
+  p:"<p>Verifiquen que el hito y la etiqueta <code>tarea</code> coincidan con los de la tarea y seleccionen <b>Crear solicitud de fusión</b>. Queda como borrador mientras trabajan.</p>"},
+ {img:"mr-08-creado", h:"Trabajen en la rama",
+  p:"<p>El merge request queda abierto con la plantilla. En su computador, traigan la rama y trabajen en ella:</p><pre>git fetch\ngit checkout 7-tarea-t03-implementar-el-registro-de-usuarios\ngit add .\ngit commit -m \"Agregar formulario de registro (#7)\"\ngit push</pre>"},
+ {img:"mr-09-cambios", h:"Revisen los cambios",
+  p:"<p>Cada inspector abre la pestaña <b>Cambios</b>. Allí ve los archivos modificados, las líneas agregadas en verde y el total de líneas, que es el dato del tamaño real.</p><p>Mantengan un ritmo de revisión de máximo 150 líneas por hora.</p>"},
+ {img:"mr-10-icono-comentario", h:"Comenten en la línea con el defecto",
+  p:"<p>Pasen el cursor sobre el número de la línea y seleccionen el ícono de comentario que aparece a la izquierda.</p>"},
+ {img:"mr-11-comentario-linea", h:"Describan el hallazgo",
+  p:"<p>Escriban el tipo de defecto, qué falla y la corrección esperada. Seleccionen <b>Agregar comentario ahora</b>.</p><p>Durante la inspección solo se identifican defectos; la corrección la hace el autor.</p>"},
+ {img:"mr-12-hilo", h:"El hallazgo queda como hilo",
+  p:"<p>El comentario queda en un hilo junto a la línea. El autor registra el defecto con la plantilla <code>defecto</code>, corrige y resuelve el hilo con <b>Resolver hilo</b>.</p>"},
+ {img:"mr-13-spend", h:"Registren el tiempo de inspección",
+  p:"<p>Cada inspector registra su tiempo en el merge request, en la pestaña <b>Resumen</b>, con un comentario:</p><pre>Inspección\n/spend 45m 2026-11-13</pre>"},
+ {img:"mr-14-spend-registrado", h:"Verifiquen el registro",
+  p:"<p>La actividad muestra el comentario con la fase y la línea que confirma el tiempo agregado.</p>"},
+ {img:"mr-15-bloqueada-borrador", h:"Marquen el merge request como listo",
+  p:"<p>Mientras el merge request es borrador, la fusión está bloqueada. Cuando los hallazgos estén corregidos, el autor selecciona <b>Marcar como listo</b>.</p><div class=\"note\">Si aparece el aviso <b>Verifique su identidad para ejecutar este pipeline</b>, pueden cerrarlo: el proyecto no usa pipelines.</div>"},
+ {img:"mr-16-revision", h:"El revisor aprueba",
+  p:"<p>El inspector asignado como revisor selecciona <b>Su revisión</b>, elige <b>Aprobar</b> y selecciona <b>Enviar evaluación</b>.</p><p>GitLab no permite que el autor apruebe su propio merge request; por eso en esta imagen, tomada desde la cuenta del autor, la opción aparece inactiva.</p>"},
+ {img:"mr-17-listo", h:"Fusionen",
+  p:"<p>Con la aprobación, el panel muestra <b>Todo listo para fusionar</b>. Dejen marcada <b>Eliminar rama fuente</b> y seleccionen <b>Fusionar</b>.</p>"},
+ {img:"mr-18-fusionado", h:"Verifiquen el cierre de la tarea",
+  p:"<p>El merge request queda fusionado, la rama se elimina y la tarea queda cerrada. Antes de terminar, escriban el tamaño real en el campo <b>Tamaño real (LOC)</b> de la tarea.</p>"}
+ ]},
+{id:"defecto", t:"Registro de defectos", who:"Quien corrige",
+ intro:"Cada defecto encontrado en revisión personal, inspección o pruebas se registra como un elemento de trabajo con su tipo, la fase en que se introdujo y la fase en que se encontró.",
+ steps:[
+ {img:"def-01-etiquetas", h:"Creen el defecto y elijan el tipo",
+  p:"<p>Creen un elemento con la plantilla <code>defecto</code> y un título como <code>Defecto D01: el campo correo acepta valores que no son correos</code>.</p><p>En <b>Etiquetas</b> escriban <code>tipo</code> y elijan el tipo de defecto, por ejemplo <code>tipo: 80 función</code>.</p>"},
+ {img:"def-02-formulario", h:"Agreguen las fases y completen los datos",
+  p:"<p>Agreguen también la etiqueta <code>inyectado: …</code> con la fase en que se introdujo y <code>removido: …</code> con la fase en que se encontró. Seleccionen <b>Aplicar</b>.</p><p>En la tabla escriban quién lo detectó, la fecha y la tarea o el merge request relacionado, por ejemplo <code>#7 !1</code>. Seleccionen <b>Crear issue</b>.</p>"},
+ {img:"def-03-creado", h:"Verifiquen el registro",
+  p:"<p>El defecto queda con las etiquetas <code>defecto</code>, tipo, inyectado y removido, y con enlaces a la tarea y al merge request.</p><p>Registren el tiempo de corrección en este mismo elemento con la fase <code>Corrección</code> y ciérrenlo cuando la corrección esté verificada.</p>"}
+ ]}
+];
+
+const $=id=>document.getElementById(id);
+let P=0,S=0;
+$("toc").innerHTML=PROCS.map((p,i)=>`<li><a href="#${p.id}" data-i="${i}">${p.t}<span class="who">${p.who} · ${p.steps.length} ${p.steps.length===1?"paso":"pasos"}</span></a></li>`).join("");
+function show(){
+  const p=PROCS[P], s=p.steps[S];
+  $("intro").innerHTML=`<p>${p.intro}</p>`;
+  $("proc").textContent=p.t;
+  $("count").textContent=`Paso ${S+1} de ${p.steps.length}`;
+  $("title").textContent=s.h;
+  $("text").innerHTML=s.p;
+  $("img").src=`manual/img/${s.img}.webp`;
+  $("img").alt=s.h;
+  $("dots").innerHTML=p.steps.map((_,i)=>`<button class="${i===S?"on":""}" data-s="${i}" aria-label="Paso ${i+1}"></button>`).join("");
+  $("prev").disabled = P===0 && S===0;
+  const last = S===p.steps.length-1;
+  $("next").disabled = last && P===PROCS.length-1;
+  $("next").textContent = last && P<PROCS.length-1 ? `Siguiente: ${PROCS[P+1].t}` : "Siguiente";
+  document.querySelectorAll("#toc a").forEach(a=>a.classList.toggle("active", +a.dataset.i===P));
+  const h=`#${p.id}${S?"/"+(S+1):""}`; if(location.hash!==h) history.replaceState(null,"",h);
+}
+function go(dir){
+  const p=PROCS[P];
+  if(dir>0){ if(S<p.steps.length-1) S++; else if(P<PROCS.length-1){P++;S=0;} }
+  else { if(S>0) S--; else if(P>0){P--;S=PROCS[P].steps.length-1;} }
+  show(); window.scrollTo({top:0,behavior:"smooth"});
+}
+function fromHash(){
+  const [id,n]=location.hash.slice(1).split("/");
+  const i=PROCS.findIndex(p=>p.id===id);
+  if(i>=0){P=i; S=Math.min(Math.max((+n||1)-1,0),PROCS[i].steps.length-1);}
+  show();
+}
+$("prev").onclick=()=>go(-1);
+$("next").onclick=()=>go(1);
+$("dots").onclick=e=>{const b=e.target.closest("button"); if(b){S=+b.dataset.s; show();}};
+$("toc").onclick=e=>{const a=e.target.closest("a"); if(a){e.preventDefault(); P=+a.dataset.i; S=0; show(); window.scrollTo({top:0,behavior:"smooth"});}};
+document.addEventListener("keydown",e=>{
+  if($("lb").classList.contains("on")){ if(e.key==="Escape") $("lb").classList.remove("on"); return; }
+  if(e.key==="ArrowRight") go(1); if(e.key==="ArrowLeft") go(-1);
+});
+$("img").onclick=()=>{$("lbimg").src=$("img").src; $("lb").classList.add("on");};
+$("lb").onclick=()=>$("lb").classList.remove("on");
+window.addEventListener("hashchange",fromHash);
+const pre=new Image();
+fromHash();
+</script>
+</body>
+</html>
