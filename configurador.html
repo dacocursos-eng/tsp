@@ -142,13 +142,15 @@ Ejemplo de comentario: primera línea "Implementación", segunda línea "/spend 
 -->`;
 
 const TEMPLATES = {
-".gitlab/issue_templates/tarea.md": `**ID en el plan:**
-**Requisito:**
-**Fase planeada:**
-**Depende de:**
-**Evidencia de terminación:**
-**Tamaño estimado (LOC):**
-**Tamaño real (LOC):**
+".gitlab/issue_templates/tarea.md": `| Campo | Registro |
+| --- | --- |
+| ID en el plan |  |
+| Requisito |  |
+| Fase planeada |  |
+| Depende de |  |
+| Evidencia de terminación |  |
+| Tamaño estimado (LOC) |  |
+| Tamaño real (LOC) |  |
 
 ## Descripción
 
@@ -247,12 +249,12 @@ ${SPEND_HELP}
 
 <!-- Cada uno agrega un comentario con este formato:
 
-**Reporte de:** (rol)
-**Horas trabajadas esta semana:**
-**Tareas terminadas:**
-**Tareas para la próxima semana:**
-**Novedades del rol:**
-**Dificultades:**
+- **Reporte de:** (rol)
+- **Horas trabajadas esta semana:**
+- **Tareas terminadas:**
+- **Tareas para la próxima semana:**
+- **Novedades del rol:**
+- **Dificultades:**
 -->
 
 ## Metas y riesgos
@@ -588,7 +590,7 @@ $("bConn").onclick = async () => {
     const me = await api("GET","/user");
     PROJECT = await api("GET","/projects/"+enc(p));
     PID = PROJECT.id;
-    MEMBERS = (await getAll(`/projects/${PID}/members/all`)).filter(m=>m.state==="active" && !/bot/i.test(m.username));
+    MEMBERS = (await getAll(`/projects/${PID}/members/all`)).filter(m=>m.state==="active" && !m.bot && !/(^|[-_])bot([-_]|$)|^duo-|project_\d+_bot|group_\d+_bot/i.test(m.username));
     const lvl = (PROJECT.permissions && Math.max((PROJECT.permissions.project_access||{}).access_level||0,(PROJECT.permissions.group_access||{}).access_level||0)) || 0;
     let warn = "";
     if(lvl < 40) warn = "<br>Su rol en el proyecto es menor que Maintainer. Pidan al creador del proyecto que realice la preparación o que les asigne el rol Maintainer.";
@@ -671,7 +673,9 @@ $("bParse").onclick = () => {
   const opts = `<option value="">Sin asignar</option>` + MEMBERS.map(m=>`<option value="${m.id}">${escHtml(m.name)} (@${escHtml(m.username)})</option>`).join("");
   $("map").innerHTML = RESP.map((r,i)=>`<div>${escHtml(r)}</div><select id="rm${i}">${opts}</select>`).join("");
   RESP.forEach((r,i)=>{ // sugerencia automática por iniciales o nombre
-    const low=r.toLowerCase(); const m = MEMBERS.find(x=>{ const ini=x.name.split(/\s+/).map(w=>w[0]).join("").toLowerCase(); return ini===low || x.username.toLowerCase()===low.replace("@","") || x.name.toLowerCase().includes(low); });
+    const low=r.toLowerCase().replace("@","").trim();
+    const subseq=(a,b)=>{let i=0; for(const ch of b){ if(ch===a[i]) i++; } return i===a.length;};
+    const m = MEMBERS.find(x=>{ const ini=x.name.split(/\s+/).map(w=>w[0]||"").join("").toLowerCase(); return ini===low || x.username.toLowerCase()===low || (low.length>=2 && low.length<=4 && ini[0]===low[0] && subseq(low,ini)) || (low.length>3 && x.name.toLowerCase().includes(low)); });
     if(m) $("rm"+i).value = m.id;
   });
   renderPreview();
@@ -704,7 +708,8 @@ $("bCreate").onclick = async () => {
       if(isPast && !past){ skip++; continue; }
       const title = (r.id? `Tarea ${r.id}: ` : "Tarea: ") + r.tarea;
       if(existing.has(title)){ log(L,"skip","Ya existe: "+title); skip++; continue; }
-      const description = `**ID en el plan:** ${r.id}\n**Requisito:** ${r.req}\n**Fase planeada:** ${r.fase}\n**Depende de:** ${r.dep}\n**Evidencia de terminación:** ${r.evid}\n**Semana planeada en el plan inicial:** ${r.semRaw}\n**Tamaño estimado (LOC):** \n**Tamaño real (LOC):** \n\n## Descripción\n\n${SPEND_HELP}\n`;
+      const cell = v => String(v||"").replace(/\|/g,"/");
+      const description = `| Campo | Registro |\n| --- | --- |\n| ID en el plan | ${cell(r.id)} |\n| Requisito | ${cell(r.req)} |\n| Fase planeada | ${cell(r.fase)} |\n| Depende de | ${cell(r.dep)} |\n| Evidencia de terminación | ${cell(r.evid)} |\n| Semana planeada en el plan inicial | ${cell(r.semRaw)} |\n| Tamaño estimado (LOC) |  |\n| Tamaño real (LOC) |  |\n\n## Descripción\n\n${SPEND_HELP}\n`;
       const body = {title, description, labels: isPast ? "tarea,plan-anterior" : "tarea"};
       const mid = (!isPast && r.semana) ? msId("Semana "+r.semana) : null; if(mid) body.milestone_id = mid;
       const a = respMap[r.resp]; if(a) body.assignee_ids=[parseInt(a,10)];
