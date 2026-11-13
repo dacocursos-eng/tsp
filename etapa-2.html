@@ -22,6 +22,7 @@
     <li><a href="#tareas">Tareas del plan</a></li>
     <li><a href="#leer">Cómo se lee el plan</a></li>
     <li><a href="#tiempo">Registro de tiempo</a></li>
+    <li><a href="#defectos">Errores detectados</a></li>
     <li><a href="#acta">Acta del relanzamiento</a></li>
     <li><a href="#verificar">Verificación de la etapa</a></li>
   </ul>
@@ -42,7 +43,7 @@
     <tr><td>Plan general y plan de la próxima fase</td><td>Requisitos y tareas con responsable, estimación, fechas e hito</td></tr>
     <tr><td>Planes individuales y consolidación</td><td>Carga de cada integrante por semana, revisada en la página de cada hito</td></tr>
   </table>
-  <p>El orden de esta página sigue ese recorrido: primero qué hay que construir (requisitos), después cómo y cuándo (tareas), luego cómo leer el plan, cómo registrar el tiempo y, al final, cómo dejar el acta.</p>
+  <p>El orden de esta página sigue ese recorrido: primero qué hay que construir (requisitos), después cómo y cuándo (tareas), luego cómo leer el plan, cómo registrar el tiempo y los errores que encuentren y, al final, cómo dejar el acta.</p>
 </section>
 
 <section id="requisitos">
@@ -169,6 +170,23 @@
   <figure><img src="etapas/img/e2-informe-equipo.webp" alt="Informe de seguimiento del tiempo del grupo"><figcaption>Informe del grupo: es el registro de tiempo de todo el equipo.</figcaption></figure>
 </section>
 
+<section id="defectos">
+  <span class="who">Quien encuentra el error</span>
+  <h2>Errores detectados</h2>
+  <p><b>Qué es.</b> En TSP un defecto es cualquier cosa que esté mal en un producto del proyecto y le reste capacidad de cumplir con lo que necesita el usuario. Los defectos aparecen en el código, pero también en los requisitos, los diseños y cualquier otro documento (Lectura 8, sección 1). En esta etapa, los errores que encuentren al revisar su plan, sus requisitos o sus diseños también son defectos.</p>
+  <p><b>Para qué sirve.</b> En TSP la calidad se mide con los defectos: dónde se introdujeron, dónde se encontraron y cuánto costó corregirlos. Registrarlos desde el principio les da los primeros datos de calidad del equipo.</p>
+  <div class="where">En GitLab: <b>Elementos de trabajo</b> &gt; <b>Nuevo elemento</b>, tipo <b>Issue</b>, con la etiqueta <code>defecto</code>.</div>
+  <h3>Cómo se hace</h3>
+  <ol class="steps">
+    <li>Creen un elemento de trabajo de tipo <b>Issue</b> con un título como <code>Defecto D01: qué falla y dónde</code>.</li>
+    <li>En la descripción registren, en una tabla: dónde está el defecto, qué falla, en qué fase se introdujo, en qué fase se encontró, quién lo detectó, cómo se corrigió y quién lo corrigió. Usen los nombres de la tabla de <a href="#tiempo">fases</a>.</li>
+    <li>En el panel derecho pongan la etiqueta <code>defecto</code>, el hito de la semana en que lo encontraron y, en <b>Persona asignada</b>, a quien lo corrige. Seleccionen <b>Crear issue</b>.
+      <figure><img src="etapas/img/e2-defecto.webp" alt="Defecto registrado en un requisito"><figcaption>Un defecto encontrado en los criterios de aceptación de un requisito al diseñar su pantalla.</figcaption></figure></li>
+    <li>Quien lo corrige registra el tiempo de la corrección en ese mismo elemento, con la fase <code>Corrección</code>, y lo cierra con <b>Cerrar issue</b> <i>(Close issue)</i> cuando la corrección está hecha.</li>
+  </ol>
+  <div class="note">En la etapa de código y calidad se agregan etiquetas para el tipo de defecto y para las fases, con el fin de contarlos y analizarlos.</div>
+</section>
+
 <section id="acta">
   <span class="who">Quien registra el acta</span>
   <h2>Acta del relanzamiento</h2>
@@ -195,6 +213,7 @@
     <li>En la página de cada hito, una carga que cabe en la disponibilidad del equipo.</li>
     <li>El acta de cada sesión del relanzamiento, con el tiempo de los participantes.</li>
     <li>Registros de tiempo de cada integrante desde el primer día de trabajo, con fecha y fase.</li>
+    <li>Los errores que hayan encontrado, registrados con la etiqueta <code>defecto</code>.</li>
   </ul>
 </section>
 
