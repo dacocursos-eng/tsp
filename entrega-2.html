@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entrega 2: evidencias desde GitLab · TSP</title>
+<link rel="stylesheet" href="etapas/manual.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <p class="kicker">Proyecto TSP en GitLab · Entrega 2</p>
+  <h1>Cómo preparar la Entrega 2</h1>
+  <p>La evidencia de la Entrega 2 sale directamente de su proyecto en GitLab: se descarga una lista con todos los elementos de trabajo y se guardan como PDF las páginas que muestran el plan, el tiempo, las actas y los documentos del equipo.</p>
+  <nav><a href="index.html">Inicio</a><a href="etapa-1.html">Etapa 1: montaje</a><a href="etapa-2.html">Etapa 2: planeación y registro de tiempo</a><a class="on" href="entrega-2.html">Entrega 2</a></nav>
+</div></header>
+
+<div class="layout">
+<nav class="side" aria-label="Contenido">
+  <ul>
+    <li><a href="#que">Qué se entrega</a></li>
+    <li><a href="#pdf">Guardar una página como PDF</a></li>
+    <li><a href="#csv">Lista de elementos de trabajo</a></li>
+    <li><a href="#tiempo">Informe de tiempo del equipo</a></li>
+    <li><a href="#hito">Página del hito</a></li>
+    <li><a href="#actas">Actas y wiki</a></li>
+    <li><a href="#subir">Cómo subir los archivos</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<section id="que">
+  <h2>Qué se entrega</h2>
+  <p>La Entrega 2 pide mostrar la evolución del proyecto desde la Entrega 1: las actas de los lanzamientos con su nombre correcto, los registros personales, el desarrollo, el avance y el resumen de la semana. Cada una de esas evidencias corresponde a un archivo:</p>
+  <table>
+    <tr><th>Evidencia</th><th>Archivo</th><th>De dónde sale</th></tr>
+    <tr><td>Plan y avance: requisitos, tareas, responsables, estimación, tiempo dedicado, fechas, hito y estado</td><td><code>TSP_E2_SGxx_elementos.csv</code></td><td>Elementos de trabajo &gt; Exportar como CSV</td></tr>
+    <tr><td>Registros personales de tiempo de todo el equipo</td><td><code>TSP_E2_SGxx_tiempo.pdf</code></td><td>Informe de seguimiento del tiempo del grupo</td></tr>
+    <tr><td>Resumen de la semana: tareas comprometidas, avance y tiempo dedicado frente al estimado</td><td><code>TSP_E2_SGxx_hito.pdf</code></td><td>Página del hito de la semana</td></tr>
+    <tr><td>Actas del relanzamiento, con la versión 2.0 del plan</td><td><code>TSP_E2_SGxx_acta1.pdf</code>, <code>TSP_E2_SGxx_acta2.pdf</code></td><td>Cada acta del relanzamiento</td></tr>
+    <tr><td>Planteamiento del proyecto actualizado</td><td><code>TSP_E2_SGxx_planteamiento.pdf</code></td><td>Wiki: Planteamiento del proyecto</td></tr>
+    <tr><td>Equipo, roles, metas y disponibilidad</td><td><code>TSP_E2_SGxx_equipo.pdf</code></td><td>Wiki: Equipo y roles</td></tr>
+  </table>
+  <p>En los nombres, <code>SGxx</code> es el número de su subgrupo, por ejemplo <code>SG05</code>. Si hicieron una sola sesión de relanzamiento, entregan una sola acta.</p>
+</section>
+
+<section id="pdf">
+  <h2>Guardar una página como PDF</h2>
+  <p>Varias evidencias son páginas de GitLab guardadas como PDF desde el navegador:</p>
+  <ol class="steps">
+    <li>Abran la página en GitLab. Para que el PDF quede más limpio, oculten el menú izquierdo con <b>Contraer barra lateral</b> <i>(Collapse sidebar)</i>, abajo a la izquierda.</li>
+    <li>Presionen <b>Ctrl + P</b> (en Mac, <b>Cmd + P</b>).</li>
+    <li>En <b>Destino</b> elijan <b>Guardar como PDF</b> y seleccionen <b>Guardar</b>. Pónganle al archivo el nombre que indica la tabla.</li>
+  </ol>
+</section>
+
+<section id="csv">
+  <h2>Lista de elementos de trabajo</h2>
+  <p>Es la lista de todos los requisitos, tareas y actas del proyecto, con una fila por elemento y columnas para el título, el estado, el hito, las etiquetas, el responsable, las fechas, la estimación <i>(Time Estimate)</i> y el tiempo dedicado <i>(Time Spent)</i>.</p>
+  <ol class="steps">
+    <li>Vayan a <b>Elementos de trabajo</b> <i>(Work items)</i>. En la barra de filtro, cambien <b>Estado</b> a <b>Cualquiera</b> <i>(Any)</i> para incluir también los elementos cerrados.</li>
+    <li>Seleccionen el menú de tres puntos, al lado de <b>Nuevo elemento</b>, y elijan <b>Exportar como CSV</b> <i>(Export as CSV)</i>.
+      <figure><img src="etapas/img/e2-exportar.webp" alt="Menú con la opción Exportar como CSV"><figcaption>Opción Exportar como CSV.</figcaption></figure></li>
+    <li>Confirmen con <b>Exportar elementos de trabajo</b>. GitLab prepara el archivo y lo envía como adjunto al correo de su cuenta en unos minutos.</li>
+    <li>Descarguen el adjunto y cámbienle el nombre a <code>TSP_E2_SGxx_elementos.csv</code>.</li>
+  </ol>
+  <div class="note">Si al abrir el CSV en Excel las tildes salen mal, ábranlo desde Excel con <b>Datos</b> &gt; <b>Desde texto/CSV</b> y elijan el origen <b>UTF-8</b>.</div>
+</section>
+
+<section id="tiempo">
+  <h2>Informe de tiempo del equipo</h2>
+  <ol class="steps">
+    <li>Abran <a href="https://gitlab.com/-/timelogs" target="_blank" rel="noopener">gitlab.com/-/timelogs</a>.</li>
+    <li>En <b>Grupo</b> elijan el grupo del equipo. Dejen vacío <b>Nombre de usuario</b> para que aparezcan todos los integrantes.</li>
+    <li>En <b>Desde el</b> pongan la fecha del primer registro del equipo y en <b>Hasta el</b>, la fecha de la entrega. Seleccionen <b>Ejecutar informe</b>.
+      <figure><img src="etapas/img/e2-informe-equipo.webp" alt="Informe de seguimiento del tiempo del grupo"><figcaption>El informe muestra el total y cada registro con fecha, elemento, persona, tiempo y fase.</figcaption></figure></li>
+    <li>Guarden la página como PDF con el nombre <code>TSP_E2_SGxx_tiempo.pdf</code>.</li>
+  </ol>
+</section>
+
+<section id="hito">
+  <h2>Página del hito</h2>
+  <ol class="steps">
+    <li>Vayan a <b>Planificación</b> &gt; <b>Hitos</b> y abran el hito de la semana de la entrega.</li>
+    <li>Abran el panel derecho con el botón de doble flecha, arriba a la derecha, para que se vean el porcentaje terminado y el tiempo dedicado frente al estimado.
+      <figure><img src="etapas/img/e2-hito.webp" alt="Página del hito con el panel lateral abierto"><figcaption>Página del hito con el panel de avance abierto.</figcaption></figure></li>
+    <li>Guarden la página como PDF con el nombre <code>TSP_E2_SGxx_hito.pdf</code>.</li>
+  </ol>
+</section>
+
+<section id="actas">
+  <h2>Actas y wiki</h2>
+  <ol class="steps">
+    <li>Abran cada acta del relanzamiento y guárdenla como PDF: <code>TSP_E2_SGxx_acta1.pdf</code> y, si hubo una segunda sesión, <code>TSP_E2_SGxx_acta2.pdf</code>. Si el acta es larga, seleccionen <b>Leer más</b> antes de imprimir para que se vea completa.</li>
+    <li>Abran la página de la wiki <b>Planteamiento del proyecto</b> y guárdenla como <code>TSP_E2_SGxx_planteamiento.pdf</code>.</li>
+    <li>Abran la página <b>Equipo y roles</b> y guárdenla como <code>TSP_E2_SGxx_equipo.pdf</code>.</li>
+  </ol>
+</section>
+
+<section id="subir">
+  <h2>Cómo subir los archivos</h2>
+  <ul>
+    <li>Suban los archivos sueltos, uno por uno, en la misma entrega. No los suban dentro de una carpeta ni comprimidos.</li>
+    <li>Antes de subir, abran cada archivo y revisen que se vea completo.</li>
+    <li>La entrega la sube un integrante del equipo; los demás revisan que haya quedado completa.</li>
+  </ul>
+</section>
+
+<div class="next"><a href="etapa-2.html">Etapa 2: planeación y registro de tiempo</a><a href="index.html">Volver al inicio</a></div>
+</main>
+</div>
+<div class="lb" id="lb"><img alt=""></div>
+<script>
+document.querySelectorAll("figure img").forEach(i=>i.addEventListener("click",()=>{const lb=document.getElementById("lb");lb.querySelector("img").src=i.src;lb.classList.add("on");}));
+document.getElementById("lb").addEventListener("click",e=>e.currentTarget.classList.remove("on"));
+</script>
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Etapa 2: planeación y registro de tiempo · TSP en GitLab</title>
+<link rel="stylesheet" href="etapas/manual.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <p class="kicker">Proyecto TSP en GitLab · Etapa 2</p>
+  <h1>Planeación y registro de tiempo</h1>
+  <p>En esta etapa el equipo hace el relanzamiento: registra los requisitos, arma el plan de tareas con responsables, estimaciones y fechas, y empieza a registrar el tiempo que dedica a cada tarea.</p>
+  <nav><a href="index.html">Inicio</a><a href="etapa-1.html">Etapa 1: montaje</a><a class="on" href="etapa-2.html">Etapa 2: planeación y registro de tiempo</a><a href="entrega-2.html">Entrega 2</a></nav>
+</div></header>
+
+<div class="layout">
+<nav class="side" aria-label="Contenido de la etapa">
+  <ul>
+    <li><a href="#relanzamiento">El relanzamiento</a></li>
+    <li><a href="#requisitos">Requisitos</a></li>
+    <li><a href="#tareas">Tareas del plan</a></li>
+    <li><a href="#leer">Cómo se lee el plan</a></li>
+    <li><a href="#tiempo">Registro de tiempo</a></li>
+    <li><a href="#acta">Acta del relanzamiento</a></li>
+    <li><a href="#verificar">Verificación de la etapa</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<section id="relanzamiento">
+  <span class="who">Todos</span>
+  <h2>El relanzamiento</h2>
+  <p><b>Qué es.</b> En TSP, cuando un equipo ya tiene un plan y la situación cambia, hace un <b>relanzamiento</b>: revisa cómo va frente al plan, actualiza roles, metas y estrategia, y vuelve a planear el trabajo que falta (Lectura 6, sección 7). Pasar el proyecto a GitLab es un cambio de este tipo: el plan de la Entrega 1 se traslada a la herramienta y se ajusta a las semanas que quedan.</p>
+  <p><b>Cómo se organiza.</b> La Lectura 6 describe el relanzamiento en varias reuniones. Ustedes pueden agrupar los temas en una o dos sesiones de trabajo y registrar cada sesión en un acta. Esta tabla muestra qué se hace en cada tema y dónde queda en GitLab:</p>
+  <table>
+    <tr><th>Tema del relanzamiento</th><th>Dónde queda en GitLab</th></tr>
+    <tr><td>Estado del proyecto y objetivos</td><td>Wiki <b>Planteamiento del proyecto</b> (etapa 1) y acta</td></tr>
+    <tr><td>Roles y metas del equipo</td><td>Wiki <b>Equipo y roles</b> (etapa 1) y acta</td></tr>
+    <tr><td>Estrategia de desarrollo</td><td>Acta: orden en que se construyen los requisitos y fases por las que pasa cada uno</td></tr>
+    <tr><td>Plan general y plan de la próxima fase</td><td>Requisitos y tareas con responsable, estimación, fechas e hito</td></tr>
+    <tr><td>Planes individuales y consolidación</td><td>Carga de cada integrante por semana, revisada en la página de cada hito</td></tr>
+  </table>
+  <p>El orden de esta página sigue ese recorrido: primero qué hay que construir (requisitos), después cómo y cuándo (tareas), luego cómo leer el plan, cómo registrar el tiempo y, al final, cómo dejar el acta.</p>
+</section>
+
+<section id="requisitos">
+  <span class="who">Todos, con el gerente de desarrollo</span>
+  <h2>Requisitos</h2>
+  <div class="alert"><strong>En GitLab cada requisito es un issue.</strong> Se crea como elemento de trabajo de tipo <b>Issue</b> con la etiqueta <code>requisito</code>. Las tareas que lo construyen se crean después, dentro de él.</div>
+  <p><b>Qué es.</b> Un requisito describe algo que el producto debe hacer para el usuario. En su Entrega 1 los escribieron como historias de usuario con criterios de aceptación: los criterios dicen cuándo el requisito está cumplido.</p>
+  <p><b>Para qué sirve.</b> El requisito es el punto de partida del plan: de él salen las tareas de diseño, implementación y pruebas. Al registrarlo como issue, GitLab muestra desde el requisito todas sus tareas y su avance, y desde cada tarea a qué requisito pertenece.</p>
+  <div class="where">En GitLab: <b>Planificación</b> <span class="en">(Plan)</span> &gt; <b>Elementos de trabajo</b> <span class="en">(Work items)</span> &gt; <b>Nuevo elemento</b> <span class="en">(New item)</span>, con tipo <b>Issue</b>.</div>
+  <h3>Cómo se hace</h3>
+  <ol class="steps">
+    <li>Vayan a <b>Elementos de trabajo</b> <i>(Work items)</i> y seleccionen <b>Nuevo elemento</b> <i>(New item)</i>. En <b>Tipo</b> <i>(Type)</i> dejen <b>Issue</b>.</li>
+    <li>En el título escriban el identificador y el nombre del requisito, por ejemplo <code>RU_003: Cierre de cuentas</code>. GitLab llama a este campo <b>Cargo (obligatorio)</b> en español y <b>Title</b> en inglés.</li>
+    <li>En la descripción escriban la historia de usuario y los criterios de aceptación como lista de chequeo. Con el botón de lista de verificación de la barra de herramientas, cada criterio queda con su casilla.</li>
+    <li>En el panel derecho, en <b>Etiquetas</b> <i>(Labels)</i>, seleccionen <b>Editar</b>, busquen <code>requisito</code>, márquenla y seleccionen <b>Aplicar</b>. Seleccionen <b>Crear issue</b>.
+      <figure><img src="etapas/img/e2-requisito-nuevo.webp" alt="Formulario de un requisito nuevo"><figcaption>Un requisito: tipo Issue, historia de usuario, criterios de aceptación y etiqueta <code>requisito</code>.</figcaption></figure></li>
+  </ol>
+  <figure><img src="etapas/img/e2-requisito.webp" alt="Requisito creado con sus criterios de aceptación"><figcaption>El requisito creado. Las casillas de los criterios se marcan cuando las pruebas confirman que se cumplen.</figcaption></figure>
+  <div class="note">Registren los requisitos que van a construir en este ciclo. Los que quedan para después pueden seguir en el documento de la Entrega 1.</div>
+</section>
+
+<section id="tareas">
+  <span class="who">Todos, con el gerente de planeación</span>
+  <h2>Tareas del plan</h2>
+  <p><b>Qué es.</b> Una tarea es una unidad de trabajo con un responsable, una estimación de tiempo, unas fechas y una evidencia de que está terminada. En la reunión de planeación TSP el equipo descompone el trabajo en tareas, las estima y les asigna fechas: así cada uno sabe qué tiene que hacer y cuándo (Lectura 5, secciones 4.3 y 4.4). Es lo que hicieron en la tabla 3.2 del Plan de lanzamiento.</p>
+  <p><b>Para qué sirve.</b> Con las tareas en GitLab el plan deja de ser una tabla fija: cada tarea muestra quién la tiene, cuánto se estimó, cuánto tiempo se le ha dedicado y si está terminada. La suma de las tareas de una semana es el compromiso de esa semana.</p>
+  <div class="where">En GitLab: dentro de cada requisito, sección <b>Elementos secundarios</b> <span class="en">(Child items)</span>, botón <b>+</b> &gt; <b>Nuevo task</b> <span class="en">(New task)</span>.</div>
+
+  <h3>Datos de cada tarea</h3>
+  <table>
+    <tr><th>Dato del plan</th><th>Dónde va en GitLab</th></tr>
+    <tr><td>Nombre de la tarea</td><td>Título, con el formato <code>T01: verbo y qué se hace</code></td></tr>
+    <tr><td>Requisito</td><td>La tarea se crea dentro del requisito. GitLab lo muestra en el campo <b>Primario</b> <i>(Parent)</i></td></tr>
+    <tr><td>Responsable</td><td><b>Persona asignada</b> <i>(Assignee)</i></td></tr>
+    <tr><td>Horas estimadas</td><td><b>Seguimiento del tiempo</b> <i>(Time tracking)</i> &gt; <b>Agregar estimación</b> <i>(Add estimate)</i></td></tr>
+    <tr><td>Semana planeada</td><td><b>Hito</b> <i>(Milestone)</i></td></tr>
+    <tr><td>Fechas</td><td><b>Fechas</b> <i>(Dates)</i>: comienzo y vencimiento</td></tr>
+    <tr><td>Fase y evidencia de terminación</td><td>Descripción de la tarea</td></tr>
+    <tr><td>Clasificación</td><td>Etiqueta <code>tarea</code></td></tr>
+  </table>
+
+  <h3>Cómo se hace</h3>
+  <ol class="steps">
+    <li>Abran el requisito y bajen hasta <b>Elementos secundarios</b> <i>(Child items)</i>. Seleccionen el botón <b>+</b> y elijan <b>Nuevo task</b> <i>(New task)</i>.
+      <figure><img src="etapas/img/e2-hijo-menu.webp" alt="Menú para agregar un elemento secundario"><figcaption>El botón + de Elementos secundarios.</figcaption></figure></li>
+    <li>Escriban el título de la tarea y seleccionen <b>Crear task</b> <i>(Create task)</i>.
+      <figure><img src="etapas/img/e2-hijo-nuevo.webp" alt="Formulario rápido de una tarea nueva"><figcaption>La tarea se crea con su título; los demás datos se completan al abrirla.</figcaption></figure></li>
+    <li>Abran la tarea seleccionando su título. En el panel derecho completen <b>Persona asignada</b>, <b>Etiquetas</b> (<code>tarea</code>) e <b>Hito</b>, cada uno con su botón <b>Editar</b>.</li>
+    <li>En <b>Fechas</b> <i>(Dates)</i> seleccionen <b>Editar</b>, escriban la fecha de comienzo y la de vencimiento, y seleccionen <b>Aplicar</b>.
+      <figure><img src="etapas/img/e2-fechas.webp" alt="Edición de las fechas de una tarea"><figcaption>Fechas de comienzo y vencimiento de la tarea.</figcaption></figure></li>
+    <li>En <b>Seguimiento del tiempo</b> <i>(Time tracking)</i> seleccionen <b>Agregar estimación</b> <i>(Add estimate)</i>, escriban las horas estimadas, por ejemplo <code>2h</code> o <code>1h 30m</code>, y seleccionen <b>Guardar</b>.
+      <figure><img src="etapas/img/e2-estimacion.webp" alt="Diálogo de estimación de tiempo"><figcaption>La estimación es el tiempo que el equipo planea dedicar a la tarea.</figcaption></figure></li>
+    <li>En la descripción, con <b>Editar</b>, escriban la fase y la evidencia de terminación.
+      <figure><img src="etapas/img/e2-tarea.webp" alt="Tarea con fase, evidencia, responsable, requisito, hito y fechas"><figcaption>Una tarea completa: fase y evidencia en la descripción; responsable, requisito, hito y fechas en el panel derecho.</figcaption></figure></li>
+  </ol>
+  <div class="note">Creen las tareas a mano, a partir de su tabla 3.2: al hacerlo, revisan una por una la estimación, el responsable y la semana, que es justo lo que pide el relanzamiento.</div>
+</section>
+
+<section id="leer">
+  <span class="who">Todos</span>
+  <h2>Cómo se lee el plan</h2>
+  <p><b>Qué es.</b> El plan del equipo es el conjunto de tareas con sus responsables, estimaciones y fechas. GitLab lo muestra en tres vistas, cada una para una pregunta distinta.</p>
+  <h3>Por requisito: ¿cómo va cada requisito?</h3>
+  <p>Dentro de cada requisito, <b>Elementos secundarios</b> lista sus tareas con su semana, sus fechas, su responsable y su estado. El requisito toma automáticamente sus fechas de las de sus tareas.</p>
+  <figure><img src="etapas/img/e2-hijos.webp" alt="Requisito con sus tres tareas"><figcaption>Un requisito con sus tareas de diseño, implementación y pruebas.</figcaption></figure>
+  <h3>Por semana: ¿qué comprometimos esta semana y cómo vamos?</h3>
+  <p>En <b>Planificación</b> &gt; <b>Hitos</b> <i>(Milestones)</i>, abran el hito de la semana. La página agrupa las tareas en no iniciadas, en curso y completadas. Con el botón de doble flecha, arriba a la derecha, se abre el panel con el porcentaje terminado y el <b>tiempo dedicado frente al estimado</b> de toda la semana.</p>
+  <figure><img src="etapas/img/e2-hito.webp" alt="Página del hito con el tiempo dedicado y estimado"><figcaption>Página del hito: tareas de la semana y, a la derecha, dedicado frente a estimado.</figcaption></figure>
+  <h3>Por persona: ¿cuánto tiene cada uno?</h3>
+  <p>En <b>Elementos de trabajo</b> usen la barra de filtro: <b>Hito</b> para ver una semana y <b>Persona asignada</b> <i>(Assignee)</i> para ver las tareas de un integrante. Así revisan si la carga de cada uno cabe en la disponibilidad que registraron en la wiki.</p>
+  <figure><img src="etapas/img/e2-lista-hito.webp" alt="Lista de elementos filtrada por hito"><figcaption>Elementos de trabajo filtrados por el hito Semana 5: cada tarea muestra su requisito, su semana y sus fechas.</figcaption></figure>
+</section>
+
+<section id="tiempo">
+  <span class="who">Cada uno de ustedes</span>
+  <h2>Registro de tiempo</h2>
+  <p><b>Qué es.</b> Cada integrante registra el tiempo que dedica a sus tareas, con la fecha y la fase. Es la misma medición de PSP, ahora para todo el equipo: el tiempo es una de las cuatro mediciones básicas de TSP, junto con el tamaño, los defectos y el calendario (Lectura 2, sección 3).</p>
+  <p><b>Para qué sirve.</b> Al comparar el tiempo dedicado con el estimado, el equipo sabe si va según el plan, y con esos datos mejora sus estimaciones en el siguiente ciclo. El registro de cada uno es también su evidencia de participación.</p>
+  <h3>Estimación y tiempo dedicado</h3>
+  <table>
+    <tr><th></th><th>Estimación <i>(Estimate)</i></th><th>Tiempo dedicado <i>(Time spent)</i></th></tr>
+    <tr><td>Qué es</td><td>El tiempo que se planea dedicar a la tarea</td><td>El tiempo que realmente se dedicó</td></tr>
+    <tr><td>Cuándo se registra</td><td>Una vez, al planear</td><td>Cada vez que alguien trabaja en la tarea</td></tr>
+    <tr><td>Quién lo registra</td><td>El equipo, en la planeación</td><td>Cada integrante, por su cuenta</td></tr>
+  </table>
+  <div class="where">En GitLab: en cada tarea, panel derecho, <b>Seguimiento del tiempo</b> <span class="en">(Time tracking)</span>, botón <b>+</b> &gt; <b>Agregar entrada de tiempo</b> <span class="en">(Add time entry)</span>.</div>
+  <h3>Cómo se hace</h3>
+  <ol class="steps">
+    <li>Abran la tarea en la que trabajaron. En <b>Seguimiento del tiempo</b> <i>(Time tracking)</i> seleccionen el botón <b>+</b>.</li>
+    <li>Completen el formulario <b>Agregar entrada de tiempo</b> <i>(Add time entry)</i>:
+      <ul>
+        <li><b>Tiempo dedicado</b> <i>(Time spent)</i>: solo horas y minutos, por ejemplo <code>1h 30m</code> o <code>45m</code>.</li>
+        <li><b>Dedicado en</b> <i>(Spent at)</i>: el día en que trabajaron, en formato año-mes-día. GitLab no acepta fechas futuras.</li>
+        <li><b>Resumen</b> <i>(Summary)</i>: la fase, escrita exactamente como aparece en la tabla de fases.</li>
+      </ul>
+      Seleccionen <b>Guardar</b>.
+      <figure><img src="etapas/img/e2-tiempo-form.webp" alt="Formulario Agregar entrada de tiempo"><figcaption>Tiempo dedicado, fecha y la fase en el resumen.</figcaption></figure></li>
+    <li>Para ver los registros de una tarea, seleccionen el tiempo que aparece junto a <b>Dedicado</b> <i>(Spent)</i>. El informe muestra fecha, tiempo, persona y fase. Si un registro quedó mal, bórrenlo con el ícono de la papelera y regístrenlo de nuevo.
+      <figure><img src="etapas/img/e2-tiempo-informe-tarea.webp" alt="Informe de tiempo de un elemento"><figcaption>Informe de tiempo de un elemento de trabajo.</figcaption></figure></li>
+  </ol>
+  <h3>Fases</h3>
+  <table>
+    <tr><th>Fase</th><th>Trabajo que incluye</th></tr>
+    <tr><td>Requisitos</td><td>Análisis de requisitos y criterios de aceptación</td></tr>
+    <tr><td>Diseño</td><td>Diseño de componentes, pantallas y datos</td></tr>
+    <tr><td>Revisión de diseño</td><td>Revisión personal del diseño con lista de chequeo</td></tr>
+    <tr><td>Implementación</td><td>Programación</td></tr>
+    <tr><td>Revisión de código</td><td>Revisión personal del código con lista de chequeo</td></tr>
+    <tr><td>Inspección</td><td>Inspección del trabajo de un compañero</td></tr>
+    <tr><td>Pruebas</td><td>Diseño y ejecución de pruebas</td></tr>
+    <tr><td>Integración</td><td>Integración de componentes y despliegue</td></tr>
+    <tr><td>Corrección</td><td>Corrección de un defecto registrado</td></tr>
+    <tr><td>Gestión</td><td>Reuniones, planeación, reportes y preparación de entregas</td></tr>
+  </table>
+  <h3>Reglas del registro</h3>
+  <ul>
+    <li>Registren el tiempo el mismo día en que trabajan.</li>
+    <li>Cuenten solo el tiempo efectivo en la tarea, sin interrupciones.</li>
+    <li>El tiempo de una reunión lo registra cada participante en el acta de esa reunión, con la fase <code>Gestión</code>.</li>
+    <li>Cada uno registra solo su propio tiempo.</li>
+  </ul>
+  <h3>Informe de tiempo del equipo</h3>
+  <p>GitLab tiene un informe con todos los registros del equipo en un periodo. Ábranlo en <a href="https://gitlab.com/-/timelogs" target="_blank" rel="noopener">gitlab.com/-/timelogs</a>, elijan su grupo en <b>Grupo</b>, las fechas en <b>Desde el</b> y <b>Hasta el</b>, y seleccionen <b>Ejecutar informe</b> <i>(Run report)</i>. Muestra el total y una fila por registro, con fecha, elemento, persona, tiempo y fase.</p>
+  <figure><img src="etapas/img/e2-informe-equipo.webp" alt="Informe de seguimiento del tiempo del grupo"><figcaption>Informe del grupo: es el registro de tiempo de todo el equipo.</figcaption></figure>
+</section>
+
+<section id="acta">
+  <span class="who">Quien registra el acta</span>
+  <h2>Acta del relanzamiento</h2>
+  <p><b>Qué es.</b> El acta es el registro de una sesión del relanzamiento: quiénes asistieron, qué temas se trataron, qué se decidió y qué compromisos quedaron. En TSP las reuniones del lanzamiento y del relanzamiento se nombran y se registran como tales (Actividad evaluativa, Entrega 2).</p>
+  <p><b>Para qué sirve.</b> Deja constancia de las decisiones del equipo, entre ellas el cambio de plan que significa pasar a GitLab. Este cambio se registra en las decisiones del acta como versión 2.0 del plan, con su motivo y su efecto en tareas, horas y fechas.</p>
+  <div class="where">En GitLab: <b>Elementos de trabajo</b> &gt; <b>Nuevo elemento</b>, tipo <b>Issue</b>, plantilla <code>acta-de-relanzamiento</code>.</div>
+  <h3>Cómo se hace</h3>
+  <ol class="steps">
+    <li>Creen un elemento de trabajo de tipo <b>Issue</b> con un título como <code>Relanzamiento: sesión 1 - estado y plan</code>.</li>
+    <li>En <b>Descripción</b>, en <b>Elegir una plantilla</b> <i>(Choose a template)</i>, seleccionen <code>acta-de-relanzamiento</code>.</li>
+    <li>Diligencien el acta. Marquen los temas tratados y borren las secciones de los temas que no se trataron en esa sesión.</li>
+    <li>En el panel derecho asignen el hito de la semana y, en <b>Persona asignada</b>, a quien registró el acta. Seleccionen <b>Crear issue</b>. La etiqueta <code>relanzamiento</code> la pone la plantilla.</li>
+    <li>Cada participante registra en el acta su tiempo de la sesión, con la fase <code>Gestión</code>.
+      <figure><img src="etapas/img/e2-acta.webp" alt="Acta de relanzamiento con tiempo registrado"><figcaption>Acta de relanzamiento con su hito, su etiqueta y el tiempo registrado por los participantes.</figcaption></figure></li>
+  </ol>
+</section>
+
+<section id="verificar">
+  <h2>Verificación de la etapa</h2>
+  <p>Al terminar esta etapa, su proyecto debe tener:</p>
+  <ul>
+    <li>Los requisitos del ciclo como issues con la etiqueta <code>requisito</code>, con historia de usuario y criterios de aceptación.</li>
+    <li>Dentro de cada requisito, sus tareas, cada una con responsable, estimación, fechas, hito, etiqueta <code>tarea</code>, fase y evidencia de terminación.</li>
+    <li>En la página de cada hito, una carga que cabe en la disponibilidad del equipo.</li>
+    <li>El acta de cada sesión del relanzamiento, con el tiempo de los participantes.</li>
+    <li>Registros de tiempo de cada integrante desde el primer día de trabajo, con fecha y fase.</li>
+  </ul>
+</section>
+
+<div class="next"><a href="etapa-1.html">Etapa 1: montaje</a><a href="entrega-2.html">Cómo preparar la Entrega 2</a></div>
+</main>
+</div>
+<div class="lb" id="lb"><img alt=""></div>
+<script>
+document.querySelectorAll("figure img").forEach(i=>i.addEventListener("click",()=>{const lb=document.getElementById("lb");lb.querySelector("img").src=i.src;lb.classList.add("on");}));
+document.getElementById("lb").addEventListener("click",e=>e.currentTarget.classList.remove("on"));
+</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+:root{
+  --bg:#f6f5f2; --panel:#ffffff; --ink:#1d2430; --muted:#5b6575; --line:#e3e1dc;
+  --accent:#1f4e79; --accent-soft:#e7eef6; --accent2:#7a4b12; --accent2-soft:#f6eee2;
+  --ok:#2e6b3f; --ok-soft:#e5f0e8; --warn:#8a3b12; --warn-soft:#fbeee6; --code:#f1efe9;
+  --radius:10px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+a{color:var(--accent)}
+code{background:var(--code);padding:.1em .35em;border-radius:4px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+pre{background:var(--code);padding:.7rem .9rem;border-radius:6px;font-size:.88rem;overflow:auto;margin:.5rem 0;white-space:pre-wrap}
+header.top{background:var(--accent);color:#fff;padding:1.8rem 1.5rem 1.5rem}
+header.top .wrap{max-width:1100px;margin:0 auto}
+header.top .kicker{font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#c9d9ea;margin:0 0 .3rem}
+header.top h1{margin:0 0 .4rem;font-size:1.8rem;line-height:1.25;font-weight:650}
+header.top p{margin:0;max-width:780px;color:#dbe6f2}
+header.top nav{margin-top:1rem;display:flex;gap:.5rem;flex-wrap:wrap}
+header.top nav a{color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.5);border-radius:999px;padding:.25rem .85rem;font-size:.9rem}
+header.top nav a.on{background:#fff;color:var(--accent);font-weight:600}
+.layout{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:230px 1fr;gap:2rem;padding:1.5rem}
+nav.side{position:sticky;top:1rem;align-self:start;font-size:.93rem}
+nav.side ul{margin:0;padding:0;list-style:none}
+nav.side li{margin:.2rem 0;padding:.15rem 0 .15rem .7rem;border-left:3px solid var(--line)}
+nav.side a{color:var(--ink);text-decoration:none}
+nav.side a:hover{color:var(--accent);text-decoration:underline}
+main section{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:1.3rem 1.5rem;margin-bottom:1.5rem;scroll-margin-top:1rem}
+main h2{font-size:1.45rem;margin:0 0 .3rem;line-height:1.3}
+main h3{font-size:1.05rem;margin:1.2rem 0 .4rem;color:var(--accent)}
+.who{display:inline-block;font-size:.78rem;font-weight:650;letter-spacing:.02em;border-radius:999px;padding:.12rem .65rem;margin-bottom:.6rem;background:var(--accent2-soft);color:var(--accent2)}
+.who.one{background:var(--warn);color:#fff}
+.where{background:var(--accent-soft);border-radius:8px;padding:.7rem .9rem;margin:.8rem 0}
+.where b{color:var(--accent)}
+.where .en{color:var(--muted);font-style:italic}
+.alert{border-left:5px solid var(--warn);background:var(--warn-soft);padding:.7rem .9rem;border-radius:4px;margin:.8rem 0}
+.alert strong{color:var(--warn)}
+.note{border-left:4px solid var(--accent2);background:var(--accent2-soft);padding:.6rem .85rem;border-radius:4px;margin:.8rem 0;font-size:.95rem}
+ol.steps{padding-left:1.3rem}
+ol.steps>li{margin:.55rem 0}
+figure{margin:.7rem 0 1rem;background:#ecebe7;border:1px solid var(--line);border-radius:8px;padding:.6rem}
+figure img{max-width:100%;height:auto;display:block;border-radius:5px;box-shadow:0 1px 5px rgba(0,0,0,.15);cursor:zoom-in}
+figcaption{font-size:.85rem;color:var(--muted);margin-top:.45rem}
+table{border-collapse:collapse;width:100%;font-size:.93rem;margin:.6rem 0}
+th,td{border:1px solid var(--line);padding:.45rem .6rem;text-align:left;vertical-align:top}
+th{background:#f1efe9}
+.tpl{position:relative}
+.tpl button{position:absolute;top:.4rem;right:.4rem;font:inherit;font-size:.8rem;border:1px solid var(--accent);background:#fff;color:var(--accent);border-radius:6px;padding:.15rem .6rem;cursor:pointer}
+.next{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin:1rem 0 2rem}
+.next a{font-weight:600}
+.lb{position:fixed;inset:0;background:rgba(10,14,20,.88);display:none;align-items:center;justify-content:center;padding:1rem;z-index:10;cursor:zoom-out}
+.lb.on{display:flex}
+.lb img{max-width:100%;max-height:100%;border-radius:4px}
+@media (max-width:860px){.layout{grid-template-columns:1fr}nav.side{position:static}}
+@media print{nav.side,header.top nav,.tpl button{display:none}.layout{display:block}section{break-inside:avoid-page}}

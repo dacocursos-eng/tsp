@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Etapa 1: montaje del proyecto en GitLab · TSP</title>
+<link rel="stylesheet" href="etapas/manual.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <p class="kicker">Proyecto TSP en GitLab · Etapa 1</p>
+  <h1>Montaje del proyecto</h1>
+  <p>En esta etapa el equipo crea su espacio de trabajo en GitLab y deja configurado lo que va a usar durante el resto del proyecto: integrantes, semanas, etiquetas, plantillas y los documentos del equipo.</p>
+  <nav><a href="index.html">Inicio</a><a class="on" href="etapa-1.html">Etapa 1: montaje</a><a href="etapa-2.html">Etapa 2: planeación y registro de tiempo</a><a href="entrega-2.html">Entrega 2</a></nav>
+</div></header>
+
+<div class="layout">
+<nav class="side" aria-label="Contenido de la etapa">
+  <ul>
+    <li><a href="#antes">Antes de empezar</a></li>
+    <li><a href="#cuenta">Cuenta personal</a></li>
+    <li><a href="#grupo">Grupo del equipo</a></li>
+    <li><a href="#integrantes">Integrantes y permisos</a></li>
+    <li><a href="#proyecto">Proyecto</a></li>
+    <li><a href="#hitos">Hitos: las semanas del ciclo</a></li>
+    <li><a href="#etiquetas">Etiquetas</a></li>
+    <li><a href="#plantillas">Plantillas</a></li>
+    <li><a href="#wiki">Wiki del equipo</a></li>
+    <li><a href="#verificar">Verificación de la etapa</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<section id="antes">
+  <h2>Antes de empezar</h2>
+  <h3>Qué es GitLab en este proyecto</h3>
+  <p>TSP necesita una herramienta de soporte donde el equipo registre su plan, su tiempo, sus defectos y sus reuniones, y de donde salgan los datos para el seguimiento (Lectura 4, sección 4). En este proyecto esa herramienta es GitLab: ustedes registran allí el trabajo del equipo y, para cada entrega, descargan de allí sus evidencias.</p>
+  <h3>Idioma de la interfaz</h3>
+  <p>GitLab muestra los menús en el idioma configurado en cada cuenta, así que algunos de ustedes lo verán en español y otros en inglés. En este manual cada nombre aparece en los dos idiomas, por ejemplo <b>Elementos de trabajo</b> <i>(Work items)</i>. Para cambiar el idioma: avatar &gt; <b>Preferencias</b> <i>(Preferences)</i> &gt; <b>Idioma</b> <i>(Language)</i>.</p>
+  <h3>Versión gratuita</h3>
+  <p>Todo lo que se explica aquí funciona en la versión gratuita de GitLab. Al crear un grupo, GitLab puede ofrecer una prueba de 30 días de la versión de pago (Ultimate). No la necesitan, y si la activan, tengan en cuenta que las funciones adicionales desaparecen cuando termina. Usen solo lo que indica este manual.</p>
+  <div class="note">En algunas páginas se abre a la derecha un panel llamado <b>GitLab Duo</b> que pide verificar la cuenta. Es un asistente de inteligencia artificial que este proyecto no usa. Pueden cerrarlo con la <b>X</b>.</div>
+</section>
+
+<section id="cuenta">
+  <span class="who">Cada uno de ustedes</span>
+  <h2>Cuenta personal</h2>
+  <p><b>Qué es y para qué sirve.</b> En TSP cada integrante registra sus propios datos: su tiempo, sus tareas y los defectos que encuentra. Por eso cada uno trabaja con su propia cuenta, y todo lo que registre queda a su nombre.</p>
+  <div class="where">En GitLab: <b>Editar perfil</b> <span class="en">(Edit profile)</span>, en el menú del avatar, arriba a la derecha.</div>
+  <h3>Cómo se hace</h3>
+  <ol class="steps">
+    <li>Ingresen a <b>gitlab.com</b> y creen su cuenta con <b>Registrarse</b> <i>(Register)</i>. También pueden entrar con su cuenta de Google. Confirmen el correo cuando GitLab se lo pida.</li>
+    <li>Seleccionen su avatar y elijan <b>Editar perfil</b> <i>(Edit profile)</i>.
+      <figure><img src="etapas/img/e1-cuenta-menu.webp" alt="Menú del avatar con la opción Editar perfil"><figcaption>Menú del avatar.</figcaption></figure></li>
+    <li>En <b>Nombre</b> <i>(Full name)</i> escriban su nombre y apellidos tal como aparecen en el aula virtual, y guarden con <b>Actualizar la configuración del perfil</b> <i>(Update profile settings)</i>, al final de la página.
+      <figure><img src="etapas/img/e1-cuenta-nombre.webp" alt="Campo Nombre en Editar perfil"><figcaption>El nombre es el que aparece en todos sus registros.</figcaption></figure></li>
+    <li>Compartan con su equipo su <b>nombre de usuario</b>, el que aparece con <code>@</code> debajo de su nombre al seleccionar el avatar. Con ese usuario los van a agregar al grupo.</li>
+  </ol>
+</section>
+
+<section id="grupo">
+  <span class="who one">Solo una persona del equipo</span>
+  <h2>Grupo del equipo</h2>
+  <div class="alert"><strong>Este paso lo hace una sola persona.</strong> Pónganse de acuerdo antes de empezar; normalmente lo hace el gerente de soporte. Si varios crean grupos, el equipo queda dividido en espacios distintos y los registros no se juntan.</div>
+  <p><b>Qué es y para qué sirve.</b> Un equipo TSP tiene integrantes claramente definidos (Lectura 2, sección 5). En GitLab el equipo es un <b>grupo</b>: reúne a los integrantes y contiene el proyecto. Quien pertenece al grupo puede trabajar en el proyecto.</p>
+  <div class="where">En GitLab: botón <b>+</b> de la barra superior &gt; <b>Nuevo grupo</b> <span class="en">(New group)</span> &gt; <b>Crear grupo</b> <span class="en">(Create group)</span>.</div>
+  <h3>Cómo se hace</h3>
+  <ol class="steps">
+    <li>Seleccionen el botón <b>+</b> de la barra superior y elijan <b>Nuevo grupo</b> <i>(New group)</i>. Luego seleccionen <b>Crear grupo</b> <i>(Create group)</i>.
+      <figure><img src="etapas/img/e1-grupo-menu.webp" alt="Formulario para crear un grupo"><figcaption>Inicio del formulario de creación del grupo.</figcaption></figure></li>
+    <li>En <b>Nombre del grupo</b> <i>(Group name)</i> escriban el nombre del equipo. GitLab completa la dirección del grupo. En <b>Nivel de visibilidad</b> <i>(Visibility level)</i> elijan <b>Privado</b> <i>(Private)</i>.
+      <figure><img src="etapas/img/e1-grupo-nombre.webp" alt="Nombre, URL y visibilidad del grupo"><figcaption>Nombre del grupo, dirección y visibilidad privada.</figcaption></figure></li>
+    <li>En <b>¿Quién usará este grupo?</b> elijan <b>Mi empresa o equipo</b>. Las demás preguntas son opcionales. Seleccionen <b>Crear grupo</b>.
+      <figure><img src="etapas/img/e1-grupo-crear.webp" alt="Preguntas finales y botón Crear grupo"><figcaption>Final del formulario.</figcaption></figure></li>
+  </ol>
+  <div class="note">GitLab permite crear el primer grupo sin trámites. Si la cuenta ya tiene otro grupo, para crear uno adicional pide verificar la identidad. Por eso conviene que lo cree alguien que no haya creado grupos antes.</div>
+</section>
+
+<section id="integrantes">
+  <span class="who one">La misma persona que creó el grupo</span>
+  <h2>Integrantes y permisos</h2>
+  <p><b>Qué es y para qué sirve.</b> Al grupo se agregan los demás integrantes con un <b>rol de GitLab</b>, que define qué puede hacer cada uno en la herramienta. Este rol es distinto del rol TSP (líder, gerente de planeación, etc.): el rol de GitLab da permisos, y el rol TSP define responsabilidades en el equipo. Los roles TSP se registran en la wiki, en la sección <a href="#wiki">Wiki del equipo</a>.</p>
+  <div class="where">En GitLab: dentro del grupo, <b>Gestionar</b> <span class="en">(Manage)</span> &gt; <b>Miembros</b> <span class="en">(Members)</span> &gt; <b>Invitar miembros</b> <span class="en">(Invite members)</span>.</div>
+  <h3>Cómo se hace</h3>
+  <ol class="steps">
+    <li>Dentro del grupo, vayan a <b>Gestionar</b> <i>(Manage)</i> &gt; <b>Miembros</b> <i>(Members)</i> y seleccionen <b>Invitar miembros</b> <i>(Invite members)</i>.
+      <figure><img src="etapas/img/e1-miembros.webp" alt="Página Miembros del grupo"><figcaption>Página de miembros con el botón Invitar miembros.</figcaption></figure></li>
+    <li>Escriban el nombre de usuario de cada compañero. GitLab muestra cuántos cupos quedan: un grupo privado gratuito admite máximo cinco integrantes.
+      <figure><img src="etapas/img/e1-invitar.webp" alt="Diálogo Invitar miembros"><figcaption>Diálogo de invitación con el aviso de cupos disponibles.</figcaption></figure></li>
+    <li>En <b>Rol</b> elijan <b>Encargado de mantenimiento</b> <i>(Maintainer)</i>. Con este rol todos pueden crear elementos de trabajo, editar la wiki, crear ramas e integrar código. Seleccionen <b>Invitar</b>.
+      <figure><img src="etapas/img/e1-roles.webp" alt="Lista de roles de GitLab"><figcaption>La lista de roles; bajen hasta Encargado de mantenimiento.</figcaption></figure></li>
+    <li>Cada compañero recibe la invitación por correo y la acepta. Al aceptarla, aparece en la lista de miembros.</li>
+  </ol>
+</section>
+
+<section id="proyecto">
+  <span class="who one">La misma persona que creó el grupo</span>
+  <h2>Proyecto</h2>
+  <p><b>Qué es y para qué sirve.</b> El proyecto es el lugar donde queda todo el trabajo del equipo: los requisitos, las tareas, el tiempo, las actas, la wiki y el código. Se crea dentro del grupo para que todos los integrantes tengan acceso.</p>
+  <div class="where">En GitLab: dentro del grupo, <b>Crear proyecto</b> <span class="en">(Create project)</span> &gt; <b>Crear proyecto en blanco</b> <span class="en">(Create blank project)</span>.</div>
+  <h3>Cómo se hace</h3>
+  <ol class="steps">
+    <li>Desde la página del grupo, seleccionen <b>Crear proyecto</b> <i>(Create project)</i> y elijan <b>Crear proyecto en blanco</b> <i>(Create blank project)</i>.</li>
+    <li>En <b>Nombre del proyecto</b> <i>(Project name)</i> escriban el nombre del producto que van a construir. Verifiquen que en <b>URL del proyecto</b> aparezca el grupo del equipo. En <b>Nivel de visibilidad</b> elijan <b>Privado</b>.
+      <figure><img src="etapas/img/e1-proyecto.webp" alt="Formulario Crear proyecto en blanco"><figcaption>La URL del proyecto debe empezar por el grupo del equipo.</figcaption></figure></li>
+    <li>Dejen marcada la opción <b>Inicializar el repositorio con un README</b> <i>(Initialize repository with a README)</i> y seleccionen <b>Crear proyecto</b>.</li>
+  </ol>
+</section>
+
+<section id="hitos">
+  <span class="who">Uno de ustedes</span>
+  <h2>Hitos: las semanas del ciclo</h2>
+  <p><b>Qué es.</b> En TSP el calendario del plan se organiza por semanas, y en cada semana el equipo compromete un conjunto de tareas (Lectura 5, sección 4.4). En GitLab cada semana del ciclo es un <b>hito</b> <i>(milestone)</i>, con su fecha de inicio y su fecha de fin.</p>
+  <p><b>Para qué sirve.</b> Cada tarea se asigna al hito de la semana en que se va a hacer. Así la página de cada hito muestra lo comprometido para esa semana, cuánto avanzó y cuánto tiempo se dedicó frente a lo estimado. Es la base del seguimiento semanal.</p>
+  <div class="where">En GitLab: dentro del proyecto, <b>Planificación</b> <span class="en">(Plan)</span> &gt; <b>Hitos</b> <span class="en">(Milestones)</span> &gt; <b>Nuevo hito</b> <span class="en">(New milestone)</span>.</div>
+  <h3>Cómo se hace</h3>
+  <ol class="steps">
+    <li>Vayan a <b>Planificación</b> <i>(Plan)</i> &gt; <b>Hitos</b> <i>(Milestones)</i> y seleccionen <b>Nuevo hito</b> <i>(New milestone)</i>.</li>
+    <li>En <b>Título</b> escriban <code>Semana N</code>, con el número de la semana del curso. En <b>Fecha de inicio</b> y <b>Fecha de vencimiento</b> pongan el primer y el último día de esa semana, según el calendario del curso. Seleccionen <b>Crear hito</b>, al final del formulario.
+      <figure><img src="etapas/img/e1-hito-nuevo.webp" alt="Formulario Nuevo hito"><figcaption>Un hito por semana, con fecha de inicio y de fin.</figcaption></figure></li>
+    <li>Repitan el paso anterior para cada semana del ciclo que van a planear. Al terminar, la lista muestra todos los hitos con sus fechas y su avance.
+      <figure><img src="etapas/img/e1-hitos.webp" alt="Lista de hitos del proyecto"><figcaption>Lista de hitos: cada fila muestra las fechas y cuántas tareas de esa semana están terminadas.</figcaption></figure></li>
+  </ol>
+</section>
+
+<section id="etiquetas">
+  <span class="who">Uno de ustedes</span>
+  <h2>Etiquetas</h2>
+  <p><b>Qué es.</b> Una etiqueta <i>(label)</i> es una marca que clasifica los elementos de trabajo. En TSP los registros se clasifican para poder contarlos y analizarlos: requisitos, tareas, actas, defectos por tipo y por fase.</p>
+  <p><b>Para qué sirve.</b> Con las etiquetas pueden filtrar la lista, por ejemplo ver solo los requisitos o solo las actas, y al descargar los datos cada registro lleva su clasificación.</p>
+  <div class="where">En GitLab: <b>Gestionar</b> <span class="en">(Manage)</span> &gt; <b>Etiquetas</b> <span class="en">(Labels)</span> &gt; <b>Nueva etiqueta</b> <span class="en">(New label)</span>.</div>
+  <h3>Etiquetas de esta etapa</h3>
+  <table>
+    <tr><th>Etiqueta</th><th>Descripción sugerida</th></tr>
+    <tr><td><code>requisito</code></td><td>Requisito del producto: historia de usuario con criterios de aceptación</td></tr>
+    <tr><td><code>tarea</code></td><td>Tarea del plan</td></tr>
+    <tr><td><code>relanzamiento</code></td><td>Acta de una sesión del relanzamiento</td></tr>
+    <tr><td><code>reunion-semanal</code></td><td>Acta de la reunión semanal</td></tr>
+  </table>
+  <p>Escriban los nombres exactamente así, en minúsculas y sin tildes en <code>reunion-semanal</code>, para que todos los equipos usen la misma clasificación.</p>
+  <h3>Cómo se hace</h3>
+  <ol class="steps">
+    <li>Vayan a <b>Gestionar</b> <i>(Manage)</i> &gt; <b>Etiquetas</b> <i>(Labels)</i> y seleccionen <b>Nueva etiqueta</b> <i>(New label)</i>.</li>
+    <li>Escriban el nombre en <b>Título</b> <i>(Title)</i>, la descripción y elijan un color. Seleccionen <b>Crear etiqueta</b>.
+      <figure><img src="etapas/img/e1-etiqueta-nueva.webp" alt="Formulario Nueva etiqueta"><figcaption>Nombre, descripción y color de la etiqueta.</figcaption></figure></li>
+    <li>Repitan para las cuatro etiquetas. La página <b>Etiquetas</b> las muestra todas.
+      <figure><img src="etapas/img/e1-etiquetas.webp" alt="Lista de etiquetas del proyecto"><figcaption>Lista de etiquetas del proyecto.</figcaption></figure></li>
+  </ol>
+</section>
+
+<section id="plantillas">
+  <span class="who">Uno de ustedes</span>
+  <h2>Plantillas</h2>
+  <p><b>Qué es.</b> En TSP los registros siguen formatos definidos: actas de reunión, reportes semanales, registros de defectos (Lectura 2, sección 3). En GitLab un formato es una <b>plantilla de descripción</b> <i>(description template)</i>: un texto que se carga en la descripción de un elemento de trabajo nuevo, con los campos que hay que diligenciar.</p>
+  <p><b>Para qué sirve.</b> Con una plantilla todos registran los mismos datos, en el mismo orden, sin tener que recordar el formato. Una plantilla puede, además, poner sola su etiqueta al crear el elemento.</p>
+  <p><b>Cómo funciona.</b> Una plantilla es un archivo de texto en formato Markdown (<code>.md</code>) guardado en la carpeta <code>.gitlab/issue_templates</code> del repositorio. El nombre del archivo es el nombre con que aparece la plantilla en la lista <b>Elegir una plantilla</b> <i>(Choose a template)</i>. Si la última línea del archivo es <code>/label ~nombre</code>, GitLab pone esa etiqueta al crear el elemento.</p>
+  <div class="where">En GitLab: <b>Código</b> <span class="en">(Code)</span> &gt; <b>Repositorio</b> <span class="en">(Repository)</span>, botón <b>+</b> &gt; <b>Nuevo archivo</b> <span class="en">(New file)</span>.</div>
+
+  <h3>Plantilla que se les entrega: acta de relanzamiento</h3>
+  <p>Creen el archivo <code>.gitlab/issue_templates/acta-de-relanzamiento.md</code> con este contenido:</p>
+  <div class="tpl"><button type="button" data-copy="anexos/acta-de-relanzamiento.md">Copiar</button><pre id="tpl-acta">Cargando la plantilla…</pre></div>
+  <p>También pueden <a href="anexos/acta-de-relanzamiento.md" download>descargar el archivo</a>.</p>
+
+  <h3>Cómo se crea el archivo</h3>
+  <ol class="steps">
+    <li>En la página principal del proyecto, seleccionen el botón <b>+</b> que está junto al nombre de la rama <code>main</code> y elijan <b>Nuevo archivo</b> <i>(New file)</i>.
+      <figure><img src="etapas/img/e1-repo-menu.webp" alt="Menú + con la opción Nuevo archivo"><figcaption>Menú para agregar archivos al repositorio.</figcaption></figure></li>
+    <li>En el campo del nombre escriban la ruta completa: <code>.gitlab/issue_templates/acta-de-relanzamiento.md</code>. Al escribir cada <code>/</code>, GitLab crea la carpeta.
+      <figure><img src="etapas/img/e1-plantilla-archivo.webp" alt="Editor de nuevo archivo con el nombre de la plantilla"><figcaption>La ruta queda a la izquierda y el nombre del archivo en el campo.</figcaption></figure></li>
+    <li>Peguen el contenido de la plantilla en el editor. Seleccionen <b>Confirmar cambios</b> <i>(Commit changes)</i>, escriban un mensaje como <code>Agregar plantilla de acta de relanzamiento</code> y confirmen sobre la rama <code>main</code>.</li>
+    <li>Para comprobarla, creen un elemento de trabajo nuevo: la plantilla debe aparecer en la lista <b>Elegir una plantilla</b> <i>(Choose a template)</i>.
+      <figure><img src="etapas/img/e1-plantilla-elegir.webp" alt="Lista Elegir una plantilla en un elemento de trabajo nuevo"><figcaption>Las plantillas del proyecto aparecen en esta lista.</figcaption></figure></li>
+  </ol>
+
+  <h3>Ejercicio: la plantilla de la reunión semanal</h3>
+  <p>Ahora el equipo crea su propia plantilla, <code>.gitlab/issue_templates/reunion-semanal.md</code>, para registrar la reunión semanal. Tomen como modelo la del acta de relanzamiento. Debe incluir:</p>
+  <ul>
+    <li>Una tabla con semana, fecha, hora de inicio y de finalización, modalidad y lugar o enlace, quién moderó, asistentes, y ausentes con su motivo.</li>
+    <li>Una sección para revisar los compromisos de la reunión anterior.</li>
+    <li>Una tabla de estado del proyecto con horas planeadas, horas dedicadas y tareas terminadas, de la semana y acumuladas.</li>
+    <li>Una sección de reportes por rol, con la indicación de que cada integrante agrega un comentario con su reporte: rol, horas trabajadas en la semana, tareas terminadas, tareas para la próxima semana, novedades del rol y dificultades.</li>
+    <li>Tablas de decisiones tomadas y de compromisos (compromiso, responsable, fecha límite y tarea relacionada).</li>
+    <li>Como última línea, <code>/label ~reunion-semanal</code>.</li>
+  </ul>
+  <div class="note">El texto entre <code>&lt;!--</code> y <code>--&gt;</code> es un comentario: se ve al diligenciar la plantilla y no aparece en el elemento publicado. Úsenlo para dejar instrucciones a quien la diligencie.</div>
+</section>
+
+<section id="wiki">
+  <span class="who">Todos</span>
+  <h2>Wiki del equipo</h2>
+  <p><b>Qué es.</b> La wiki <i>(Wiki)</i> es un conjunto de páginas del proyecto que todos los integrantes pueden editar, y que guarda el historial de cada cambio. Es el lugar de los documentos del equipo.</p>
+  <p><b>Para qué sirve.</b> Aquí migran la información de la Entrega 1 que sigue vigente: el planteamiento del proyecto y la conformación del equipo. Al quedar en la wiki, el equipo la actualiza en cada ciclo y queda el registro de cómo evolucionó.</p>
+  <div class="where">En GitLab: <b>Planificación</b> <span class="en">(Plan)</span> &gt; <b>Wiki</b>. Para crear una página: <b>Nueva página</b> <span class="en">(New page)</span>.</div>
+  <h3>Páginas de esta etapa</h3>
+  <table>
+    <tr><th>Página</th><th>Contenido</th><th>De dónde sale</th></tr>
+    <tr><td>Planteamiento del proyecto</td><td>Producto, cliente, objetivo del ciclo, alcance y lo que queda fuera del alcance</td><td>Sección 1 del Plan de lanzamiento, actualizada</td></tr>
+    <tr><td>Equipo y roles</td><td>Integrantes con su usuario de GitLab y sus roles TSP, metas de cada rol, disponibilidad semanal y acuerdos de trabajo</td><td>Sección 2 del Plan de lanzamiento, actualizada</td></tr>
+  </table>
+  <h3>Cómo se hace</h3>
+  <ol class="steps">
+    <li>Vayan a <b>Planificación</b> <i>(Plan)</i> &gt; <b>Wiki</b>. Si la wiki está vacía, seleccionen <b>Crear su primera página</b>; si ya tiene páginas, seleccionen <b>Nueva página</b> <i>(New page)</i>.</li>
+    <li>Escriban el título de la página y su contenido. El editor permite tablas, listas y títulos con la barra de herramientas. Pueden copiar las tablas del Plan de lanzamiento y pegarlas.
+      <figure><img src="etapas/img/e1-wiki-editar.webp" alt="Editor de una página de la wiki"><figcaption>Editor de la wiki.</figcaption></figure></li>
+    <li>Seleccionen <b>Crear página</b> <i>(Create page)</i>. Para cambiarla después, abran la página y seleccionen <b>Editar</b> <i>(Edit)</i>.
+      <figure><img src="etapas/img/e1-wiki.webp" alt="Página Equipo y roles de la wiki"><figcaption>Ejemplo de la página Equipo y roles: integrantes, usuarios de GitLab y roles TSP.</figcaption></figure></li>
+  </ol>
+</section>
+
+<section id="verificar">
+  <h2>Verificación de la etapa</h2>
+  <p>Antes de pasar a la etapa 2, revisen que su proyecto tenga:</p>
+  <ul>
+    <li>Todos los integrantes en <b>Miembros</b>, con el rol Encargado de mantenimiento y su nombre completo.</li>
+    <li>Un hito por cada semana del ciclo, con sus fechas.</li>
+    <li>Las etiquetas <code>requisito</code>, <code>tarea</code>, <code>relanzamiento</code> y <code>reunion-semanal</code>.</li>
+    <li>Las plantillas <code>acta-de-relanzamiento</code> y <code>reunion-semanal</code> en la lista <b>Elegir una plantilla</b>.</li>
+    <li>Las páginas de la wiki <b>Planteamiento del proyecto</b> y <b>Equipo y roles</b>.</li>
+  </ul>
+  <p>Pueden ver un proyecto completo de ejemplo en las imágenes de este manual: corresponde a una plataforma de finanzas personales construida por un equipo de dos integrantes.</p>
+</section>
+
+<div class="next"><a href="index.html">Volver al inicio</a><a href="etapa-2.html">Etapa 2: planeación y registro de tiempo</a></div>
+</main>
+</div>
+<div class="lb" id="lb"><img alt=""></div>
+<script>
+document.querySelectorAll("figure img").forEach(i=>i.addEventListener("click",()=>{const lb=document.getElementById("lb");lb.querySelector("img").src=i.src;lb.classList.add("on");}));
+document.getElementById("lb").addEventListener("click",e=>e.currentTarget.classList.remove("on"));
+document.querySelectorAll("[data-copy]").forEach(async b=>{
+  const pre=b.parentElement.querySelector("pre");
+  try{ const t=await (await fetch(b.dataset.copy)).text(); pre.textContent=t; }catch(e){ pre.textContent="Descarguen el archivo con el enlace de abajo."; }
+  b.addEventListener("click",async()=>{ try{ await navigator.clipboard.writeText(pre.textContent); b.textContent="Copiado"; setTimeout(()=>b.textContent="Copiar",1500);}catch(e){} });
+});
+</script>
+</body>
+</html>
