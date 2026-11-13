@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Configurador del proyecto TSP en GitLab</title>
+<style>
+:root{--bg:#f6f5f2;--panel:#fff;--ink:#1d2430;--muted:#5b6575;--line:#e3e1dc;--accent:#1f4e79;--accent-soft:#e7eef6;--ok:#2e6b3f;--ok-soft:#e5f0e8;--bad:#8a2c22;--bad-soft:#f8e3e1;--warn:#7a4b12;--warn-soft:#f6eee2}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+header{background:var(--accent);color:#fff;padding:1.8rem 1.2rem 1.5rem}
+header .w{max-width:980px;margin:0 auto}
+header h1{margin:0 0 .3rem;font-size:1.6rem}
+header p{margin:0;color:#dbe6f2;max-width:760px}
+header a{color:#fff}
+main{max-width:980px;margin:0 auto;padding:1.4rem 1.2rem 3rem}
+.step{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:1.2rem 1.3rem;margin-bottom:1.2rem}
+.step h2{margin:0 0 .4rem;font-size:1.2rem}
+.step.locked{opacity:.55;pointer-events:none}
+label{display:block;font-weight:600;margin:.9rem 0 .3rem}
+input[type=text],input[type=password],textarea,select{width:100%;padding:.55rem .7rem;border:1px solid #cfccc5;border-radius:6px;font:inherit;background:#fff}
+textarea{min-height:170px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.85rem}
+button{margin-top:1rem;background:var(--accent);color:#fff;border:0;border-radius:8px;padding:.6rem 1.2rem;font:inherit;font-weight:600;cursor:pointer}
+button.sec{background:#fff;color:var(--accent);border:1px solid var(--accent)}
+button:disabled{opacity:.5;cursor:default}
+.hint{color:var(--muted);font-size:.92rem}
+.log{margin-top:1rem;max-height:340px;overflow:auto;border:1px solid var(--line);border-radius:8px;padding:.4rem .6rem;background:#fbfaf8;font-size:.9rem;display:none}
+.log div{padding:.15rem 0}
+.ok{color:var(--ok)}.bad{color:var(--bad)}.skip{color:var(--muted)}
+.msg{padding:.6rem .8rem;border-radius:8px;margin-top:.8rem}
+.msg.ok{background:var(--ok-soft)}.msg.bad{background:var(--bad-soft)}.msg.warn{background:var(--warn-soft);color:var(--warn)}
+table{width:100%;border-collapse:collapse;font-size:.86rem;margin-top:.8rem}
+th,td{border-bottom:1px solid var(--line);padding:.35rem .45rem;text-align:left;vertical-align:top}
+th{background:#efede8}
+code{background:#f1efe9;padding:.1em .35em;border-radius:4px;font-size:.9em}
+.map{display:grid;grid-template-columns:200px 1fr;gap:.4rem .8rem;align-items:center;margin-top:.6rem}
+.chk{display:flex;gap:.5rem;align-items:flex-start;margin-top:.8rem}
+.chk input{margin-top:.3rem}
+ol{padding-left:1.2rem}
+</style>
+</head>
+<body>
+<header><div class="w">
+  <h1>Configurador del proyecto TSP en GitLab</h1>
+  <p>Con esta página preparan su proyecto de GitLab, con las etiquetas, los hitos de las semanas 5 a 8, las plantillas y las páginas de la wiki, y pasan a GitLab las tareas de su Plan de lanzamiento. <a href="index.html">Volver a la guía</a></p>
+</div></header>
+<main>
+
+<section class="step" id="s1">
+  <h2>Conectar el proyecto</h2>
+  <p class="hint">Este paso lo hace quien creó el proyecto, o cualquiera de ustedes con rol Maintainer u Owner.</p>
+  <ol class="hint">
+    <li>En GitLab, creen un proyecto en blanco dentro del grupo del equipo, con visibilidad Privado.</li>
+    <li>Creen un token en su avatar &gt; Editar perfil (Edit profile) &gt; Acceso (Access) &gt; Tokens de acceso personal (Personal access tokens), con el permiso <code>api</code>.</li>
+  </ol>
+  <label for="tk">Token personal</label>
+  <input id="tk" type="password" autocomplete="off" placeholder="glpat-...">
+  <label for="pr">Dirección del proyecto</label>
+  <input id="pr" type="text" placeholder="https://gitlab.com/grupo-del-equipo/catalogo-virtual">
+  <button id="bConn">Conectar</button>
+  <div id="connMsg"></div>
+  <p class="hint">El token solo se usa en este navegador para comunicarse con GitLab. No se guarda ni se envía a ningún otro sitio.</p>
+</section>
+
+<section class="step locked" id="s2">
+  <h2>Preparar el proyecto</h2>
+  <p>Al seleccionar el botón, se crean en su proyecto las etiquetas, los hitos Semana 5 a Semana 8, las plantillas de issues y de merge request, y las páginas de la wiki. Lo que ya exista se conserva como está, así que pueden repetir este paso sin problema.</p>
+  <button id="bSetup">Preparar el proyecto</button>
+  <div class="log" id="logSetup"></div>
+  <div id="setupMsg"></div>
+</section>
+
+<section class="step locked" id="s3">
+  <h2>Trasladar las tareas del Plan de lanzamiento</h2>
+  <p>Copien la tabla de la sección 3.2 (Lista de tareas) de su Plan de lanzamiento, desde Word o Excel, y péguenla aquí. La tabla debe tener sus nueve columnas en este orden: ID, Tarea, Requisito, Fase, Responsable, Horas estimadas, Semana planeada, Depende de, Evidencia de terminación.</p>
+  <p class="hint">Antes de copiarla, actualicen en la tabla la columna Semana planeada de las tareas pendientes, con la semana de 5 a 8 en que se van a realizar. Las tareas nuevas que surgieron después de la Entrega 1 se pueden agregar como filas adicionales.</p>
+  <textarea id="tasks" placeholder="T01	Diseñar la pantalla de registro	R01	Diseño	DC	3	5	—	Mockup revisado"></textarea>
+  <button class="sec" id="bParse">Revisar las tareas</button>
+  <div id="parseMsg"></div>
+  <div id="mapBox" style="display:none">
+    <label>Responsables</label>
+    <p class="hint">Elijan para cada responsable de la tabla su usuario de GitLab. Para que aparezcan en la lista, todos deben estar invitados al grupo o al proyecto.</p>
+    <div class="map" id="map"></div>
+    <div class="chk"><input type="checkbox" id="past"><label for="past" style="margin:0;font-weight:400">Incluir las tareas planeadas para las semanas 1 a 4. Se crean cerradas, con la etiqueta <code>plan-anterior</code>, como registro del plan inicial.</label></div>
+    <div id="preview"></div>
+    <button id="bCreate">Crear las tareas en GitLab</button>
+    <div class="log" id="logTasks"></div>
+    <div id="tasksMsg"></div>
+  </div>
+</section>
+
+</main>
+<script>
+/* ===================== Datos del proyecto ===================== */
+const MILESTONES = [
+  {title:"Semana 5", start:"2026-11-16", due:"2026-11-22", description:"Relanzamiento en GitLab. Entrega 2 entre el 21 y el 24 de noviembre."},
+  {title:"Semana 6", start:"2026-11-23", due:"2026-11-29", description:"Desarrollo, inspecciones y pruebas."},
+  {title:"Semana 7", start:"2026-11-30", due:"2026-12-06", description:"Cierre del catálogo, postmortem y video."},
+  {title:"Semana 8", start:"2026-12-07", due:"2026-12-08", description:"Entrega 3: 8 de diciembre."}
+];
+const FIRST_WEEK = 5;
+
+const LABELS = [
+  ["tarea","#428BCA","Trabajo del plan"],
+  ["relanzamiento","#6B5B95","Actas del relanzamiento"],
+  ["reunion-semanal","#5CB85C","Reunión semanal y reportes por rol"],
+  ["defecto","#D9534F","Defecto registrado"],
+  ["riesgo","#F0AD4E","Riesgo del proyecto"],
+  ["cambio-de-plan","#8E6C88","Cambio o replanificación"],
+  ["plan-anterior","#A0A0A0","Tarea del plan inicial, anterior a GitLab"],
+  ["inyectado: requisitos","#E9967A","Fase en que se introdujo el defecto"],
+  ["inyectado: diseño","#E9967A","Fase en que se introdujo el defecto"],
+  ["inyectado: implementación","#E9967A","Fase en que se introdujo el defecto"],
+  ["inyectado: pruebas","#E9967A","Fase en que se introdujo el defecto"],
+  ["removido: revisión de diseño","#7FB3D5","Fase en que se encontró el defecto"],
+  ["removido: revisión de código","#7FB3D5","Fase en que se encontró el defecto"],
+  ["removido: inspección","#7FB3D5","Fase en que se encontró el defecto"],
+  ["removido: pruebas","#7FB3D5","Fase en que se encontró el defecto"],
+  ["removido: uso","#7FB3D5","Fase en que se encontró el defecto"],
+  ["tipo: 10 documentación","#B0B7C3","Comentarios, mensajes"],
+  ["tipo: 20 sintaxis","#B0B7C3","Ortografía del código, puntuación, formato de instrucciones"],
+  ["tipo: 30 construcción","#B0B7C3","Gestión de cambios, librerías, control de versiones"],
+  ["tipo: 40 asignación","#B0B7C3","Declaraciones, nombres duplicados, alcance, límites"],
+  ["tipo: 50 interfaz","#B0B7C3","Llamadas a funciones, entrada y salida, formatos de usuario"],
+  ["tipo: 60 chequeo","#B0B7C3","Mensajes de error, validaciones inadecuadas"],
+  ["tipo: 70 datos","#B0B7C3","Estructura y contenido de los datos"],
+  ["tipo: 80 función","#B0B7C3","Lógica, ciclos, recursión, cálculos"],
+  ["tipo: 90 sistema","#B0B7C3","Configuración, tiempos, memoria"],
+  ["tipo: 100 entorno","#B0B7C3","Diseño, compilación, pruebas u otras herramientas de soporte"],
+  ["impacto: alto","#C0392B","Impacto del riesgo"],
+  ["impacto: medio","#E67E22","Impacto del riesgo"],
+  ["impacto: bajo","#F4D03F","Impacto del riesgo"],
+  ["probabilidad: alta","#C0392B","Probabilidad del riesgo"],
+  ["probabilidad: media","#E67E22","Probabilidad del riesgo"],
+  ["probabilidad: baja","#F4D03F","Probabilidad del riesgo"]
+];
+
+const FASES = "Requisitos, Diseño, Revisión de diseño, Implementación, Revisión de código, Inspección, Pruebas, Integración, Corrección, Gestión";
+const SPEND_HELP = `<!-- Registro de tiempo: cada integrante agrega un comentario con la fase en la primera línea y el tiempo en la segunda.
+Fases: ${FASES}.
+Ejemplo de comentario: primera línea "Implementación", segunda línea "/spend 1h 30m AAAA-MM-DD".
+-->`;
+
+const TEMPLATES = {
+".gitlab/issue_templates/tarea.md": `**ID en el plan:**
+**Requisito:**
+**Fase planeada:**
+**Depende de:**
+**Evidencia de terminación:**
+**Tamaño estimado (LOC):**
+**Tamaño real (LOC):**
+
+## Descripción
+
+${SPEND_HELP}
+
+/label ~tarea
+`,
+".gitlab/issue_templates/acta-de-relanzamiento.md": `| Campo | Registro |
+| --- | --- |
+| Fecha |  |
+| Hora de inicio y de finalización |  |
+| Modalidad y lugar o enlace |  |
+| Moderó |  |
+| Registró el acta |  |
+| Asistentes |  |
+| Ausentes y motivo |  |
+
+## Temas del relanzamiento tratados en esta sesión
+
+- [ ] Estado del proyecto y objetivos
+- [ ] Roles y metas del equipo
+- [ ] Estrategia de desarrollo
+- [ ] Plan general y plan de la próxima fase
+- [ ] Plan de calidad
+- [ ] Planes individuales y consolidación del plan
+- [ ] Evaluación de riesgos
+- [ ] Postmortem del relanzamiento
+
+## Desarrollo de cada tema
+
+### Estado del proyecto y objetivos
+
+### Roles y metas del equipo
+
+### Estrategia de desarrollo
+
+### Plan general y plan de la próxima fase
+
+### Plan de calidad
+
+### Planes individuales y consolidación del plan
+
+### Evaluación de riesgos
+
+### Postmortem del relanzamiento
+
+<!-- Eliminen las secciones de los temas que no se trataron en esta sesión. -->
+
+## Decisiones tomadas
+
+| Decisión | Justificación |
+| --- | --- |
+|  |  |
+
+## Dificultades identificadas
+
+| Dificultad | Acción acordada |
+| --- | --- |
+|  |  |
+
+## Compromisos
+
+| Compromiso | Responsable | Fecha límite | Tarea relacionada |
+| --- | --- | --- | --- |
+|  |  |  | # |
+
+**Próxima reunión:**
+
+/label ~relanzamiento
+`,
+".gitlab/issue_templates/reunion-semanal.md": `| Campo | Registro |
+| --- | --- |
+| Semana |  |
+| Fecha |  |
+| Hora de inicio y de finalización |  |
+| Modalidad y lugar o enlace |  |
+| Moderó |  |
+| Asistentes |  |
+| Ausentes y motivo |  |
+
+## Revisión de compromisos de la reunión anterior
+
+## Estado del proyecto
+
+<!-- Lo presenta el gerente de planeación con los datos del paquete de evidencias. -->
+
+| Indicador | Semana | Acumulado |
+| --- | --- | --- |
+| Horas planeadas |  |  |
+| Horas reales |  |  |
+| Valor planeado (PV) |  |  |
+| Valor ganado (EV) |  |  |
+| Defectos registrados |  |  |
+
+## Reportes por rol
+
+<!-- Cada uno agrega un comentario con este formato:
+
+**Reporte de:** (rol)
+**Horas trabajadas esta semana:**
+**Tareas terminadas:**
+**Tareas para la próxima semana:**
+**Novedades del rol:**
+**Dificultades:**
+-->
+
+## Metas y riesgos
+
+## Decisiones tomadas
+
+| Decisión | Justificación |
+| --- | --- |
+|  |  |
+
+## Compromisos
+
+| Compromiso | Responsable | Fecha límite | Tarea relacionada |
+| --- | --- | --- | --- |
+|  |  |  | # |
+
+/label ~reunion-semanal
+`,
+".gitlab/issue_templates/defecto.md": `| Campo | Registro |
+| --- | --- |
+| Detectado por |  |
+| Fecha de detección |  |
+| Tarea o merge request relacionado | # o ! |
+
+## Descripción del defecto
+
+Qué falla, dónde y cómo se reproduce.
+
+## Análisis
+
+Cómo se determinó la fase en que se introdujo el defecto.
+
+## Corrección
+
+| Campo | Registro |
+| --- | --- |
+| Corrigió |  |
+| Fecha de corrección |  |
+| Verificación realizada |  |
+
+<!-- Asignen las etiquetas tipo, inyectado y removido que correspondan.
+El tiempo de corrección se registra en este issue: primera línea "Corrección", segunda línea "/spend 30m AAAA-MM-DD".
+-->
+
+/label ~defecto
+`,
+".gitlab/issue_templates/riesgo.md": `| Campo | Registro |
+| --- | --- |
+| Responsable de seguimiento |  |
+| Fecha de identificación |  |
+
+## Descripción del riesgo
+
+Qué podría ocurrir y por qué causa.
+
+## Efecto sobre el proyecto
+
+## Plan de prevención
+
+## Plan de mitigación
+
+## Seguimiento
+
+<!-- Asignen una etiqueta de impacto y una de probabilidad. Cada cambio en la evaluación se registra como comentario. -->
+
+/label ~riesgo
+`,
+".gitlab/issue_templates/cambio-de-plan.md": `| Campo | Registro |
+| --- | --- |
+| Versión del plan |  |
+| Fecha |  |
+| Aprobado por |  |
+
+## Cambio realizado
+
+## Motivo
+
+## Efecto en tareas, horas o fechas
+
+## Tareas afectadas o creadas
+
+- #
+
+/label ~cambio-de-plan
+`,
+".gitlab/merge_request_templates/inspeccion.md": `Closes #
+
+## Revisión personal
+
+- [ ] El autor revisó su código con la lista de chequeo de la wiki antes de solicitar la inspección.
+
+## Inspección
+
+| Campo | Registro |
+| --- | --- |
+| Inspector 1 | @ |
+| Inspector 2 | @ |
+
+## Tamaño del cambio
+
+| Medida | Valor |
+| --- | --- |
+| Líneas agregadas (+) |  |
+| Líneas borradas (−) |  |
+
+## Defectos encontrados en la inspección
+
+- #
+
+<!-- Cada inspector registra su tiempo en este merge request: primera línea "Inspección", segunda línea "/spend 45m AAAA-MM-DD". -->
+`
+};
+
+const WIKI = [
+ {title:"Planteamiento del proyecto", content:`## Datos generales
+
+| Campo | Información |
+| --- | --- |
+| Nombre del proyecto |  |
+| Fecha de inicio del proyecto |  |
+| Fecha de entrega final | 8 de diciembre |
+| Documento de origen | Actividad evaluativa Construcción de una tienda virtual |
+
+## Objetivo del producto
+
+## Usuarios del producto
+
+| Tipo de usuario | Descripción | Qué necesita hacer con el producto | Requisitos relacionados |
+| --- | --- | --- | --- |
+|  |  |  |  |
+
+## Alcance
+
+### El proyecto incluye
+
+### El proyecto deja por fuera
+
+## Requisitos y criterios de aceptación
+
+| ID | Requisito | Origen | Criterio de aceptación |
+| --- | --- | --- | --- |
+| R01 |  |  |  |
+
+## Criterios de éxito del equipo
+
+| Criterio | Indicador o forma de medirlo | Meta | Responsable de seguimiento |
+| --- | --- | --- | --- |
+|  |  |  |  |
+
+## Entorno de trabajo y tecnologías
+
+| Elemento | Herramienta o tecnología elegida | Razón de la elección | Enlace |
+| --- | --- | --- | --- |
+| Interfaz de usuario (frontend) |  |  |  |
+| Lógica y datos (backend, base de datos) |  |  |  |
+| Repositorio de código y control de versiones | GitLab |  |  |
+| Tablero de tareas | GitLab |  |  |
+| Canal de comunicación del equipo |  |  |  |
+| Documentos compartidos | Wiki de GitLab |  |  |
+| Registro de tiempos | GitLab |  |  |
+`},
+ {title:"Equipo y roles", content:`## Integrantes
+
+| Nombre completo | Iniciales | Usuario de GitLab | Conocimientos y experiencia relevantes | Interés principal en el proyecto |
+| --- | --- | --- | --- | --- |
+|  |  | @ |  |  |
+
+## Asignación de roles
+
+| Rol TSPi | Titular | Suplente | Responsabilidades concretas en este proyecto | Evidencia que produce |
+| --- | --- | --- | --- | --- |
+| Líder de equipo |  |  |  |  |
+| Gerente de desarrollo |  |  |  |  |
+| Gerente de planeación |  |  |  |  |
+| Gerente de calidad y proceso |  |  |  |  |
+| Gerente de soporte |  |  |  |  |
+
+## Acuerdos de trabajo
+
+| Aspecto | Acuerdo del equipo |
+| --- | --- |
+| Canal principal de comunicación y tiempo de respuesta esperado |  |
+| Reuniones de equipo: día, hora, duración y modalidad |  |
+| Lugar donde se registran tareas, tiempos, acuerdos y evidencias | GitLab |
+| Revisión del trabajo y condiciones para dar una tarea por terminada |  |
+| Manejo de bloqueos, retrasos e incumplimientos |  |
+| Aprobación y registro de cambios al plan | Issue de cambio de plan |
+| Toma de decisiones cuando no hay consenso |  |
+
+## Disponibilidad semanal (horas de tarea)
+
+| Integrante | Semana 5 | Semana 6 | Semana 7 | Semana 8 | Total |
+| --- | --- | --- | --- | --- | --- |
+|  |  |  |  |  |  |
+| Total equipo |  |  |  |  |  |
+`},
+ {title:"Estrategia y proceso", content:`## Componentes del catálogo
+
+| Componente | Requisitos que atiende | Tamaño estimado (LOC) | Responsable |
+| --- | --- | --- | --- |
+|  |  |  |  |
+| Total |  |  |  |
+
+## Orden de construcción e integración
+
+## Proceso de desarrollo
+
+1. Cada tarea de código se trabaja en una rama creada desde su issue.
+2. El autor revisa su código con la lista de chequeo antes de solicitar la inspección.
+3. Dos compañeros inspeccionan el merge request y registran cada hallazgo como comentario.
+4. El autor registra los defectos, los corrige y solicita la verificación.
+5. Con la aprobación de los inspectores, el autor integra el merge request y la tarea se cierra.
+
+## Fases para el registro de tiempo
+
+${FASES}.
+
+## Reportes semanales por rol
+
+| Rol | Qué reporta en la reunión semanal |
+| --- | --- |
+| Líder de equipo |  |
+| Gerente de desarrollo |  |
+| Gerente de planeación |  |
+| Gerente de calidad y proceso |  |
+| Gerente de soporte |  |
+`},
+ {title:"Plan de calidad", content:`## Metas de calidad
+
+| Meta | Indicador | Valor esperado | Responsable |
+| --- | --- | --- | --- |
+| Densidad de defectos en pruebas | Defectos por KLOC | 5 o menos |  |
+| Tasa de revisión en inspecciones | LOC por hora | 150 o menos |  |
+|  |  |  |  |
+
+## Defectos estimados por fase
+
+| Fase | Defectos que se espera introducir | Defectos que se espera remover |
+| --- | --- | --- |
+| Diseño |  |  |
+| Revisión de diseño |  |  |
+| Implementación |  |  |
+| Revisión de código |  |  |
+| Inspección |  |  |
+| Pruebas |  |  |
+
+## Plan de pruebas
+
+| Requisito | Caso de prueba | Resultado esperado | Responsable |
+| --- | --- | --- | --- |
+| R01 |  |  |  |
+`},
+ {title:"Listas de chequeo", content:`## Revisión de diseño
+
+- [ ] Cada requisito asignado al componente tiene su diseño.
+- [ ] Los datos de entrada y salida están definidos.
+- [ ]
+
+## Revisión de código
+
+- [ ] El código cumple el estándar de codificación del equipo.
+- [ ] Los nombres de variables y funciones son claros y no se repiten.
+- [ ] Las validaciones de datos de entrada están completas.
+- [ ] Los mensajes al usuario son correctos.
+- [ ]
+
+<!-- Cada uno agrega los puntos de los defectos que comete con mayor frecuencia. -->
+`},
+ {title:"Postmortem y conclusiones", content:`## Plan frente a resultados
+
+| Medida | Planeado | Real | Diferencia |
+| --- | --- | --- | --- |
+| Horas de tarea |  |  |  |
+| Tamaño (LOC) |  |  |  |
+| Tareas terminadas |  |  |  |
+| Valor ganado (EV) |  |  |  |
+| Defectos |  |  |  |
+
+## Métricas de calidad
+
+| Métrica | Resultado | Meta |
+| --- | --- | --- |
+| Densidad de defectos (defectos por KLOC) |  |  |
+| Tasa de revisión (LOC por hora) |  |  |
+| Defectos por hora |  |  |
+| Rendimiento (yield) |  |  |
+
+## Reflexión del equipo
+
+### Qué pasó durante el desarrollo del proyecto
+
+### Cómo resolvieron las dificultades
+
+### Cómo fue el manejo de los roles
+
+### Si los reportes de trabajo reflejan el compromiso individual y del equipo
+
+## Conclusiones
+
+1.
+`}
+];
+
+/* ===================== Utilidades ===================== */
+const API = "https://gitlab.com/api/v4";
+let TOKEN = "", PID = "", PROJECT = null, MEMBERS = [], ROWS = [], RESP = [];
+const $ = id => document.getElementById(id);
+const enc = encodeURIComponent;
+function projPath(u){ try{ const x=new URL(u.trim()); return x.pathname.replace(/^\/+|\/+$/g,"").replace(/\/-\/.*$/,""); } catch(e){ return u.trim().replace(/^\/+|\/+$/g,""); } }
+async function api(method, path, body){
+  const opt = {method, headers:{"PRIVATE-TOKEN":TOKEN}};
+  if(body!==undefined){ opt.headers["Content-Type"]="application/json"; opt.body=JSON.stringify(body); }
+  const r = await fetch(API+path, opt);
+  let data=null; const t=await r.text(); try{ data=t?JSON.parse(t):null; }catch(e){ data=t; }
+  if(!r.ok){ const m = data && (data.message||data.error) ? JSON.stringify(data.message||data.error) : ("HTTP "+r.status); const err=new Error(m); err.status=r.status; throw err; }
+  return data;
+}
+async function getAll(path){
+  let page=1, out=[];
+  for(;;){ const sep=path.includes("?")?"&":"?"; const d=await api("GET", `${path}${sep}per_page=100&page=${page}`); out=out.concat(d); if(d.length<100) break; page++; }
+  return out;
+}
+function log(boxId, cls, txt){ const b=$(boxId); b.style.display="block"; const d=document.createElement("div"); d.className=cls; d.textContent=txt; b.appendChild(d); b.scrollTop=b.scrollHeight; }
+function msg(id, cls, html){ $(id).innerHTML = `<div class="msg ${cls}">${html}</div>`; }
+function escHtml(s){ return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+
+/* ===================== Paso 1 ===================== */
+$("bConn").onclick = async () => {
+  TOKEN = $("tk").value.trim(); const p = projPath($("pr").value);
+  if(!TOKEN || !p){ msg("connMsg","bad","Escriban el token y la dirección del proyecto."); return; }
+  $("bConn").disabled = true; msg("connMsg","warn","Conectando…");
+  try{
+    const me = await api("GET","/user");
+    PROJECT = await api("GET","/projects/"+enc(p));
+    PID = PROJECT.id;
+    MEMBERS = (await getAll(`/projects/${PID}/members/all`)).filter(m=>m.state==="active" && !/bot/i.test(m.username));
+    const lvl = (PROJECT.permissions && Math.max((PROJECT.permissions.project_access||{}).access_level||0,(PROJECT.permissions.group_access||{}).access_level||0)) || 0;
+    let warn = "";
+    if(lvl < 40) warn = "<br>Su rol en el proyecto es menor que Maintainer. Pidan al creador del proyecto que realice la preparación o que les asigne el rol Maintainer.";
+    msg("connMsg", lvl<40?"warn":"ok", `Conectado como <b>${escHtml(me.name)}</b> (@${escHtml(me.username)}) al proyecto <b>${escHtml(PROJECT.name_with_namespace)}</b>. Integrantes encontrados: ${MEMBERS.length}.${warn}`);
+    $("s2").classList.remove("locked"); $("s3").classList.remove("locked");
+  }catch(e){
+    msg("connMsg","bad", e.status===401 ? "GitLab no reconoce el token. Verifiquen que esté completo y que tenga el permiso api." : e.status===404 ? "No se encontró el proyecto. Verifiquen la dirección y que su usuario sea integrante del proyecto." : "No fue posible conectar: "+escHtml(e.message));
+  }finally{ $("bConn").disabled = false; }
+};
+
+/* ===================== Paso 2 ===================== */
+$("bSetup").onclick = async () => {
+  const L="logSetup"; $(L).innerHTML=""; $("bSetup").disabled=true; let errors=0;
+  try{
+    // Etiquetas
+    const existing = new Set((await getAll(`/projects/${PID}/labels?include_ancestor_groups=true`)).map(l=>l.name));
+    for(const [name,color,description] of LABELS){
+      if(existing.has(name)){ log(L,"skip","Etiqueta existente: "+name); continue; }
+      try{ await api("POST",`/projects/${PID}/labels`,{name,color,description}); log(L,"ok","Etiqueta creada: "+name); }
+      catch(e){ errors++; log(L,"bad",`Etiqueta ${name}: ${e.message}`); }
+    }
+    // Hitos
+    const ms = new Set((await getAll(`/projects/${PID}/milestones`)).map(m=>m.title));
+    for(const m of MILESTONES){
+      if(ms.has(m.title)){ log(L,"skip","Hito existente: "+m.title); continue; }
+      try{ await api("POST",`/projects/${PID}/milestones`,{title:m.title,start_date:m.start,due_date:m.due,description:m.description}); log(L,"ok",`Hito creado: ${m.title} (${m.start} a ${m.due})`); }
+      catch(e){ errors++; log(L,"bad",`Hito ${m.title}: ${e.message}`); }
+    }
+    // Plantillas
+    const branch = PROJECT.default_branch || "main";
+    const empty = !PROJECT.default_branch;
+    const actions = [];
+    for(const [path,content] of Object.entries(TEMPLATES)){
+      let exists=false;
+      if(!empty){ try{ await api("GET",`/projects/${PID}/repository/files/${enc(path)}?ref=${enc(branch)}`); exists=true; }catch(e){ if(e.status!==404) throw e; } }
+      if(exists) log(L,"skip","Plantilla existente: "+path); else actions.push({action:"create",file_path:path,content});
+    }
+    if(actions.length){
+      try{ await api("POST",`/projects/${PID}/repository/commits`,{branch,commit_message:"Agregar plantillas del proyecto TSP",actions}); actions.forEach(a=>log(L,"ok","Plantilla creada: "+a.file_path)); }
+      catch(e){ errors++; log(L,"bad","Plantillas: "+e.message+(e.status===403?" (la rama principal está protegida; se requiere rol Maintainer)":"")); }
+    }
+    // Wiki
+    let pages=[];
+    try{ pages = await api("GET",`/projects/${PID}/wikis`); }catch(e){ if(e.status===404 || e.status===403){ log(L,"bad","La wiki está desactivada. Actívenla en Configuración > General > Visibilidad, funciones del proyecto, permisos (Settings > General > Visibility, project features, permissions)."); errors++; pages=null; } else throw e; }
+    if(pages){
+      const titles = new Set(pages.map(p=>p.title.toLowerCase()));
+      for(const w of WIKI){
+        if(titles.has(w.title.toLowerCase())){ log(L,"skip","Página de wiki existente: "+w.title); continue; }
+        try{ await api("POST",`/projects/${PID}/wikis`,{title:w.title,content:w.content,format:"markdown"}); log(L,"ok","Página de wiki creada: "+w.title); }
+        catch(e){ errors++; log(L,"bad",`Wiki ${w.title}: ${e.message}`); }
+      }
+    }
+    PROJECT = await api("GET","/projects/"+PID);
+    msg("setupMsg", errors?"warn":"ok", errors ? `La preparación terminó con ${errors} elemento(s) sin crear. Revisen los mensajes en rojo y vuelvan a ejecutar este paso.` : "El proyecto quedó preparado. Continúen con el traslado de las tareas.");
+  }catch(e){ msg("setupMsg","bad","La preparación se detuvo: "+escHtml(e.message)); }
+  finally{ $("bSetup").disabled=false; }
+};
+
+/* ===================== Paso 3 ===================== */
+function parseHours(s){ const v=parseFloat(String(s).replace(",",".").replace(/[^\d.]/g,"")); return isNaN(v)?0:v; }
+function parseWeek(s){ const m=String(s).match(/\d+/); return m?parseInt(m[0],10):null; }
+function duration(h){ const tot=Math.round(h*60); const hh=Math.floor(tot/60), mm=tot%60; return (hh?hh+"h":"")+(mm?mm+"m":"") || "0m"; }
+function splitRows(text){
+  return text.replace(/\r/g,"").split("\n").map(l=>l.split("\t").map(c=>c.trim())).filter(r=>r.some(c=>c));
+}
+$("bParse").onclick = () => {
+  const raw = splitRows($("tasks").value);
+  ROWS = [];
+  const issues = [];
+  raw.forEach((r,i)=>{
+    if(i===0 && /tarea/i.test(r[1]||"") && /id/i.test(r[0]||"")) return;
+    if(r.length<7){ issues.push(`Fila ${i+1}: tiene ${r.length} columnas`); return; }
+    const [id,tarea,req,fase,resp,horas,semana,dep,evid] = r.concat(Array(9).fill("")).slice(0,9);
+    if(!tarea){ issues.push(`Fila ${i+1}: sin nombre de tarea`); return; }
+    ROWS.push({id,tarea,req,fase,resp,horas:parseHours(horas),semana:parseWeek(semana),semRaw:semana,dep,evid});
+  });
+  if(!ROWS.length){ msg("parseMsg","bad","No se reconocieron tareas. Peguen la tabla copiada desde Word o Excel, con sus columnas separadas."); $("mapBox").style.display="none"; return; }
+  msg("parseMsg", issues.length?"warn":"ok", `Tareas reconocidas: ${ROWS.length}.` + (issues.length? "<br>Filas omitidas: "+escHtml(issues.join("; ")) : ""));
+  RESP = [...new Set(ROWS.map(r=>r.resp).filter(Boolean))];
+  const opts = `<option value="">Sin asignar</option>` + MEMBERS.map(m=>`<option value="${m.id}">${escHtml(m.name)} (@${escHtml(m.username)})</option>`).join("");
+  $("map").innerHTML = RESP.map((r,i)=>`<div>${escHtml(r)}</div><select id="rm${i}">${opts}</select>`).join("");
+  RESP.forEach((r,i)=>{ // sugerencia automática por iniciales o nombre
+    const low=r.toLowerCase(); const m = MEMBERS.find(x=>{ const ini=x.name.split(/\s+/).map(w=>w[0]).join("").toLowerCase(); return ini===low || x.username.toLowerCase()===low.replace("@","") || x.name.toLowerCase().includes(low); });
+    if(m) $("rm"+i).value = m.id;
+  });
+  renderPreview();
+  $("mapBox").style.display="block";
+};
+$("past").onchange = renderPreview;
+function renderPreview(){
+  const past=$("past").checked;
+  const rows = ROWS.map(r=>{
+    let destino;
+    if(r.semana && r.semana>=FIRST_WEEK && r.semana<=8) destino = "Semana "+r.semana;
+    else if(r.semana && r.semana<FIRST_WEEK) destino = past ? "Cerrada, plan anterior" : "No se crea";
+    else destino = "Sin hito";
+    return `<tr><td>${escHtml(r.id)}</td><td>${escHtml(r.tarea)}</td><td>${escHtml(r.fase)}</td><td>${escHtml(r.resp)}</td><td>${r.horas?duration(r.horas):""}</td><td>${destino}</td></tr>`;
+  }).join("");
+  $("preview").innerHTML = `<table><thead><tr><th>ID</th><th>Tarea</th><th>Fase</th><th>Responsable</th><th>Estimación</th><th>Destino</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+$("bCreate").onclick = async () => {
+  const L="logTasks"; $(L).innerHTML=""; $("bCreate").disabled=true; let ok=0, err=0, skip=0;
+  try{
+    const ms = await getAll(`/projects/${PID}/milestones`);
+    const msId = t => (ms.find(m=>m.title===t)||{}).id;
+    const labels = new Set((await getAll(`/projects/${PID}/labels?include_ancestor_groups=true`)).map(l=>l.name));
+    if(!labels.has("tarea")){ msg("tasksMsg","bad","Primero ejecuten el paso Preparar el proyecto."); return; }
+    const existing = new Set((await getAll(`/projects/${PID}/issues?labels=tarea&state=all`)).map(i=>i.title));
+    const respMap = {}; RESP.forEach((r,i)=>respMap[r]=$("rm"+i).value);
+    const past=$("past").checked;
+    for(const r of ROWS){
+      const isPast = r.semana && r.semana<FIRST_WEEK;
+      if(isPast && !past){ skip++; continue; }
+      const title = (r.id? `Tarea ${r.id}: ` : "Tarea: ") + r.tarea;
+      if(existing.has(title)){ log(L,"skip","Ya existe: "+title); skip++; continue; }
+      const description = `**ID en el plan:** ${r.id}\n**Requisito:** ${r.req}\n**Fase planeada:** ${r.fase}\n**Depende de:** ${r.dep}\n**Evidencia de terminación:** ${r.evid}\n**Semana planeada en el plan inicial:** ${r.semRaw}\n**Tamaño estimado (LOC):** \n**Tamaño real (LOC):** \n\n## Descripción\n\n${SPEND_HELP}\n`;
+      const body = {title, description, labels: isPast ? "tarea,plan-anterior" : "tarea"};
+      const mid = (!isPast && r.semana) ? msId("Semana "+r.semana) : null; if(mid) body.milestone_id = mid;
+      const a = respMap[r.resp]; if(a) body.assignee_ids=[parseInt(a,10)];
+      try{
+        const is = await api("POST",`/projects/${PID}/issues`,body);
+        if(r.horas) await api("POST",`/projects/${PID}/issues/${is.iid}/time_estimate?duration=${enc(duration(r.horas))}`);
+        if(isPast) await api("PUT",`/projects/${PID}/issues/${is.iid}`,{state_event:"close"});
+        ok++; log(L,"ok",`Creada #${is.iid}: ${title}`);
+      }catch(e){ err++; log(L,"bad",`${title}: ${e.message}`); }
+    }
+    msg("tasksMsg", err?"warn":"ok", `Tareas creadas: ${ok}. Omitidas: ${skip}. Con error: ${err}.` + (err? " Corrijan la causa indicada y vuelvan a ejecutar; las tareas ya creadas no se duplican." : " Revísenlas en Planificación &gt; Elementos de trabajo (Plan &gt; Work items)."));
+  }catch(e){ msg("tasksMsg","bad","El traslado se detuvo: "+escHtml(e.message)); }
+  finally{ $("bCreate").disabled=false; }
+};
+</script>
+</body>
+</html>

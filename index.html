@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Proyecto TSP en GitLab · Catálogo virtual</title>
+<style>
+:root{
+  --bg:#f6f5f2; --panel:#ffffff; --ink:#1d2430; --muted:#5b6575; --line:#e3e1dc;
+  --accent:#1f4e79; --accent-soft:#e7eef6; --accent2:#7a4b12; --accent2-soft:#f6eee2;
+  --ok:#2e6b3f; --ok-soft:#e5f0e8; --code:#f1efe9;
+  --radius:10px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+a{color:var(--accent)}
+code{background:var(--code);padding:.1em .35em;border-radius:4px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+header.top{background:var(--accent);color:#fff;padding:2.2rem 1.5rem 1.8rem}
+header.top .wrap{max-width:1180px;margin:0 auto}
+header.top h1{margin:0 0 .4rem;font-size:1.9rem;line-height:1.25;font-weight:650}
+header.top p{margin:0;max-width:760px;color:#dbe6f2}
+.layout{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:240px 1fr;gap:2rem;padding:1.5rem}
+nav.side{position:sticky;top:1rem;align-self:start;font-size:.93rem}
+nav.side ul{list-style:none;margin:0;padding:0}
+nav.side li a{display:block;padding:.38rem .6rem;border-radius:6px;color:var(--ink);text-decoration:none}
+nav.side li a:hover,nav.side li a.active{background:var(--accent-soft);color:var(--accent)}
+nav.side .search{width:100%;padding:.5rem .6rem;border:1px solid var(--line);border-radius:6px;margin-bottom:.8rem;font:inherit;background:#fff}
+main section{margin-bottom:3rem;scroll-margin-top:1rem}
+main h2{font-size:1.5rem;margin:0 0 .5rem;line-height:1.3}
+main h2 + p.lead{margin-top:0;color:var(--muted);max-width:780px}
+.cards{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(400px,1fr));align-items:start}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:1.1rem 1.25rem}
+.card h3{margin:0 0 .5rem;font-size:1.12rem;line-height:1.35}
+.card .tag{display:inline-block;font-size:.75rem;font-weight:600;letter-spacing:.02em;color:var(--accent2);background:var(--accent2-soft);border-radius:999px;padding:.1rem .55rem;margin-bottom:.45rem}
+.card .label{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:650;margin:.85rem 0 .25rem}
+.card p{margin:.2rem 0}
+.card ol,.card ul{margin:.2rem 0;padding-left:1.25rem}
+.card li{margin:.15rem 0}
+.concept{background:var(--accent-soft);border-left:3px solid var(--accent);padding:.55rem .8rem;border-radius:0 6px 6px 0;margin-top:.85rem}
+.concept .label{margin-top:0;color:var(--accent)}
+.refs{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.7rem}
+.ref{font-size:.8rem;background:#f3f2ee;border:1px solid var(--line);border-radius:999px;padding:.15rem .6rem;color:#38404d}
+.timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:.4rem;margin:1rem 0 .5rem}
+.wk{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:.6rem .55rem;font-size:.85rem;min-height:120px}
+.wk b{display:block;font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.25rem}
+.wk.del{border-color:var(--accent);background:var(--accent-soft)}
+.wk.del .d{display:inline-block;margin-top:.35rem;font-weight:650;color:var(--accent)}
+table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;font-size:.93rem}
+th,td{text-align:left;vertical-align:top;padding:.55rem .75rem;border-bottom:1px solid var(--line)}
+th{background:#efede8;font-weight:650;font-size:.85rem}
+tr:last-child td{border-bottom:none}
+.tablewrap{overflow-x:auto;margin:.6rem 0 1.4rem}
+h3.sub{font-size:1.1rem;margin:1.6rem 0 .3rem}
+.check{list-style:none;padding:0;margin:.4rem 0}
+.check li{display:flex;gap:.6rem;align-items:flex-start;padding:.4rem 0;border-bottom:1px dashed var(--line)}
+.check li:last-child{border-bottom:none}
+.check input{margin-top:.35rem;width:1.05rem;height:1.05rem;accent-color:var(--ok);flex:none}
+.check label{cursor:pointer}
+.check input:checked + label{color:var(--muted)}
+.progress{font-size:.85rem;color:var(--ok);background:var(--ok-soft);display:inline-block;padding:.1rem .6rem;border-radius:999px;margin-left:.5rem;font-weight:600}
+.note{background:var(--accent2-soft);border:1px solid #ead9c0;border-radius:8px;padding:.7rem .9rem;margin:.8rem 0;font-size:.95rem}
+.legend{font-size:.88rem;color:var(--muted);margin:.2rem 0 1rem}
+pre{background:var(--code);padding:.7rem .9rem;border-radius:8px;overflow-x:auto;font-size:.88rem;margin:.4rem 0}
+.hidden{display:none!important}
+.btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;padding:.55rem 1rem;border-radius:8px;font-weight:600;margin-top:.6rem}
+footer{max-width:1180px;margin:0 auto;padding:1rem 1.5rem 3rem;color:var(--muted);font-size:.85rem}
+@media (max-width:900px){
+  .cards{grid-template-columns:1fr}
+  .layout{grid-template-columns:1fr;gap:1rem}
+  nav.side{position:static}
+  nav.side ul{display:flex;flex-wrap:wrap;gap:.2rem}
+  .timeline{grid-template-columns:repeat(4,1fr)}
+}
+@media (max-width:520px){.timeline{grid-template-columns:repeat(2,1fr)}}
+#temas td:nth-child(2){white-space:nowrap}
+@media print{nav.side,.search{display:none}.layout{display:block}.card{break-inside:avoid}}
+
+.wk.past{background:#efede8;color:var(--muted)}
+.wk .d{display:inline-block;margin-top:.35rem;font-weight:650;color:var(--accent)}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <h1>Proyecto TSP en GitLab: catálogo virtual</h1>
+  <p>Aquí encuentran, paso a paso, lo que van a hacer desde el relanzamiento en GitLab hasta la Entrega 3, cómo hacerlo y en qué parte del curso se explica cada actividad.</p>
+</div></header>
+
+<div class="layout">
+<nav class="side" aria-label="Contenido">
+  <input class="search" id="q" type="search" placeholder="Buscar actividad o concepto" aria-label="Buscar">
+  <ul id="toc">
+    <li><a href="#recorrido">Recorrido</a></li>
+    <li><a href="#relanzamiento">Relanzamiento en GitLab</a></li>
+    <li><a href="#semanal">Semana a semana</a></li>
+    <li><a href="#entregas">Entregas 2 y 3</a></li>
+    <li><a href="#convenciones">Convenciones del proyecto</a></li>
+    <li><a href="#equivalencias">Conceptos del curso en GitLab</a></li>
+    <li><a href="#evidencias">Paquete de evidencias</a></li>
+  </ul>
+</nav>
+
+<main>
+<section id="recorrido">
+  <h2>Recorrido</h2>
+  <p class="lead">En la Entrega 1 ustedes hicieron el lanzamiento del proyecto con el formato Plan de lanzamiento. Desde la semana 5 van a trabajar en GitLab: allí trasladan su plan, lo ajustan a las semanas que quedan y registran todo su trabajo. En TSP, ajustar un plan existente a una situación nueva se llama relanzamiento, y es lo primero que van a hacer.</p>
+  <div class="timeline" id="tl"></div>
+  <p class="legend">Referencias: <b>Lectura</b> corresponde a las lecturas fundamentales de cada escenario; <b>Escenario</b> corresponde a los materiales de apoyo y actividades de refuerzo; <b>Actividad evaluativa</b> corresponde a las instrucciones de la entrega Construcción de una tienda virtual. El texto completo de cada referencia está en el aula virtual.</p>
+  <p class="legend">GitLab muestra los menús en el idioma de cada cuenta. Por eso aquí encuentran los nombres en español y, entre paréntesis, en inglés.</p>
+</section>
+
+<section id="relanzamiento">
+  <h2>Relanzamiento en GitLab</h2>
+  <p class="lead">En la semana 5, del 16 al 22 de noviembre, van a preparar su proyecto en GitLab y a hacer el relanzamiento en dos sesiones de trabajo. Cada sesión reúne varios temas del relanzamiento y la registran en un acta.</p>
+  <div class="cards" data-group="relanzamiento"></div>
+  <h3 class="sub">Temas del relanzamiento</h3>
+  <p class="legend">La Lectura 6, sección 7, describe el relanzamiento en siete reuniones más un postmortem, sin presentación a la gerencia. Para este proyecto las agrupamos en dos sesiones. La tabla les muestra qué tema trabajan en cada sesión, dónde lo dejan en GitLab y qué parte de su Plan de lanzamiento retoman.</p>
+  <div class="tablewrap"><table id="temas"><thead><tr><th>Tema del relanzamiento</th><th>Sesión</th><th>Dónde queda en GitLab</th><th>Sección del Plan de lanzamiento que se retoma</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section id="semanal">
+  <h2>Semana a semana</h2>
+  <p class="lead">De la semana 5 a la 8 esta es su rutina: registran su trabajo mientras lo hacen, integran el código con inspección, registran los defectos y se reúnen cada semana para revisar cómo van.</p>
+  <div class="cards" data-group="semanal"></div>
+</section>
+
+<section id="entregas">
+  <h2>Entregas 2 y 3</h2>
+  <p class="lead">Cada entrega se compone de dos archivos, un PDF y un Excel, que generan con el paquete de evidencias. Antes de generarlos, recorran la lista de su entrega y verifiquen que el proyecto tiene todo. Las marcas quedan guardadas en su navegador.</p>
+  <div id="checklists"></div>
+</section>
+
+<section id="convenciones">
+  <h2>Convenciones del proyecto</h2>
+  <p class="lead">El paquete de evidencias calcula sus tiempos, su valor ganado y sus métricas de calidad a partir de estas convenciones. Úsenlas siempre de la misma forma para que sus datos queden completos.</p>
+  <div id="conv"></div>
+</section>
+
+<section id="equivalencias">
+  <h2>Conceptos del curso en GitLab</h2>
+  <p class="lead">Esta tabla les muestra en qué parte de GitLab trabajan cada concepto de TSP que estudian en el curso.</p>
+  <div class="tablewrap"><table id="eq"><thead><tr><th>Concepto del curso</th><th>Dónde se trabaja</th><th>Referencia</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section id="evidencias">
+  <h2>Paquete de evidencias</h2>
+  <p class="lead">El generador de evidencias lee su proyecto en GitLab y les produce los dos archivos de cada entrega: un PDF para leer y un Excel con los registros completos.</p>
+  <div class="cards">
+    <article class="card">
+      <h3>Contenido del paquete</h3>
+      <div class="label">Archivo PDF</div>
+      <ul>
+        <li>Quién sube la entrega, quiénes participaron y quiénes no participaron.</li>
+        <li>Páginas de la wiki.</li>
+        <li>Actas del relanzamiento y de las reuniones semanales, con los reportes de cada rol.</li>
+        <li>Riesgos y cambios de plan.</li>
+        <li>Resumen de indicadores: horas planeadas y reales, valor planeado (PV), valor ganado (EV) y métricas de calidad.</li>
+        <li>Línea de tiempo de hitos, tareas cerradas y cambios de plan.</li>
+      </ul>
+      <div class="label">Archivo Excel</div>
+      <ul>
+        <li><b>Registro de tiempo:</b> cada entrada con integrante, fecha, tarea, fase y duración.</li>
+        <li><b>Tareas:</b> responsable, semana, tiempo estimado y real, PV y EV.</li>
+        <li><b>Defectos:</b> tipo, fase de inyección, fase de remoción, quién lo encontró y tiempo de corrección.</li>
+        <li><b>Tamaño:</b> líneas agregadas y borradas por merge request y por semana.</li>
+        <li><b>Resumen semanal</b> por integrante y por equipo.</li>
+      </ul>
+      <div class="concept"><div class="label">Lo que dice el curso</div><p>La herramienta de soporte resume sus datos de tiempo, tamaño, defectos y tareas en informes individuales y del equipo. Con esa misma información reviso su avance en cada entrega, como lo hace el coach en los puntos de control.</p></div>
+      <div class="refs"><span class="ref">Lectura 4, sección 4</span><span class="ref">Lectura 6, sección 5</span></div>
+    </article>
+    <article class="card">
+      <h3>Generar el paquete</h3>
+      <ol>
+        <li>Abran el generador de evidencias.</li>
+        <li>Peguen el token personal con el permiso <code>api</code> que usaron en el configurador, o uno nuevo con el permiso <code>read_api</code>, y la dirección del proyecto.</li>
+        <li>Escriban quién sube la entrega, quiénes participaron y quiénes no participaron.</li>
+        <li>Seleccionen la entrega y generen los archivos. El token solo se usa en su navegador para consultar GitLab.</li>
+        <li>Revisen los dos archivos con el equipo y súbanlos a la tarea del campus.</li>
+      </ol>
+      <a class="btn" href="generador.html">Abrir el generador de evidencias</a>
+    </article>
+  </div>
+</section>
+</main>
+</div>
+<footer>Las referencias remiten al material del curso Desarrollo de Software en Equipo TSP disponible en el aula virtual.</footer>
+
+<script>
+const WEEKS = [
+  {w:"Semanas 1 a 4", t:"Conformación del equipo y lanzamiento con el formato Plan de lanzamiento.", d:"Entrega 1", past:true},
+  {w:"Semana 5", t:"16 al 22 de noviembre. Relanzamiento en GitLab: sesiones 1 y 2. Primera reunión semanal.", d:"Entrega 2: 21 al 24 de noviembre"},
+  {w:"Semana 6", t:"23 al 29 de noviembre. Desarrollo, inspecciones, pruebas y reunión semanal."},
+  {w:"Semana 7", t:"30 de noviembre al 6 de diciembre. Cierre del catálogo, postmortem y video."},
+  {w:"Semana 8", t:"7 y 8 de diciembre. Revisión final del paquete.", d:"Entrega 3: 8 de diciembre"}
+];
+
+const CARDS = {
+relanzamiento: [
+ {tag:"Cada uno", t:"Cuenta de GitLab",
+  q:"Cada uno de ustedes crea su cuenta gratuita en gitlab.com y escribe su nombre completo en el perfil. Así, cada registro que hagan queda asociado a su nombre.",
+  s:["Ingresen a <b>gitlab.com</b>, seleccionen <b>Registrarse (Register)</b> y confirmen su correo electrónico.",
+     "En su avatar, seleccionen <b>Editar perfil (Edit profile)</b> y escriban su nombre completo en <b>Nombre completo (Full name)</b>."],
+  c:"Recuerden que un equipo TSP tiene integrantes claramente definidos y que cada uno registra sus propios datos de trabajo.",
+  r:["Lectura 2, sección 5","Lectura 3, sección 2.1"]},
+ {tag:"Uno de ustedes", t:"Grupo y proyecto del equipo",
+  q:"Uno de ustedes crea el grupo privado del equipo, invita a los demás y crea dentro del grupo el proyecto del catálogo. Tengan en cuenta que un grupo privado gratuito admite máximo cinco integrantes.",
+  s:["Seleccionen <b>+</b> &gt; <b>Nuevo grupo (New group)</b> &gt; <b>Crear grupo (Create group)</b>, con el nombre del equipo y visibilidad <b>Privado (Private)</b>.",
+     "En el grupo, vayan a <b>Gestionar (Manage)</b> &gt; <b>Miembros (Members)</b> &gt; <b>Invitar miembros (Invite members)</b> e inviten a cada integrante con el rol <b>Maintainer</b>.",
+     "En el grupo, seleccionen <b>Nuevo proyecto (New project)</b> &gt; <b>Crear proyecto en blanco (Create blank project)</b>, con el nombre del catálogo, visibilidad <b>Privado (Private)</b> y la opción de inicializar el repositorio con un README."],
+  c:"Como vieron en la Lectura 2, en un equipo sólido no hay dudas sobre quién pertenece a él. El tamaño y el alcance del equipo se definen al conformarlo.",
+  r:["Lectura 2, sección 5","Lectura 3, sección 1.4","Escenario 3, material de apoyo, paso 8"]},
+ {tag:"Uno de ustedes", t:"Preparar el proyecto con el configurador",
+  q:"Con el configurador preparan el proyecto: crea las etiquetas, los hitos de las semanas 5 a 8, las plantillas y las páginas de la wiki. También les permite pasar a GitLab la lista de tareas de su Plan de lanzamiento.",
+  s:["Creen un token personal: avatar &gt; <b>Editar perfil (Edit profile)</b> &gt; <b>Acceso (Access)</b> &gt; <b>Tokens de acceso personal (Personal access tokens)</b> &gt; <b>Agregar nuevo token (Add new token)</b>, con el permiso <code>api</code> y vencimiento posterior al 8 de diciembre. Copien el token: GitLab lo muestra una sola vez y es personal.",
+     "Abran el <a href=\"configurador.html\">configurador</a>, peguen el token y la dirección del proyecto, y seleccionen <b>Conectar</b>.",
+     "Seleccionen <b>Preparar el proyecto</b>. El traslado de las tareas se hace en la sesión 1 del relanzamiento."],
+  c:"La Lectura 4 explica que TSP necesita una herramienta de soporte configurada para todo el equipo. GitLab cumple ese papel, y si siguen el proceso tal como está definido, sus datos serán confiables.",
+  r:["Lectura 4, sección 4","Lectura 1, sección 3.1"]},
+ {tag:"Cada uno", t:"Herramientas de desarrollo",
+  q:"Cada uno instala Git y un editor de código, y clona el repositorio del proyecto. El gerente de soporte verifica que todos tengan el entorno funcionando.",
+  s:["Instalen Git desde <b>git-scm.com</b> y un editor de código, por ejemplo Visual Studio Code.",
+     "Configuren Git con el mismo nombre y correo de su cuenta de GitLab:<pre>git config --global user.name \"Nombre Apellido\"\ngit config --global user.email \"correo@ejemplo.com\"</pre>",
+     "En el proyecto, seleccionen <b>Código (Code)</b> &gt; <b>Clonar con HTTPS (Clone with HTTPS)</b>, copien la dirección y ejecuten <code>git clone</code> con ella."],
+  c:"Todos deben tener las herramientas adecuadas y saber usarlas. Recuerden que el gerente de soporte responde por las herramientas, el repositorio, el control de versiones y la gestión de cambios.",
+  r:["Lectura 5, sección 2","Lectura 3, sección 2.2"]},
+ {tag:"Sesión 1 · Todos", t:"Estado del proyecto y plan de las semanas 5 a 8",
+  q:"En esta sesión revisan cómo va el proyecto frente al plan de la Entrega 1, confirman los roles y las metas, actualizan la estrategia y vuelven a planear las tareas de las semanas 5 a 8 según la disponibilidad real de cada uno.",
+  s:["Copien en la wiki <b>Planteamiento del proyecto</b> el contenido de la sección 1 del Plan de lanzamiento y actualícenlo.",
+     "Copien en la wiki <b>Equipo y roles</b> el contenido de la sección 2, agreguen el usuario de GitLab de cada integrante y registren la disponibilidad de las semanas 5 a 8.",
+     "Diligencien la wiki <b>Estrategia y proceso</b>: componentes del catálogo, orden de construcción e integración, y qué reporta cada rol en la reunión semanal.",
+     "En la tabla 3.2 del Plan de lanzamiento, actualicen la semana de las tareas pendientes y agreguen las tareas nuevas. Luego péguenla en el paso <b>Trasladar las tareas</b> del <a href=\"configurador.html\">configurador</a>.",
+     "Verifiquen la carga de cada integrante por semana: en <b>Planificación (Plan)</b> &gt; <b>Elementos de trabajo (Work items)</b>, filtren por responsable y por hito.",
+     "Registren el acta con la plantilla <code>acta-de-relanzamiento</code>. Título: <code>Relanzamiento: sesión 1 - estado y plan</code>, hito Semana 5."],
+  c:"El relanzamiento ajusta un plan que ya existe a una situación nueva, que es justo lo que están haciendo al pasar a GitLab. En él revisan el estado y los objetivos, los roles y las metas, la estrategia, el plan general y los planes individuales.",
+  r:["Lectura 6, sección 7","Lectura 6, sección 6.3","Lectura 5, secciones 4.4 y 4.6","Actividad evaluativa, Entrega 2"]},
+ {tag:"Sesión 2 · Todos", t:"Calidad y riesgos",
+  q:"En esta sesión definen su plan de calidad, preparan las listas de chequeo para las revisiones, identifican los riesgos de las semanas que quedan y evalúan cómo les fue con el relanzamiento.",
+  s:["Diligencien la wiki <b>Plan de calidad</b>: metas de calidad, defectos estimados por fase y plan de pruebas a partir de los criterios de aceptación.",
+     "Diligencien la wiki <b>Listas de chequeo</b> con los puntos de revisión de diseño y de código.",
+     "Registren cada riesgo con la plantilla <code>riesgo</code>, sus etiquetas de impacto y probabilidad, y el responsable de seguimiento como <b>Asignado (Assignee)</b>.",
+     "Registren el acta con la plantilla <code>acta-de-relanzamiento</code>, incluido el postmortem del relanzamiento. Título: <code>Relanzamiento: sesión 2 - calidad y riesgos</code>, hito Semana 5."],
+  c:"En el plan de calidad estiman cuántos defectos se introducen y cuántos se remueven en cada fase. Los riesgos los priorizan por impacto y probabilidad, y cada uno necesita un responsable de seguimiento.",
+  r:["Lectura 6, sección 7","Lectura 5, secciones 4.5 y 4.7","Lectura 8, secciones 1 y 2.1"]},
+ {tag:"Líder de equipo", t:"Versión 2.0 del plan",
+  q:"El paso a GitLab es un cambio de plan, y lo registran a continuación del historial de versiones de su Plan de lanzamiento. De aquí en adelante, cada cambio al plan lo registran como un issue de cambio de plan.",
+  s:["Creen un issue con la plantilla <code>cambio-de-plan</code>. Título: <code>Cambio: adopción de GitLab como herramienta de soporte</code>.",
+     "Registren la versión 2.0, el motivo, el efecto en tareas, horas y fechas, y los integrantes que lo aprobaron."],
+  c:"TSP es un proceso iterativo: los planes se actualizan en cada ciclo. Por eso en la Entrega 2 les pido reportar los cambios del calendario y lo que realmente está pasando en el equipo.",
+  r:["Lectura 2, sección 2","Lectura 6, sección 6","Actividad evaluativa, Entrega 2"]}
+],
+semanal: [
+ {t:"Registro de tiempo",
+  q:"Registren el tiempo de cada tarea el mismo día en que trabajan, con la fase y la fecha. Cuenten solo el tiempo efectivo en la tarea, sin interrupciones. El tiempo de las reuniones lo registra cada participante en el issue del acta, con la fase Gestión.",
+  s:["En el issue, escriban un comentario con la fase en la primera línea y el tiempo en la segunda:<pre>Implementación\n/spend 1h 30m 2026-11-17</pre>",
+     "Usen solo horas y minutos (<code>h</code>, <code>m</code>). La fecha va en formato año-mes-día y no puede ser futura.",
+     "Las fases válidas están en <a href=\"#convenciones\">Convenciones del proyecto</a>."],
+  c:"En TSP el tiempo se registra mientras se trabaja, y el tiempo de tarea descuenta las interrupciones. Su registro personal es la base de su propio plan y del seguimiento de todo el equipo.",
+  r:["Lectura 2, sección 3","Lectura 1, sección 4.4","Actividad evaluativa, Entrega 2","Escenario 1, material de apoyo, PSP0"]},
+ {t:"Ramas y merge requests",
+  q:"Desarrollen cada tarea de código en su propia rama e intégrenla a la rama principal mediante un merge request.",
+  s:["En el issue de la tarea, seleccionen <b>Crear solicitud de fusión (Create merge request)</b>. GitLab crea la rama y el merge request vinculados a la tarea.",
+     "Trabajen en esa rama: <code>git fetch</code>, <code>git checkout nombre-de-la-rama</code>, commits y <code>git push</code>.",
+     "En la descripción del merge request, elijan la plantilla <code>inspeccion</code>."],
+  c:"La gestión de la configuración conserva las versiones de cada elemento. Con el historial de Git pueden saber quién introdujo un defecto y cuándo.",
+  r:["Lectura 3, sección 2.2","Lectura 8, sección 3"]},
+ {t:"Revisión personal",
+  q:"Antes de pedir la inspección, revisen su propio código con la lista de chequeo del equipo y registren cada defecto que encuentren.",
+  s:["Usen la wiki <b>Listas de chequeo</b>.",
+     "Registren el tiempo en la tarea con la fase <code>Revisión de código</code>.",
+     "Registren cada defecto encontrado con la etiqueta <code>removido: revisión de código</code>."],
+  c:"La revisión personal va antes de cualquier inspección, y la lista de chequeo se ajusta a los defectos que cada uno comete con más frecuencia.",
+  r:["Lectura 8, sección 2.1","Lectura 2, sección 4","Escenario 1, material de apoyo, PSP2"]},
+ {t:"Inspección del merge request",
+  q:"Cada merge request lo inspeccionan dos compañeros por separado, que dejan sus hallazgos como comentarios en las líneas de código. Quienes inspeccionan identifican los defectos; quien escribió el código los corrige. El gerente de calidad y proceso coordina las inspecciones.",
+  s:["En la plantilla del merge request, escriban los dos inspectores. Asignen a uno de ellos como <b>Revisor (Reviewer)</b>; la versión gratuita de GitLab permite un solo revisor por merge request.",
+     "Cada inspector revisa la pestaña <b>Cambios (Changes)</b>, comenta en las líneas con defectos y registra su tiempo en el merge request:<pre>Inspección\n/spend 45m 2026-11-18</pre>",
+     "Mantengan un ritmo de revisión de máximo 150 líneas por hora.",
+     "El autor registra un issue de defecto por cada hallazgo y corrige. Cuando los inspectores aprueban con <b>Aprobar (Approve)</b>, el autor integra con <b>Fusionar (Merge)</b>."],
+  c:"Según la Lectura 8, la inspección la hace el dueño del componente con dos compañeros, y durante ella solo se identifican defectos, sin discutirlos ni corregirlos. Si revisan a más de 150 LOC por hora, se les escaparán defectos.",
+  r:["Lectura 8, sección 2.2","Lectura 8, sección 1.2","Lectura 2, sección 4","Escenario 8, actividad de refuerzo"]},
+ {t:"Pruebas",
+  q:"El gerente de desarrollo coordina las pruebas a partir de los criterios de aceptación de cada requisito. Cada prueba que falle la registran como defecto.",
+  s:["Registren los casos de prueba en la wiki <b>Plan de calidad</b>.",
+     "Registren el tiempo de pruebas con la fase <code>Pruebas</code>.",
+     "Registren cada falla como defecto con la etiqueta <code>removido: pruebas</code>."],
+  c:"Las pruebas comprueban, en un ambiente controlado, que el programa se comporta como dicen los criterios de aceptación que ustedes acordaron.",
+  r:["Lectura 8, sección 2.3","Lectura 3, sección 2.2"]},
+ {t:"Registro de defectos",
+  q:"Registren cada defecto con su tipo, la fase en que se introdujo, la fase en que lo encontraron y el tiempo que les tomó corregirlo.",
+  s:["Creen un issue con la plantilla <code>defecto</code>. Título: <code>Defecto: dónde y qué falla</code>.",
+     "Asignen las etiquetas <code>tipo: …</code>, <code>inyectado: …</code> y <code>removido: …</code>, y el hito de la semana en que se detectó.",
+     "Mencionen la tarea o el merge request relacionado, por ejemplo <code>#12</code> o <code>!5</code>.",
+     "Registren el tiempo de corrección en el mismo issue con la fase <code>Corrección</code> y ciérrenlo cuando la corrección esté verificada."],
+  c:"En TSP la calidad se mide con los defectos: cuándo se introdujeron, cuándo los encontraron y cuánto tiempo les tomó corregirlos, en cada fase.",
+  r:["Lectura 8, sección 1","Lectura 2, sección 3","Actividad evaluativa, Entrega 2","Escenario 1, material de apoyo, PSP0"]},
+ {t:"Tamaño real",
+  q:"Al cerrar cada tarea de código, registren su tamaño real en líneas agregadas y modificadas.",
+  s:["En el merge request, la pestaña <b>Cambios (Changes)</b> muestra las líneas agregadas (+) y borradas (−).",
+     "Escriban esos valores en la plantilla del merge request y el total en el campo <b>Tamaño real (LOC)</b> de la tarea."],
+  c:"La Lectura 7 distingue el tamaño base, agregado, modificado, borrado y total. Una línea modificada pueden contarla como una línea borrada y otra agregada.",
+  r:["Lectura 7, sección 2.1","Lectura 3, sección 2.2","Escenario 7, actividad de refuerzo"]},
+ {t:"Cierre de tareas y valor ganado",
+  q:"Cierren una tarea cuando cumpla su evidencia de terminación. Al cerrarla, su valor planeado se suma al valor ganado del equipo.",
+  s:["Escriban <code>Closes #número</code> en la descripción del merge request para que la tarea se cierre al integrarlo.",
+     "Las tareas sin código ciérrenlas con <b>Cerrar (Close)</b> en el issue."],
+  c:"El valor ganado (EV) sale de las tareas terminadas. Si su EV acumulado es menor que el PV acumulado, van atrasados; si es mayor, van adelantados.",
+  r:["Lectura 6, sección 3.6","Lectura 7, sección 3","Escenario 6, actividad de refuerzo"]},
+ {t:"Reunión semanal",
+  q:"Cada semana, el líder abre el issue de la reunión con la plantilla <code>reunion-semanal</code>. En la reunión, cada uno agrega como comentario el reporte de su rol y su estado personal, y el gerente de planeación presenta cómo va el proyecto.",
+  s:["Título: <code>Semana 5: reunión semanal</code>, con el hito de la semana.",
+     "Cada comentario sigue el formato de la plantilla: rol, horas trabajadas, tareas terminadas, tareas de la próxima semana, novedades del rol y dificultades.",
+     "El gerente de planeación genera el paquete de evidencias para presentar horas planeadas y reales, PV y EV.",
+     "Los responsables de metas y de riesgos reportan su estado."],
+  c:"En la reunión semanal se presentan los reportes del líder, de los roles de gestión, de las metas, de los riesgos, del estado de cada uno y del estado del proyecto.",
+  r:["Lectura 6, sección 3","Escenario 6, material de apoyo","Actividad evaluativa, Entrega 2"]},
+ {t:"Seguimiento de riesgos",
+  q:"Quien es responsable de un riesgo lo actualiza cuando cambian su impacto o su probabilidad, y cuenta en la reunión semanal qué acciones tomaron.",
+  s:["Agreguen un comentario en el issue del riesgo y actualicen las etiquetas de impacto y probabilidad.",
+     "Cierren el issue cuando el riesgo ya no aplique."],
+  c:"Cualquier novedad que cambie la evaluación de un riesgo la reportan en la reunión semanal.",
+  r:["Lectura 6, sección 3.4","Lectura 5, sección 4.7"]},
+ {t:"Cambios de plan",
+  q:"Registren cada cambio en tareas, fechas, alcance o responsables, con su causa y su efecto. Creen las tareas nuevas con su propia estimación y conserven las estimaciones originales. Si alguien sale del equipo o llega un integrante nuevo, hagan un nuevo relanzamiento.",
+  s:["Creen un issue con la plantilla <code>cambio-de-plan</code>. Título: <code>Cambio: qué cambió</code>.",
+     "Mencionen las tareas afectadas o creadas.",
+     "Si cambian los planes individuales, el equipo hace una sesión de replanificación y la registra en el mismo issue."],
+  c:"La planeación dinámica consiste en agregar al plan las tareas no previstas en el momento en que aparecen. Cuando cambian los planes individuales, hacen una sesión de replanificación.",
+  r:["Lectura 6, secciones 6.1, 6.2 y 6.3","Lectura 6, sección 7","Actividad evaluativa, Entrega 2"]}
+]
+};
+
+const TEMAS = [
+ ["Estado del proyecto y objetivos","Sesión 1","Acta de la sesión 1; wiki Planteamiento del proyecto","1. Presentación del proyecto"],
+ ["Roles y metas del equipo","Sesión 1","Wiki Equipo y roles; criterios de éxito en Planteamiento del proyecto","2.1 y 2.2; 1.6"],
+ ["Estrategia de desarrollo","Sesión 1","Wiki Estrategia y proceso","1.4, 1.5 y 1.7"],
+ ["Plan general y plan de la próxima fase","Sesión 1","Tareas con hito, responsable y estimación","3.2 y 3.3"],
+ ["Planes individuales y consolidación","Sesión 1","Tareas por responsable; disponibilidad en Equipo y roles","3.1 y 3.4"],
+ ["Plan de calidad","Sesión 2","Wiki Plan de calidad y Listas de chequeo","1.5 (criterios de aceptación) y 2.3 (acuerdos de revisión)"],
+ ["Evaluación de riesgos","Sesión 2","Issues de riesgo","3.1 (restricciones conocidas)"],
+ ["Postmortem del relanzamiento","Sesión 2","Acta de la sesión 2","4. Registro de reuniones"]
+];
+
+const CHECKS = [
+ {id:"e2", t:"Entrega 2 · del 21 al 24 de noviembre", ref:"Actividad evaluativa, Entrega 2", items:[
+  "Su grupo privado tiene a todos los integrantes y el proyecto está preparado con el configurador.",
+  "Las páginas de wiki Planteamiento del proyecto, Equipo y roles, y Estrategia y proceso tienen el contenido actualizado de su Plan de lanzamiento.",
+  "Las tareas de las semanas 5 a 8 están en GitLab con responsable, hito y estimación.",
+  "Registraron el acta de la sesión 1 y el acta de la sesión 2 del relanzamiento.",
+  "Registraron el cambio de plan de la versión 2.0.",
+  "Diligenciaron las páginas Plan de calidad y Listas de chequeo.",
+  "Registraron los riesgos con impacto, probabilidad y responsable.",
+  "Hicieron la reunión semanal de la semana 5 y todos dejaron su reporte.",
+  "Cada uno registró su tiempo desde el 16 de noviembre, con fase y fecha.",
+  "Generaron TSP_E2_SG05.pdf y TSP_E2_SG05.xlsx, los revisaron juntos y los subieron a la tarea del campus (SG05 es el número de su subgrupo)."]},
+ {id:"e3", t:"Entrega 3 · 8 de diciembre", ref:"Actividad evaluativa, Entrega 3", items:[
+  "Hicieron las reuniones semanales de las semanas 6, 7 y 8, y todos dejaron su reporte.",
+  "Cada uno registró su tiempo con fase y fecha.",
+  "Sus merge requests tienen la inspección de dos compañeros, con el tiempo registrado.",
+  "Registraron los defectos con tipo, fase de inyección, fase de remoción y tiempo de corrección.",
+  "Los cambios de plan y los riesgos están al día.",
+  "Su catálogo tiene los módulos de registro e inicio de sesión, búsqueda básica, búsqueda avanzada, artículos y características, compra por artículo y carrito de compras.",
+  "Su catálogo muestra al menos 20 artículos.",
+  "En la wiki Postmortem y conclusiones compararon el plan con los datos reales de tiempo, tamaño, defectos y valor ganado, e incluyeron las métricas de calidad.",
+  "Respondieron las preguntas de reflexión: qué pasó durante el desarrollo, cómo resolvieron las dificultades, cómo manejaron los roles y si sus reportes reflejan el compromiso individual y del equipo.",
+  "Redactaron entre 6 y 10 conclusiones como equipo.",
+  "Grabaron el video con el prototipo del catálogo y la línea de tiempo de avances, roles y actividades.",
+  "Subieron a la tarea del campus TSP_E3_SG05.pdf, TSP_E3_SG05.xlsx y el enlace del video."]}
+];
+
+const CONV = [
+ {t:"Hitos", head:["Hito","Fechas"], rows:[
+  ["Semana 5","16 al 22 de noviembre"],["Semana 6","23 al 29 de noviembre"],["Semana 7","30 de noviembre al 6 de diciembre"],["Semana 8","7 y 8 de diciembre"]]},
+ {t:"Roles TSPi", note:"Los cinco roles del formato Plan de lanzamiento y su equivalencia con los roles de la Lectura 3, sección 2.2.", head:["Rol","Funciones que reúne"], rows:[
+  ["Líder de equipo","Líder de equipo"],
+  ["Gerente de desarrollo","Administrador de la interfaz del cliente, gerente de diseño, gerente de implementación y gerente de pruebas"],
+  ["Gerente de planeación","Gerente de planificación"],
+  ["Gerente de calidad y proceso","Gerente de calidad y gerente de proceso"],
+  ["Gerente de soporte","Gerente de soporte"]]},
+ {t:"Títulos de los issues", head:["Tipo","Formato del título"], rows:[
+  ["Tarea","<code>Tarea T05: qué se va a hacer</code>"],
+  ["Acta de relanzamiento","<code>Relanzamiento: sesión 1 - estado y plan</code>"],
+  ["Reunión semanal","<code>Semana 6: reunión semanal</code>"],
+  ["Defecto","<code>Defecto: dónde y qué falla</code>"],
+  ["Riesgo","<code>Riesgo: evento que podría ocurrir</code>"],
+  ["Cambio de plan","<code>Cambio: qué cambió</code>"]]},
+ {t:"Plantillas", head:["Plantilla","Uso"], rows:[
+  ["<code>tarea</code>","Trabajo del plan"],
+  ["<code>acta-de-relanzamiento</code>","Sesiones del relanzamiento"],
+  ["<code>reunion-semanal</code>","Reunión semanal y reportes por rol"],
+  ["<code>defecto</code>","Defectos encontrados en revisión, inspección, pruebas o uso"],
+  ["<code>riesgo</code>","Riesgos con planes de prevención y mitigación"],
+  ["<code>cambio-de-plan</code>","Cambios y replanificaciones"],
+  ["<code>inspeccion</code> (merge request)","Revisión personal, inspectores, tamaño del cambio y defectos encontrados"]]},
+ {t:"Fases para el registro de tiempo", note:"Las mismas fases de la lista de tareas del Plan de lanzamiento, con tres adicionales para inspección, corrección y gestión.", head:["Fase","Trabajo que incluye"], rows:[
+  ["Requisitos","Análisis de requisitos y criterios de aceptación"],
+  ["Diseño","Diseño de componentes, pantallas y datos"],
+  ["Revisión de diseño","Revisión personal del diseño con lista de chequeo"],
+  ["Implementación","Programación"],
+  ["Revisión de código","Revisión personal del código con lista de chequeo"],
+  ["Inspección","Inspección del trabajo de un compañero"],
+  ["Pruebas","Diseño y ejecución de pruebas"],
+  ["Integración","Integración de componentes y despliegue del catálogo"],
+  ["Corrección","Corrección de un defecto registrado"],
+  ["Gestión","Reuniones, planeación, reportes y preparación de entregas"]]},
+ {t:"Etiquetas", head:["Grupo","Etiquetas"], rows:[
+  ["Tipo de issue","<code>tarea</code> <code>relanzamiento</code> <code>reunion-semanal</code> <code>defecto</code> <code>riesgo</code> <code>cambio-de-plan</code> <code>plan-anterior</code>"],
+  ["Fase en que se introdujo el defecto","<code>inyectado: requisitos</code> <code>inyectado: diseño</code> <code>inyectado: implementación</code> <code>inyectado: pruebas</code>"],
+  ["Fase en que se encontró el defecto","<code>removido: revisión de diseño</code> <code>removido: revisión de código</code> <code>removido: inspección</code> <code>removido: pruebas</code> <code>removido: uso</code>"],
+  ["Tipo de defecto","<code>tipo: 10 documentación</code> a <code>tipo: 100 entorno</code> (tabla siguiente)"],
+  ["Riesgo","<code>impacto: alto</code> <code>impacto: medio</code> <code>impacto: bajo</code> · <code>probabilidad: alta</code> <code>probabilidad: media</code> <code>probabilidad: baja</code>"]]},
+ {t:"Tipos de defecto", note:"Estándar de tipos de defecto de PSP.", head:["Tipo","Descripción"], rows:[
+  ["10 Documentación","Comentarios, mensajes"],
+  ["20 Sintaxis","Ortografía del código, puntuación, formato de instrucciones"],
+  ["30 Construcción","Gestión de cambios, librerías, control de versiones"],
+  ["40 Asignación","Declaraciones, nombres duplicados, alcance, límites"],
+  ["50 Interfaz","Llamadas a funciones, entrada y salida, formatos de usuario"],
+  ["60 Chequeo","Mensajes de error, validaciones inadecuadas"],
+  ["70 Datos","Estructura y contenido de los datos"],
+  ["80 Función","Lógica, ciclos, recursión, cálculos"],
+  ["90 Sistema","Configuración, tiempos, memoria"],
+  ["100 Entorno","Problemas de diseño, compilación, pruebas u otras herramientas de soporte"]]},
+ {t:"Páginas de la wiki", head:["Página","Contenido"], rows:[
+  ["Planteamiento del proyecto","Datos generales, objetivo, usuarios, alcance, requisitos, criterios de éxito y entorno de trabajo"],
+  ["Equipo y roles","Integrantes, roles TSPi, acuerdos de trabajo y disponibilidad semanal"],
+  ["Estrategia y proceso","Componentes, tamaño estimado, orden de construcción, proceso de desarrollo y reportes por rol"],
+  ["Plan de calidad","Metas de calidad, defectos estimados por fase y plan de pruebas"],
+  ["Listas de chequeo","Puntos de revisión de diseño y de código"],
+  ["Postmortem y conclusiones","Plan frente a resultados, métricas, reflexión y conclusiones"]]}
+];
+
+const EQ = [
+ ["Lanzamiento","Formato Plan de lanzamiento de la Entrega 1","Lectura 5, secciones 3 y 4"],
+ ["Relanzamiento","Dos sesiones registradas con la plantilla acta-de-relanzamiento","Lectura 6, sección 7"],
+ ["Roles del equipo","Wiki Equipo y roles; reportes en la reunión semanal","Lectura 3, sección 2.2"],
+ ["Metas y criterios de éxito","Wiki Planteamiento del proyecto","Lectura 5, sección 4.2"],
+ ["Diseño conceptual y estrategia","Wiki Estrategia y proceso","Lectura 5, sección 4.3"],
+ ["Descomposición del trabajo","Issues de tarea","Lectura 5, sección 4.3"],
+ ["Estimación de tiempo","Estimación de cada tarea","Lectura 5, sección 4.4"],
+ ["Registro de tiempo","<code>/spend</code> con fase y fecha","Lectura 2, sección 3"],
+ ["Calendario","Hitos Semana 5 a Semana 8","Lectura 5, sección 4.4 · Lectura 7, sección 3"],
+ ["Valor planeado y valor ganado","Estimaciones y cierre de tareas, calculados en el paquete de evidencias","Lectura 6, sección 3.6 · Lectura 7, sección 3"],
+ ["Tamaño estimado y real","Wiki Estrategia y proceso; pestaña Cambios del merge request","Lectura 7, secciones 2.1 y 2.2"],
+ ["Plan de calidad","Wiki Plan de calidad","Lectura 5, sección 4.5"],
+ ["Revisión personal","Wiki Listas de chequeo; tiempo en fase Revisión de código","Lectura 8, sección 2.1"],
+ ["Inspección","Merge request con dos inspectores","Lectura 8, sección 2.2"],
+ ["Defecto","Issue con etiquetas de tipo, inyección y remoción","Lectura 8, sección 1"],
+ ["Métricas de calidad","Paquete de evidencias","Lectura 8, secciones 1 y 2"],
+ ["Riesgo","Issue con etiquetas de impacto y probabilidad","Lectura 5, sección 4.7"],
+ ["Reunión semanal y reportes","Issue semanal con un comentario por integrante","Lectura 6, sección 3"],
+ ["Planeación dinámica y replanificación","Issue de cambio de plan","Lectura 6, sección 6"],
+ ["Punto de control","Revisión del paquete de evidencias en cada entrega","Lectura 6, sección 5"],
+ ["Postmortem","Wiki Postmortem y conclusiones","Lectura 1, sección 5.2"],
+ ["Herramienta de soporte","GitLab, configurador y generador de evidencias","Lectura 4, sección 4"]
+];
+
+
+function card(c){
+  const steps = c.s && c.s.length ? `<div class="label">Cómo hacerlo</div><ol>${c.s.map(x=>`<li>${x}</li>`).join("")}</ol>` : "";
+  return `<article class="card">${c.tag?`<span class="tag">${c.tag}</span>`:""}<h3>${c.t}</h3>
+    <div class="label">Lo que van a hacer</div><p>${c.q}</p>${steps}
+    <div class="concept"><div class="label">Lo que dice el curso</div><p>${c.c}</p></div>
+    <div class="refs">${c.r.map(x=>`<span class="ref">${x}</span>`).join("")}</div></article>`;
+}
+document.querySelectorAll(".cards[data-group]").forEach(el=>{ el.innerHTML = CARDS[el.dataset.group].map(card).join(""); });
+document.getElementById("tl").innerHTML = WEEKS.map(w=>`<div class="wk${w.d&&!w.past?" del":""}${w.past?" past":""}"><b>${w.w}</b>${w.t}${w.d?`<br><span class="d">${w.d}</span>`:""}</div>`).join("");
+document.querySelector("#temas tbody").innerHTML = TEMAS.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join("")}</tr>`).join("");
+let store = {};
+try { store = JSON.parse(localStorage.getItem("tsp-checks-v2")||"{}"); } catch(e){ store = {}; }
+function save(){ try { localStorage.setItem("tsp-checks-v2", JSON.stringify(store)); } catch(e){} }
+const cl = document.getElementById("checklists");
+cl.innerHTML = CHECKS.map(g=>`<h3 class="sub">${g.t}<span class="progress" id="p-${g.id}"></span></h3>
+  <div class="refs" style="margin-top:0"><span class="ref">${g.ref}</span></div>
+  <ul class="check">${g.items.map((it,i)=>{const k=g.id+"-"+i;return `<li><input type="checkbox" id="${k}" ${store[k]?"checked":""}><label for="${k}">${it}</label></li>`}).join("")}</ul>`).join("");
+function prog(){ CHECKS.forEach(g=>{const n=g.items.filter((_,i)=>store[g.id+"-"+i]).length; document.getElementById("p-"+g.id).textContent=`${n} de ${g.items.length}`;}); }
+cl.addEventListener("change",e=>{ if(e.target.type==="checkbox"){ store[e.target.id]=e.target.checked; save(); prog(); }});
+prog();
+document.getElementById("conv").innerHTML = CONV.map(t=>`<h3 class="sub">${t.t}</h3>${t.note?`<p class="legend">${t.note}</p>`:""}
+  <div class="tablewrap"><table><thead><tr>${t.head.map(h=>`<th>${h}</th>`).join("")}</tr></thead>
+  <tbody>${t.rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`).join("");
+document.querySelector("#eq tbody").innerHTML = EQ.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join("");
+const q = document.getElementById("q");
+q.addEventListener("input",()=>{ const v=q.value.trim().toLowerCase();
+  document.querySelectorAll(".card").forEach(c=>c.classList.toggle("hidden", !!v && !c.textContent.toLowerCase().includes(v)));
+  document.querySelectorAll("table tbody tr").forEach(r=>r.classList.toggle("hidden", !!v && !r.textContent.toLowerCase().includes(v))); });
+const links=[...document.querySelectorAll("#toc a")];
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.toggle("active",l.getAttribute("href")==="#"+e.target.id));}})},{rootMargin:"-30% 0px -60% 0px"});
+document.querySelectorAll("main section").forEach(s=>obs.observe(s));
+
+</script>
+</body>
+</html>
