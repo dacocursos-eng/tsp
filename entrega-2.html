@@ -11,6 +11,7 @@
   <p class="kicker">Proyecto TSP en GitLab · Entrega 2</p>
   <h1>Cómo preparar la Entrega 2</h1>
   <p>La evidencia de la Entrega 2 sale directamente de su proyecto en GitLab: se descarga una lista con todos los elementos de trabajo y se guardan como PDF las páginas que muestran el plan, el tiempo, las actas y los documentos del equipo.</p>
+  <div class="alert" style="margin:1rem 0 0;background:#fff;color:var(--ink)"><strong>Este material corresponde a la Entrega 2.</strong> El material para la Entrega 3 se publicará en su momento.</div>
   <nav><a href="index.html">Inicio</a><a href="etapa-1.html">Etapa 1: montaje</a><a href="etapa-2.html">Etapa 2: planeación y registro de tiempo</a><a class="on" href="entrega-2.html">Entrega 2</a></nav>
 </div></header>
 
@@ -33,9 +34,9 @@
   <h2>Qué se entrega</h2>
   <p>La Entrega 2 pide mostrar la evolución del proyecto desde la Entrega 1: las actas de los lanzamientos con su nombre correcto, los registros personales, el desarrollo, el avance y el resumen de la semana. Cada una de esas evidencias corresponde a un archivo:</p>
   <table>
-    <tr><th>Evidencia</th><th>Archivo</th><th>De dónde sale</th></tr>
-    <tr><td>Plan y avance: requisitos, tareas, responsables, estimación, tiempo dedicado, fechas, hito y estado; también los defectos registrados</td><td><code>TSP_E2_SGxx_elementos.csv</code></td><td>Elementos de trabajo &gt; Exportar como CSV</td></tr>
-    <tr><td>Registros personales de tiempo de todo el equipo</td><td><code>TSP_E2_SGxx_tiempo.pdf</code></td><td>Informe de seguimiento del tiempo del grupo</td></tr>
+    <tr><th>Evidencia</th><th>Archivo</th><th>De dónde sale</th><th>Cómo se obtiene</th></tr>
+    <tr><td>Plan y avance: requisitos, tareas, responsables, estimación, tiempo dedicado, fechas, hito y estado; también los defectos registrados</td><td><code>TSP_E2_SGxx_elementos.csv</code></td><td>Elementos de trabajo &gt; Exportar como CSV</td><td>Llega como adjunto al correo de la cuenta</td></tr>
+    <tr><td>Registros personales de tiempo de todo el equipo</td><td><code>TSP_E2_SGxx_tiempo.pdf</code></td><td>Informe de seguimiento del tiempo del grupo</td><td rowspan="5">Se guarda desde el navegador como PDF en su computador</td></tr>
     <tr><td>Resumen de la semana: tareas comprometidas, avance y tiempo dedicado frente al estimado</td><td><code>TSP_E2_SGxx_hito.pdf</code></td><td>Página del hito de la semana</td></tr>
     <tr><td>Actas del relanzamiento, con la versión 2.0 del plan</td><td><code>TSP_E2_SGxx_acta1.pdf</code>, <code>TSP_E2_SGxx_acta2.pdf</code></td><td>Cada acta del relanzamiento</td></tr>
     <tr><td>Planteamiento del proyecto actualizado</td><td><code>TSP_E2_SGxx_planteamiento.pdf</code></td><td>Wiki: Planteamiento del proyecto</td></tr>
@@ -50,7 +51,7 @@
   <ol class="steps">
     <li>Abran la página en GitLab. Para que el PDF quede más limpio, oculten el menú izquierdo con <b>Contraer barra lateral</b> <i>(Collapse sidebar)</i>, abajo a la izquierda.</li>
     <li>Presionen <b>Ctrl + P</b> (en Mac, <b>Cmd + P</b>).</li>
-    <li>En <b>Destino</b> elijan <b>Guardar como PDF</b> y seleccionen <b>Guardar</b>. Pónganle al archivo el nombre que indica la tabla.</li>
+    <li>En <b>Destino</b> elijan <b>Guardar como PDF</b> y seleccionen <b>Guardar</b>. Elijan la carpeta de su computador donde quedará el archivo y pónganle el nombre que indica la tabla.</li>
   </ol>
 </section>
 
@@ -62,19 +63,25 @@
     <li>Seleccionen el menú de tres puntos, al lado de <b>Nuevo elemento</b>, y elijan <b>Exportar como CSV</b> <i>(Export as CSV)</i>.
       <figure><img src="etapas/img/e2-exportar.webp" alt="Menú con la opción Exportar como CSV"><figcaption>Opción Exportar como CSV.</figcaption></figure></li>
     <li>Confirmen con <b>Exportar elementos de trabajo</b>. GitLab prepara el archivo y lo envía como adjunto al correo de su cuenta en unos minutos.</li>
-    <li>Descarguen el adjunto y cámbienle el nombre a <code>TSP_E2_SGxx_elementos.csv</code>.</li>
+    <li>Abran el correo, descarguen el adjunto y cámbienle el nombre a <code>TSP_E2_SGxx_elementos.csv</code>. Si no lo ven en la bandeja de entrada, revisen el correo no deseado.</li>
   </ol>
   <div class="note">Si al abrir el CSV en Excel las tildes salen mal, ábranlo desde Excel con <b>Datos</b> &gt; <b>Desde texto/CSV</b> y elijan el origen <b>UTF-8</b>.</div>
 </section>
 
 <section id="tiempo">
   <h2>Informe de tiempo del equipo</h2>
+  <p>Es una página de GitLab que reúne todos los registros de tiempo de los integrantes del grupo en un periodo: quién trabajó, qué día, en qué elemento, cuánto tiempo y en qué fase. Es el registro de tiempo de todo el equipo en una sola página. Lo puede preparar cualquier integrante.</p>
+  <p>Esta página no aparece en los menús de GitLab; se abre con su dirección.</p>
   <ol class="steps">
-    <li>Abran <a href="https://gitlab.com/-/timelogs" target="_blank" rel="noopener">gitlab.com/-/timelogs</a>.</li>
-    <li>En <b>Grupo</b> elijan el grupo del equipo. Dejen vacío <b>Nombre de usuario</b> para que aparezcan todos los integrantes; si escriben el usuario de un compañero, GitLab puede mostrar un error.</li>
-    <li>En <b>Desde el</b> pongan la fecha del primer registro del equipo y en <b>Hasta el</b>, la fecha de la entrega. Seleccionen <b>Ejecutar informe</b>.
-      <figure><img src="etapas/img/e2-informe-equipo.webp" alt="Informe de seguimiento del tiempo del grupo"><figcaption>El informe muestra el total y cada registro con fecha, elemento, persona, tiempo y fase.</figcaption></figure></li>
-    <li>Guarden la página como PDF con el nombre <code>TSP_E2_SGxx_tiempo.pdf</code>.</li>
+    <li>Con su sesión de GitLab abierta, abran en el navegador la dirección <a href="https://gitlab.com/-/timelogs" target="_blank" rel="noopener">gitlab.com/-/timelogs</a>. Aparece la página <b>Ver informe de seguimiento del tiempo</b> <i>(Time tracking report)</i>, con cuatro campos y un botón.
+      <figure><img src="etapas/img/e2-informe-1.webp" alt="Página vacía del informe de seguimiento del tiempo"><figcaption>La página del informe antes de elegir el grupo.</figcaption></figure></li>
+    <li>Seleccionen el campo <b>Grupo</b> <i>(Group)</i> y elijan el grupo de su equipo en la lista.
+      <figure><img src="etapas/img/e2-informe-2.webp" alt="Lista de grupos del informe"><figcaption>La lista muestra los grupos a los que pertenecen.</figcaption></figure></li>
+    <li>Dejen vacío el campo <b>Nombre de usuario</b> <i>(Username)</i>, para que aparezcan todos los integrantes. Si escriben el usuario de un compañero, GitLab puede mostrar un error.</li>
+    <li>En <b>Desde el</b> <i>(From)</i> escriban o elijan la fecha del primer registro de tiempo del equipo; en <b>Hasta el</b> <i>(To)</i>, la fecha de la entrega. Así el informe cubre todo el trabajo registrado.</li>
+    <li>Seleccionen <b>Ejecutar informe</b> <i>(Run report)</i>. Arriba aparece el <b>Tiempo total dedicado</b> y, debajo, una fila por cada registro.
+      <figure><img src="etapas/img/e2-informe-equipo.webp" alt="Informe de seguimiento del tiempo del grupo"><figcaption>Informe del grupo: cada fila es un registro de tiempo, con fecha, elemento, persona, tiempo y fase.</figcaption></figure></li>
+    <li>Revisen que estén los registros de todos los integrantes. Luego guarden la página como PDF, como se explica en <a href="#pdf">Guardar una página como PDF</a>, con el nombre <code>TSP_E2_SGxx_tiempo.pdf</code>.</li>
   </ol>
 </section>
 

@@ -11,6 +11,7 @@
   <p class="kicker">Proyecto TSP en GitLab · Etapa 1</p>
   <h1>Montaje del proyecto</h1>
   <p>En esta etapa el equipo crea su espacio de trabajo en GitLab y deja configurado lo que va a usar durante el resto del proyecto: integrantes, semanas, etiquetas, plantillas y los documentos del equipo.</p>
+  <div class="alert" style="margin:1rem 0 0;background:#fff;color:var(--ink)"><strong>Este material corresponde a la Entrega 2.</strong> El material para la Entrega 3 se publicará en su momento.</div>
   <nav><a href="index.html">Inicio</a><a class="on" href="etapa-1.html">Etapa 1: montaje</a><a href="etapa-2.html">Etapa 2: planeación y registro de tiempo</a><a href="entrega-2.html">Entrega 2</a></nav>
 </div></header>
 
@@ -49,31 +50,52 @@
   </table>
   <h3>Idioma de la interfaz</h3>
   <p>GitLab muestra los menús en el idioma configurado en cada cuenta, así que algunos de ustedes lo verán en español y otros en inglés. En este manual cada nombre aparece en los dos idiomas, por ejemplo <b>Elementos de trabajo</b> <i>(Work items)</i>. Para cambiar el idioma: avatar &gt; <b>Preferencias</b> <i>(Preferences)</i> &gt; <b>Idioma</b> <i>(Language)</i>.</p>
+  <p>En el desarrollo de software es común usar los términos en inglés o anglicismos, como <i>issue</i>, <i>commit</i>, <i>merge request</i> o <i>milestone</i>, incluso cuando se habla en español. Familiarizarse con ellos desde ahora les facilita leer documentación, trabajar con otras herramientas y comunicarse en equipos de la industria.</p>
   <h3>Versión gratuita</h3>
   <p>Todo lo que se explica aquí funciona en la versión gratuita de GitLab. Al crear un grupo, GitLab puede ofrecer una prueba de 30 días de la versión de pago (Ultimate). No la necesitan, y si la activan, tengan en cuenta que las funciones adicionales desaparecen cuando termina. Usen solo lo que indica este manual.</p>
   <div class="note">En algunas páginas se abre a la derecha un panel llamado <b>GitLab Duo</b> que pide verificar la cuenta. Es un asistente de inteligencia artificial que este proyecto no usa. Pueden cerrarlo con la <b>X</b>.</div>
 </section>
 
 <section id="cuenta">
-  <span class="who">Cada uno de ustedes</span>
+  <span class="who">Lo hacen todos, cada uno por su cuenta</span>
   <h2>Cuenta personal</h2>
   <p><b>Qué es y para qué sirve.</b> En TSP cada integrante registra sus propios datos: su tiempo, sus tareas y los defectos que encuentra. Por eso cada uno trabaja con su propia cuenta, y todo lo que registre queda a su nombre.</p>
   <div class="where">En GitLab: <b>Editar perfil</b> <span class="en">(Edit profile)</span>, en el menú del avatar, arriba a la derecha.</div>
   <h3>Cómo se hace</h3>
   <ol class="steps">
-    <li>Ingresen a <b>gitlab.com</b> y creen su cuenta con <b>Registrarse</b> <i>(Register)</i>. También pueden entrar con su cuenta de Google. Confirmen el correo cuando GitLab se lo pida.</li>
+    <li>Ingresen a <b>gitlab.com</b> y creen su cuenta con <b>Registrarse</b> <i>(Register)</i>. Les recomiendo usar su correo institucional, con dominio <code>@poligran.edu.co</code>. Confirmen el correo cuando GitLab se lo pida.</li>
     <li>Seleccionen su avatar y elijan <b>Editar perfil</b> <i>(Edit profile)</i>.
       <figure><img src="etapas/img/e1-cuenta-menu.webp" alt="Menú del avatar con la opción Editar perfil"><figcaption>Menú del avatar.</figcaption></figure></li>
     <li>En <b>Nombre</b> <i>(Full name)</i> escriban su nombre y apellidos tal como aparecen en el aula virtual, y guarden con <b>Actualizar la configuración del perfil</b> <i>(Update profile settings)</i>, al final de la página.
       <figure><img src="etapas/img/e1-cuenta-nombre.webp" alt="Campo Nombre en Editar perfil"><figcaption>El nombre es el que aparece en todos sus registros.</figcaption></figure></li>
     <li>Compartan con su equipo su <b>nombre de usuario</b>, el que aparece con <code>@</code> debajo de su nombre al seleccionar el avatar. Con ese usuario los van a agregar al grupo.</li>
   </ol>
+  <h3>Notificaciones</h3>
+  <p>GitLab envía avisos al correo con el que crearon la cuenta. Por eso conviene usar el correo institucional: allí les llegan los avisos del proyecto junto con los del curso.</p>
+  <p>Con la configuración inicial, el nivel <b>Participar</b> <i>(Participate)</i>, reciben avisos cuando:</p>
+  <ul>
+    <li>les asignan una tarea, un requisito o un acta;</li>
+    <li>alguien los menciona con su <code>@usuario</code>;</li>
+    <li>hay comentarios o cambios en un elemento de trabajo en el que participan, por ejemplo uno que crearon o en el que comentaron.</li>
+  </ul>
+  <p>Los niveles disponibles son:</p>
+  <table>
+    <tr><th>Nivel</th><th>Qué notifica</th></tr>
+    <tr><td><b>Participar</b> <i>(Participate)</i></td><td>Lo descrito arriba. Es el nivel recomendado.</td></tr>
+    <tr><td><b>Ver</b> <i>(Watch)</i></td><td>Casi toda la actividad del grupo o del proyecto. Útil para el líder del equipo, aunque genera muchos correos.</td></tr>
+    <tr><td><b>En mención</b> <i>(On mention)</i></td><td>Solo los comentarios en que los mencionan.</td></tr>
+    <tr><td><b>Personalizado</b> <i>(Custom)</i></td><td>Lo de Participar más los eventos que cada uno elija. Por ejemplo, el aviso de que una tarea suya vence al día siguiente <i>(Issue due)</i>.</td></tr>
+    <tr><td><b>Deshabilitado</b> <i>(Disabled)</i></td><td>Ningún aviso. No lo usen en el grupo del equipo.</td></tr>
+  </table>
+  <p>Para revisarlo: avatar &gt; <b>Editar perfil</b> <i>(Edit profile)</i> &gt; <b>Notificaciones</b> <i>(Notifications)</i>. Allí ven el correo al que llegan los avisos, el nivel general y el nivel de cada grupo.</p>
+  <figure><img src="etapas/img/e1-notificaciones.webp" alt="Página de notificaciones del usuario"><figcaption>Correo de notificación, nivel general y nivel por grupo.</figcaption></figure>
+  <figure><img src="etapas/img/e1-notificaciones-nivel.webp" alt="Lista de niveles de notificación de un grupo"><figcaption>Niveles disponibles para el grupo del equipo.</figcaption></figure>
 </section>
 
 <section id="grupo">
   <span class="who one">Solo una persona del equipo</span>
   <h2>Grupo del equipo</h2>
-  <div class="alert"><strong>Este paso lo hace una sola persona.</strong> Pónganse de acuerdo antes de empezar; normalmente lo hace el gerente de soporte. Si varios crean grupos, el equipo queda dividido en espacios distintos y los registros no se juntan.</div>
+  <div class="alert"><strong>Este paso lo hace una sola persona.</strong> Pónganse de acuerdo antes de empezar; lo recomendable es que lo haga el gerente de soporte. Si varios crean grupos, el equipo queda dividido en espacios distintos y los registros no se juntan.</div>
   <p><b>Qué es y para qué sirve.</b> Un equipo TSP tiene integrantes claramente definidos (Lectura 2, sección 5). En GitLab el equipo es un <b>grupo</b>: reúne a los integrantes y contiene el proyecto. Quien pertenece al grupo puede trabajar en el proyecto.</p>
   <div class="where">En GitLab: botón <b>+</b> de la barra superior &gt; <b>Nuevo grupo</b> <span class="en">(New group)</span> &gt; <b>Crear grupo</b> <span class="en">(Create group)</span>.</div>
   <h3>Cómo se hace</h3>
@@ -99,10 +121,21 @@
       <figure><img src="etapas/img/e1-miembros.webp" alt="Página Miembros del grupo"><figcaption>Página de miembros con el botón Invitar miembros.</figcaption></figure></li>
     <li>Escriban el nombre de usuario de cada compañero. GitLab muestra cuántos cupos quedan: un grupo privado gratuito admite máximo cinco integrantes.
       <figure><img src="etapas/img/e1-invitar.webp" alt="Diálogo Invitar miembros"><figcaption>Diálogo de invitación con el aviso de cupos disponibles.</figcaption></figure></li>
-    <li>En <b>Rol</b> elijan <b>Encargado de mantenimiento</b> <i>(Maintainer)</i>. Con este rol todos pueden crear elementos de trabajo, editar la wiki, crear ramas e integrar código. Seleccionen <b>Invitar</b>.
+    <li>En <b>Rol</b> elijan <b>Encargado de mantenimiento</b> <i>(Maintainer)</i> para todos. Con este rol cada uno puede crear elementos de trabajo, editar la wiki, crear ramas e integrar código. Seleccionen <b>Invitar</b>.
       <figure><img src="etapas/img/e1-roles.webp" alt="Lista de roles de GitLab"><figcaption>La lista de roles; bajen hasta Encargado de mantenimiento.</figcaption></figure></li>
     <li>Cada compañero aparece en la lista de miembros y recibe un correo de aviso. Si alguno no aparece, revisen que el nombre de usuario esté bien escrito.</li>
   </ol>
+  <h3>Cómo se relacionan los roles de TSP con GitLab</h3>
+  <p>En GitLab todos tienen los mismos permisos, para que nadie dependa de otro para registrar su trabajo. Quien crea el grupo queda como <b>Propietario</b> <i>(Owner)</i>, el único que puede agregar o retirar integrantes y cambiar la configuración del grupo. Por eso conviene que lo cree el <b>gerente de soporte</b>, que en TSP responde por las herramientas del equipo y la gestión de la configuración (Lectura 3, sección 2.2).</p>
+  <p>Cada rol TSP tiene, además, responsabilidades concretas dentro de GitLab:</p>
+  <table>
+    <tr><th>Rol TSP</th><th>De qué se encarga en GitLab</th></tr>
+    <tr><td>Líder del equipo</td><td>Que cada reunión tenga su acta; revisar con el equipo la página del hito de cada semana.</td></tr>
+    <tr><td>Gerente de planeación</td><td>Hitos, tareas con estimación, fechas y responsable; seguimiento del tiempo dedicado frente al estimado.</td></tr>
+    <tr><td>Gerente de desarrollo</td><td>Requisitos con sus criterios de aceptación; más adelante, el código y su integración.</td></tr>
+    <tr><td>Gerente de calidad y proceso</td><td>Etiquetas y plantillas; registro de defectos y que todos registren su tiempo con la fase.</td></tr>
+    <tr><td>Gerente de soporte</td><td>Grupo, integrantes, proyecto y repositorio; ayudar a los compañeros con la herramienta.</td></tr>
+  </table>
 </section>
 
 <section id="proyecto">
@@ -120,7 +153,7 @@
 </section>
 
 <section id="hitos">
-  <span class="who">Uno de ustedes</span>
+  <span class="who">Lo hace una persona del equipo</span>
   <h2>Hitos: las semanas del ciclo</h2>
   <p><b>Qué es.</b> En TSP el calendario del plan se organiza por semanas, y en cada semana el equipo compromete un conjunto de tareas (Lectura 5, sección 4.4). En GitLab cada semana del ciclo es un <b>hito</b> <i>(milestone)</i>, con su fecha de inicio y su fecha de fin.</p>
   <p><b>Para qué sirve.</b> Cada tarea se asigna al hito de la semana en que se va a hacer. Así la página de cada hito muestra lo comprometido para esa semana, cuánto avanzó y cuánto tiempo se dedicó frente a lo estimado. Es la base del seguimiento semanal.</p>
@@ -136,7 +169,7 @@
 </section>
 
 <section id="etiquetas">
-  <span class="who">Uno de ustedes</span>
+  <span class="who">Lo hace una persona del equipo</span>
   <h2>Etiquetas</h2>
   <p><b>Qué es.</b> Una etiqueta <i>(label)</i> es una marca que clasifica los elementos de trabajo. En TSP los registros se clasifican para poder contarlos y analizarlos: requisitos, tareas, actas, defectos por tipo y por fase.</p>
   <p><b>Para qué sirve.</b> Con las etiquetas pueden filtrar la lista, por ejemplo ver solo los requisitos o solo las actas, y al descargar los datos cada registro lleva su clasificación.</p>
@@ -162,7 +195,7 @@
 </section>
 
 <section id="plantillas">
-  <span class="who">Uno de ustedes</span>
+  <span class="who">Lo hace una persona del equipo</span>
   <h2>Plantillas</h2>
   <p><b>Qué es.</b> En TSP los registros siguen formatos definidos: actas de reunión, reportes semanales, registros de defectos (Lectura 2, sección 3). En GitLab un formato es una <b>plantilla de descripción</b> <i>(description template)</i>: un texto que se carga en la descripción de un elemento de trabajo nuevo, con los campos que hay que diligenciar.</p>
   <p><b>Para qué sirve.</b> Con una plantilla todos registran los mismos datos, en el mismo orden, sin tener que recordar el formato. Una plantilla puede, además, poner sola su etiqueta al crear el elemento.</p>
@@ -205,7 +238,7 @@
 </section>
 
 <section id="wiki">
-  <span class="who">Todos</span>
+  <span class="who">Lo hace todo el equipo</span>
   <h2>Wiki del equipo</h2>
   <p><b>Qué es.</b> La wiki <i>(Wiki)</i> es un conjunto de páginas del proyecto que todos los integrantes pueden editar, y que guarda el historial de cada cambio. Es el lugar de los documentos del equipo.</p>
   <p><b>Para qué sirve.</b> Aquí migran la información de la Entrega 1 que sigue vigente: el planteamiento del proyecto y la conformación del equipo. Al quedar en la wiki, el equipo la actualiza en cada ciclo y queda el registro de cómo evolucionó.</p>
