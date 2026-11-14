@@ -56,7 +56,7 @@
   <h3>Cómo se hace</h3>
   <ol class="steps">
     <li>Vayan a <b>Elementos de trabajo</b> <i>(Work items)</i> y seleccionen <b>Nuevo elemento</b> <i>(New item)</i>. En <b>Tipo</b> <i>(Type)</i> dejen <b>Issue</b>.</li>
-    <li>En el título escriban el identificador y el nombre del requisito, por ejemplo <code>RU_003: Cierre de cuentas</code>. GitLab llama a este campo <b>Cargo (obligatorio)</b> en español y <b>Title</b> en inglés.</li>
+    <li>En el título escriban el identificador y el nombre del requisito, con el identificador que usaron en la Entrega 1, por ejemplo <code>RU_003: Cierre de cuentas</code>. GitLab llama a este campo <b>Cargo (obligatorio)</b> en español y <b>Title</b> en inglés.</li>
     <li>En la descripción escriban la historia de usuario y los criterios de aceptación como lista de chequeo. Con el botón de lista de verificación de la barra de herramientas, cada criterio queda con su casilla.</li>
     <li>En el panel derecho, en <b>Etiquetas</b> <i>(Labels)</i>, seleccionen <b>Editar</b>, busquen <code>requisito</code>, márquenla y seleccionen <b>Aplicar</b>. Seleccionen <b>Crear issue</b>.
       <figure><img src="etapas/img/e2-requisito-nuevo.webp" alt="Formulario de un requisito nuevo"><figcaption>Un requisito: tipo Issue, historia de usuario, criterios de aceptación y etiqueta <code>requisito</code>.</figcaption></figure></li>
@@ -96,10 +96,16 @@
       <figure><img src="etapas/img/e2-fechas.webp" alt="Edición de las fechas de una tarea"><figcaption>Fechas de comienzo y vencimiento de la tarea.</figcaption></figure></li>
     <li>En <b>Seguimiento del tiempo</b> <i>(Time tracking)</i> seleccionen <b>Agregar estimación</b> <i>(Add estimate)</i>, escriban las horas estimadas, por ejemplo <code>2h</code> o <code>1h 30m</code>, y seleccionen <b>Guardar</b>.
       <figure><img src="etapas/img/e2-estimacion.webp" alt="Diálogo de estimación de tiempo"><figcaption>La estimación es el tiempo que el equipo planea dedicar a la tarea.</figcaption></figure></li>
-    <li>En la descripción, con <b>Editar</b>, escriban la fase y la evidencia de terminación.
+    <li>Seleccionen <b>Editar</b> <i>(Edit)</i>, arriba a la derecha, y escriban en la descripción la fase y la evidencia de terminación. Al terminar, guarden los cambios con el botón <b>Guardar</b> <i>(Save)</i>.
       <figure><img src="etapas/img/e2-tarea.webp" alt="Tarea con fase, evidencia, responsable, requisito, hito y fechas"><figcaption>Una tarea completa: fase y evidencia en la descripción; responsable, requisito, hito y fechas en el panel derecho.</figcaption></figure></li>
   </ol>
   <div class="note">Creen las tareas a mano, a partir de su tabla 3.2: al hacerlo, revisan una por una la estimación, el responsable y la semana, que es justo lo que pide el relanzamiento.</div>
+  <h3>Casos que conviene tener claros</h3>
+  <ul>
+    <li><b>Tareas ya terminadas.</b> Las tareas que terminaron en las semanas anteriores no se crean en GitLab. El avance de esas semanas se describe en el acta, en el tema Estado del proyecto y objetivos.</li>
+    <li><b>Reuniones.</b> En el Plan de lanzamiento registraron las reuniones como tareas. En GitLab cada reunión tiene su acta, y el tiempo de la reunión se registra en el acta; no se crea una tarea para ella.</li>
+    <li><b>Trabajo que no pertenece a un requisito.</b> Para trabajo como montar el proyecto en GitLab o migrar la wiki, creen tareas sin requisito: <b>Nuevo elemento</b>, tipo <b>Task</b>, etiqueta <code>tarea</code> y fase <code>Gestión</code>, con su responsable, estimación, fechas e hito.</li>
+  </ul>
 </section>
 
 <section id="leer">
@@ -163,7 +169,8 @@
     <li>Registren el tiempo el mismo día en que trabajan.</li>
     <li>Cuenten solo el tiempo efectivo en la tarea, sin interrupciones.</li>
     <li>El tiempo de una reunión lo registra cada participante en el acta de esa reunión, con la fase <code>Gestión</code>.</li>
-    <li>Cada uno registra solo su propio tiempo.</li>
+    <li>Cada uno registra solo su propio tiempo. Si dos personas trabajan en la misma tarea, cada una registra su tiempo en esa tarea.</li>
+    <li>Todo el tiempo va en algún elemento de trabajo: una tarea, un acta o un defecto. Si trabajaron en algo que no tiene tarea, primero créenla.</li>
   </ul>
   <h3>Informe de tiempo del equipo</h3>
   <p>GitLab tiene un informe con todos los registros del equipo en un periodo. Ábranlo en <a href="https://gitlab.com/-/timelogs" target="_blank" rel="noopener">gitlab.com/-/timelogs</a>, elijan su grupo en <b>Grupo</b>, las fechas en <b>Desde el</b> y <b>Hasta el</b>, y seleccionen <b>Ejecutar informe</b> <i>(Run report)</i>. Muestra el total y una fila por registro, con fecha, elemento, persona, tiempo y fase.</p>
@@ -199,7 +206,7 @@
     <li>En <b>Descripción</b>, en <b>Elegir una plantilla</b> <i>(Choose a template)</i>, seleccionen <code>acta-de-relanzamiento</code>.</li>
     <li>Diligencien el acta. Marquen los temas tratados y borren las secciones de los temas que no se trataron en esa sesión.</li>
     <li>En el panel derecho asignen el hito de la semana y, en <b>Persona asignada</b>, a quien registró el acta. Seleccionen <b>Crear issue</b>. La etiqueta <code>relanzamiento</code> la pone la plantilla.</li>
-    <li>Cada participante registra en el acta su tiempo de la sesión, con la fase <code>Gestión</code>.
+    <li>Cada participante abre el acta y registra su tiempo de la sesión como se explica en <a href="#tiempo">Registro de tiempo</a>, con la fase <code>Gestión</code>.
       <figure><img src="etapas/img/e2-acta.webp" alt="Acta de relanzamiento con tiempo registrado"><figcaption>Acta de relanzamiento con su hito, su etiqueta y el tiempo registrado por los participantes.</figcaption></figure></li>
   </ol>
 </section>

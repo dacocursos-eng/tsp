@@ -36,6 +36,17 @@
   <h2>Antes de empezar</h2>
   <h3>Qué es GitLab en este proyecto</h3>
   <p>TSP necesita una herramienta de soporte donde el equipo registre su plan, su tiempo, sus defectos y sus reuniones, y de donde salgan los datos para el seguimiento (Lectura 4, sección 4). En este proyecto esa herramienta es GitLab: ustedes registran allí el trabajo del equipo y, para cada entrega, descargan de allí sus evidencias.</p>
+  <h3>Palabras que van a encontrar</h3>
+  <table>
+    <tr><th>En GitLab</th><th>Qué es</th></tr>
+    <tr><td><b>Elemento de trabajo</b> <i>(Work item)</i></td><td>Cada registro del proyecto: un requisito, una tarea, un acta o un defecto. Todos se ven en la lista <b>Elementos de trabajo</b>.</td></tr>
+    <tr><td><b>Issue</b></td><td>Un tipo de elemento de trabajo. En este proyecto se usa para requisitos, actas y defectos.</td></tr>
+    <tr><td><b>Task</b> (tarea)</td><td>Otro tipo de elemento de trabajo, más pequeño. En este proyecto se usa para las tareas del plan, casi siempre dentro de un requisito.</td></tr>
+    <tr><td><b>Repositorio</b> <i>(Repository)</i></td><td>El lugar donde se guardan los archivos del proyecto, con el historial de cada cambio.</td></tr>
+    <tr><td><b>Rama</b> <i>(Branch)</i> <code>main</code></td><td>La versión principal de los archivos del repositorio.</td></tr>
+    <tr><td><b>Confirmar cambios</b> <i>(Commit)</i></td><td>Guardar un cambio en el repositorio, con un mensaje que dice qué se cambió.</td></tr>
+    <tr><td><b>Markdown</b> (<code>.md</code>)</td><td>Formato de texto sencillo que GitLab convierte en títulos, listas y tablas.</td></tr>
+  </table>
   <h3>Idioma de la interfaz</h3>
   <p>GitLab muestra los menús en el idioma configurado en cada cuenta, así que algunos de ustedes lo verán en español y otros en inglés. En este manual cada nombre aparece en los dos idiomas, por ejemplo <b>Elementos de trabajo</b> <i>(Work items)</i>. Para cambiar el idioma: avatar &gt; <b>Preferencias</b> <i>(Preferences)</i> &gt; <b>Idioma</b> <i>(Language)</i>.</p>
   <h3>Versión gratuita</h3>
@@ -90,7 +101,7 @@
       <figure><img src="etapas/img/e1-invitar.webp" alt="Diálogo Invitar miembros"><figcaption>Diálogo de invitación con el aviso de cupos disponibles.</figcaption></figure></li>
     <li>En <b>Rol</b> elijan <b>Encargado de mantenimiento</b> <i>(Maintainer)</i>. Con este rol todos pueden crear elementos de trabajo, editar la wiki, crear ramas e integrar código. Seleccionen <b>Invitar</b>.
       <figure><img src="etapas/img/e1-roles.webp" alt="Lista de roles de GitLab"><figcaption>La lista de roles; bajen hasta Encargado de mantenimiento.</figcaption></figure></li>
-    <li>Cada compañero recibe la invitación por correo y la acepta. Al aceptarla, aparece en la lista de miembros.</li>
+    <li>Cada compañero aparece en la lista de miembros y recibe un correo de aviso. Si alguno no aparece, revisen que el nombre de usuario esté bien escrito.</li>
   </ol>
 </section>
 
@@ -119,7 +130,7 @@
     <li>Vayan a <b>Planificación</b> <i>(Plan)</i> &gt; <b>Hitos</b> <i>(Milestones)</i> y seleccionen <b>Nuevo hito</b> <i>(New milestone)</i>.</li>
     <li>En <b>Título</b> escriban <code>Semana N</code>, con el número de la semana del curso. En <b>Fecha de inicio</b> y <b>Fecha de vencimiento</b> pongan el primer y el último día de esa semana, según el calendario del curso. Seleccionen <b>Crear hito</b>, al final del formulario.
       <figure><img src="etapas/img/e1-hito-nuevo.webp" alt="Formulario Nuevo hito"><figcaption>Un hito por semana, con fecha de inicio y de fin.</figcaption></figure></li>
-    <li>Repitan el paso anterior para cada semana del ciclo que van a planear. Al terminar, la lista muestra todos los hitos con sus fechas y su avance.
+    <li>Repitan el paso anterior para cada semana, desde la semana en que empiezan a trabajar en GitLab hasta la última semana del curso. Al terminar, la lista muestra todos los hitos con sus fechas y su avance.
       <figure><img src="etapas/img/e1-hitos.webp" alt="Lista de hitos del proyecto"><figcaption>Lista de hitos: cada fila muestra las fechas y cuántas tareas de esa semana están terminadas.</figcaption></figure></li>
   </ol>
 </section>
@@ -184,6 +195,12 @@
     <li>Tablas de decisiones tomadas y de compromisos (compromiso, responsable, fecha límite y tarea relacionada).</li>
     <li>Como última línea, <code>/label ~reunion-semanal</code>.</li>
   </ul>
+  <p>Así se escribe una tabla en Markdown: la primera fila tiene los títulos de las columnas, la segunda separa los títulos del contenido, y cada fila siguiente es un renglón de la tabla.</p>
+  <pre>| Campo | Registro |
+| --- | --- |
+| Semana |  |
+| Fecha |  |</pre>
+  <p>Al terminar, comprueben la plantilla igual que la del acta: creen un elemento de trabajo nuevo y elíjanla en la lista. Si la tabla no se ve como tabla, revisen que cada fila empiece y termine con <code>|</code>.</p>
   <div class="note">El texto entre <code>&lt;!--</code> y <code>--&gt;</code> es un comentario: se ve al diligenciar la plantilla y no aparece en el elemento publicado. Úsenlo para dejar instrucciones a quien la diligencie.</div>
 </section>
 
@@ -202,7 +219,7 @@
   <h3>Cómo se hace</h3>
   <ol class="steps">
     <li>Vayan a <b>Planificación</b> <i>(Plan)</i> &gt; <b>Wiki</b>. Si la wiki está vacía, seleccionen <b>Crear su primera página</b>; si ya tiene páginas, seleccionen <b>Nueva página</b> <i>(New page)</i>.</li>
-    <li>Escriban el título de la página y su contenido. El editor permite tablas, listas y títulos con la barra de herramientas. Pueden copiar las tablas del Plan de lanzamiento y pegarlas.
+    <li>Escriban el título de la página y su contenido. El editor permite tablas, listas y títulos con la barra de herramientas. Pueden copiar las tablas del Plan de lanzamiento y pegarlas; si una tabla no queda bien, créenla con el botón de tabla de la barra de herramientas y copien el contenido celda por celda.
       <figure><img src="etapas/img/e1-wiki-editar.webp" alt="Editor de una página de la wiki"><figcaption>Editor de la wiki.</figcaption></figure></li>
     <li>Seleccionen <b>Crear página</b> <i>(Create page)</i>. Para cambiarla después, abran la página y seleccionen <b>Editar</b> <i>(Edit)</i>.
       <figure><img src="etapas/img/e1-wiki.webp" alt="Página Equipo y roles de la wiki"><figcaption>Ejemplo de la página Equipo y roles: integrantes, usuarios de GitLab y roles TSP.</figcaption></figure></li>
