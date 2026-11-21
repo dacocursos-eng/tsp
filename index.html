@@ -13,6 +13,17 @@
 .stage h2{font-size:1.2rem;margin:.2rem 0 .5rem}
 .stage p{margin:.2rem 0 .8rem;flex:1}
 .stage a.go{align-self:flex-start;background:var(--accent);color:#fff;text-decoration:none;border-radius:8px;padding:.4rem .9rem;font-weight:600}
+
+.banner{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;border-radius:var(--radius);padding:.9rem 1.2rem;margin:1.6rem 0 .2rem;color:#fff}
+.banner h2{margin:0;font-size:1.35rem}
+.banner p{margin:0;opacity:.92;font-size:.95rem}
+.banner .tag{background:#fff;border-radius:999px;padding:.15rem .75rem;font-weight:700;font-size:.85rem}
+.b2{background:#5b6575}.b2 .tag{color:#5b6575}
+.b3{background:var(--accent)}.b3 .tag{color:var(--accent)}
+.e2 .stage{border-top:4px solid #5b6575}
+.e3 .stage{border-top:4px solid var(--accent)}
+.stage .ent{font-size:.75rem;font-weight:700;border-radius:999px;padding:.05rem .55rem;margin-left:.4rem;vertical-align:middle}
+.e2 .ent{background:#eceef1;color:#5b6575}.e3 .ent{background:var(--accent-soft);color:var(--accent)}
 section.box{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:1.2rem 1.4rem;margin-bottom:1.5rem}
 section.box h2{margin:0 0 .5rem;font-size:1.3rem}
 </style>
@@ -26,15 +37,20 @@ section.box h2{margin:0 0 .5rem;font-size:1.3rem}
 </div></header>
 
 <div class="wrap1">
-  <div class="stages">
-    <div class="stage"><span class="n">Etapa 1</span><h2>Montaje del proyecto</h2><p>Cuentas, grupo del equipo, integrantes, proyecto, hitos semanales, etiquetas, plantillas y la wiki con la información de la Entrega 1.</p><a class="go" href="etapa-1.html">Abrir la etapa 1</a></div>
-    <div class="stage"><span class="n">Etapa 2</span><h2>Planeación y registro de tiempo</h2><p>Relanzamiento: requisitos como <i>issues</i>, tareas con responsable, estimación y fechas, lectura del plan, registro de tiempo y actas.</p><a class="go" href="etapa-2.html">Abrir la etapa 2</a></div>
-    <div class="stage"><span class="n">Entrega 2</span><h2>Evidencias desde GitLab</h2><p>Qué archivos se entregan, cómo se descargan de GitLab, con qué nombre y cómo se suben.</p><a class="go" href="entrega-2.html">Abrir la guía de la entrega</a></div>
-    <div class="stage"><span class="n">Etapa 3</span><h2>Seguimiento semanal</h2><p>Reunión semanal con el reporte de cada rol, estado del proyecto con valor planeado y valor ganado, riesgos y cambios al plan.</p><a class="go" href="etapa-3.html">Abrir la etapa 3</a></div>
-    <div class="stage"><span class="n">Etapa 4</span><h2>Código y calidad</h2><p>Repositorio, una rama por tarea, editor web, solicitudes de fusión, revisión personal, inspección, tamaño en líneas de código y defectos con tipo y fases.</p><a class="go" href="etapa-4.html">Abrir la etapa 4</a></div>
-    <div class="stage"><span class="n">Etapa 5</span><h2>Análisis y cierre</h2><p>Datos del proyecto en Excel con el generador de evidencias, análisis, <i>postmortem</i>, conclusiones, línea de tiempo y video.</p><a class="go" href="etapa-5.html">Abrir la etapa 5</a></div>
-    <div class="stage"><span class="n">Entrega 3</span><h2>Consolidado y sustentación</h2><p>Qué archivos se entregan, cómo se obtienen, cómo se suben y cómo se evalúa la entrega.</p><a class="go" href="entrega-3.html">Abrir la guía de la entrega</a></div>
-    <div class="stage"><span class="n">Herramienta</span><h2>Generador de evidencias</h2><p>Arma el Excel del proyecto con los registros de GitLab y las tablas para el análisis.</p><a class="go" href="generador.html">Abrir el generador</a></div>
+  <div class="banner b3"><span class="tag">Entrega 3</span><div><h2>Material de la Entrega 3</h2><p>Seguimiento semanal, código y calidad, análisis y cierre. Se trabaja sobre el proyecto montado en las etapas 1 y 2.</p></div></div>
+  <div class="stages e3">
+    <div class="stage"><span class="n">Etapa 3<span class="ent">Entrega 3</span></span><h2>Seguimiento semanal</h2><p>Reunión semanal con el reporte de cada rol, estado del proyecto con valor planeado y valor ganado, riesgos y cambios al plan.</p><a class="go" href="etapa-3.html">Abrir la etapa 3</a></div>
+    <div class="stage"><span class="n">Etapa 4<span class="ent">Entrega 3</span></span><h2>Código y calidad</h2><p>Repositorio, una rama por tarea, editor web, solicitudes de fusión, revisión personal, inspección, tamaño en líneas de código y defectos con tipo y fases.</p><a class="go" href="etapa-4.html">Abrir la etapa 4</a></div>
+    <div class="stage"><span class="n">Etapa 5<span class="ent">Entrega 3</span></span><h2>Análisis y cierre</h2><p>Datos del proyecto en Excel con el generador de evidencias, análisis, <i>postmortem</i>, conclusiones, línea de tiempo y video.</p><a class="go" href="etapa-5.html">Abrir la etapa 5</a></div>
+    <div class="stage"><span class="n">Guía de la entrega<span class="ent">Entrega 3</span></span><h2>Consolidado y sustentación</h2><p>Qué archivos se entregan, cómo se obtienen, cómo se suben y cómo se evalúa la entrega.</p><a class="go" href="entrega-3.html">Abrir la guía de la entrega</a></div>
+    <div class="stage"><span class="n">Herramienta<span class="ent">Entrega 3</span></span><h2>Generador de evidencias</h2><p>Arma el Excel del proyecto con los registros de GitLab y las tablas para el análisis.</p><a class="go" href="generador.html">Abrir el generador</a></div>
+  </div>
+
+  <div class="banner b2"><span class="tag">Entrega 2</span><div><h2>Material de la Entrega 2</h2><p>Montaje del proyecto, planeación y registro de tiempo. Las etapas 1 y 2 se siguen usando durante la Entrega 3.</p></div></div>
+  <div class="stages e2">
+    <div class="stage"><span class="n">Etapa 1<span class="ent">Entrega 2</span></span><h2>Montaje del proyecto</h2><p>Cuentas, grupo del equipo, integrantes, proyecto, hitos semanales, etiquetas, plantillas y la wiki con la información de la Entrega 1.</p><a class="go" href="etapa-1.html">Abrir la etapa 1</a></div>
+    <div class="stage"><span class="n">Etapa 2<span class="ent">Entrega 2</span></span><h2>Planeación y registro de tiempo</h2><p>Relanzamiento: requisitos como <i>issues</i>, tareas con responsable, estimación y fechas, lectura del plan, registro de tiempo y actas.</p><a class="go" href="etapa-2.html">Abrir la etapa 2</a></div>
+    <div class="stage"><span class="n">Guía de la entrega<span class="ent">Entrega 2</span></span><h2>Evidencias desde GitLab</h2><p>Qué archivos se entregan, cómo se descargan de GitLab, con qué nombre y cómo se suben.</p><a class="go" href="entrega-2.html">Abrir la guía de la entrega</a></div>
   </div>
 
   <section class="box">

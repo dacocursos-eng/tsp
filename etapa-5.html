@@ -92,7 +92,11 @@
   <ol class="steps">
     <li>Exporten el CSV de elementos de trabajo como en la Entrega 2, con <b>Estado</b> en <b>Cualquiera</b>.</li>
     <li>En el generador, en <b>Generar desde el CSV</b>, seleccionen el archivo y su subgrupo, y seleccionen <b>Generar Excel</b>.</li>
-    <li>El CSV no trae el detalle de cada registro de tiempo ni las solicitudes de fusión. Diligencien a mano en el Excel las hojas <b>Tiempo</b> y <b>Fusiones</b>, a partir del informe de tiempo del grupo y de cada solicitud de fusión. Las tablas se calculan solas al llenar esas hojas.</li>
+    <li>El CSV no trae el detalle de cada registro de tiempo ni las solicitudes de fusión. Diligencien a mano en el Excel estas columnas; las demás se calculan solas:
+      <ul>
+        <li>Hoja <b>Tiempo</b>, una fila por cada registro del informe de tiempo del grupo: <b>Fecha</b>, <b>Persona</b> (el nombre como aparece en la hoja Elementos), <b>Elemento</b> (el número con <code>#</code>, por ejemplo <code>#7</code>), <b>Horas</b> (en decimales: 1 hora y 30 minutos es <code>1,5</code>) y <b>Fase</b> (como en la tabla de fases).</li>
+        <li>Hoja <b>Fusiones</b>, una fila por solicitud de fusión: <b>Fusionada</b> (fecha), <b>Estado</b> (<code>Fusionada</code>), <b>Líneas agregadas</b>, <b>Inspectores</b> (cantidad) y <b>Horas de inspección</b>.</li>
+      </ul></li>
     <li>Guarden también el informe de tiempo del grupo como PDF, como en la Entrega 2: <code>TSP_E3_SGxx_tiempo.pdf</code>.</li>
   </ol>
 </section>
@@ -123,7 +127,7 @@
   <ol class="steps">
     <li>Creen una tarea sin requisito llamada <code>Postmortem del proyecto</code>, con la etiqueta <code>tarea</code>, el hito de la última semana, responsable y estimación. Allí registra cada uno su tiempo del <i>postmortem</i> con la fase <code>Gestión</code>.</li>
     <li>Generen el Excel del proyecto con los datos al cierre.</li>
-    <li>Creen en la wiki la página <b><i>Postmortem</i></b> con el contenido de este archivo:
+    <li>Creen en la wiki la página <b><i>Postmortem</i></b> con el contenido de este archivo. Antes de pegarlo, seleccionen <b>Cambiar a edición de texto sin formato</b> <i>(Switch to plain text editing)</i>, debajo del editor, para que las tablas queden con su formato:
       <div class="tpl"><button type="button" data-copy="anexos/postmortem.md">Copiar</button><pre>Cargando la plantilla…</pre></div>
       También pueden <a href="anexos/postmortem.md" download>descargar el archivo</a>.</li>
     <li>Reúnanse para diligenciarla. Llenen el resumen consolidado con los valores del Excel y respondan cada sección con datos del proyecto: horas, valor ganado, defectos, actas y reportes semanales.</li>

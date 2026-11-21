@@ -29,6 +29,7 @@
     <li><a href="#fusion">Aprobación y fusión</a></li>
     <li><a href="#tamano">Tamaño del producto</a></li>
     <li><a href="#defectos">Defectos: tipo y fases</a></li>
+    <li><a href="#prototipo">Ver el prototipo funcionando</a></li>
     <li><a href="#terminal">Trabajar con Git en el computador</a></li>
     <li><a href="#verificar">Verificación de la etapa</a></li>
   </ul>
@@ -98,7 +99,7 @@
   <div class="where">En GitLab: <b>Planificación</b> <span class="en">(Plan)</span> &gt; <b>Wiki</b>, páginas <b>Lista de chequeo de revisión de diseño</b> y <b>Lista de chequeo de revisión de código</b>.</div>
   <h3>Cómo se hace</h3>
   <ol class="steps">
-    <li>Creen en la wiki las dos páginas con el contenido de estos archivos, y ajústenlas a su proyecto: <a href="anexos/lista-revision-diseno.md" download>lista de revisión de diseño</a> y <a href="anexos/lista-revision-codigo.md" download>lista de revisión de código</a>.</li>
+    <li>Creen en la wiki las dos páginas con el contenido de estos archivos. Antes de pegar el contenido, seleccionen <b>Cambiar a edición de texto sin formato</b> <i>(Switch to plain text editing)</i>, debajo del editor, para que las casillas y los títulos queden con su formato. Después ajústenlas a su proyecto: <a href="anexos/lista-revision-diseno.md" download>lista de revisión de diseño</a> y <a href="anexos/lista-revision-codigo.md" download>lista de revisión de código</a>.</li>
     <li>Al terminar el diseño o el código de una tarea, su responsable abre la lista y revisa su trabajo punto por punto. Registra el tiempo en la tarea con la fase <code>Revisión de diseño</code> o <code>Revisión de código</code>.</li>
     <li>Cada error que encuentra lo registra como defecto, como se explica en <a href="#defectos">Defectos: tipo y fases</a>, con la fase removida <code>Revisión de diseño</code> o <code>Revisión de código</code>.</li>
     <li>Cuando un tipo de defecto se repite, el gerente de calidad y proceso lo agrega a la lista, en la sección de defectos frecuentes del equipo.</li>
@@ -153,7 +154,7 @@
     <li>En el título escriban el identificador y el nombre de la tarea, por ejemplo <code>T05: pantalla de cuentas</code>.</li>
     <li>En <b>Descripción</b>, en la lista de plantillas, elijan <code>inspeccion</code>. Si GitLab pregunta si desean reemplazar la descripción, seleccionen <b>Aplicar plantilla</b> <i>(Apply template)</i>. En la línea <code>Closes #</code> escriban el número de la tarea, por ejemplo <code>Closes #20</code>, y completen <b>Qué cambia</b>, <b>Cómo se prueba</b> y la revisión personal.
       <figure><img src="etapas/img/e4-mr-nueva.webp" alt="Solicitud de fusión nueva con la plantilla de inspección"><figcaption>Solicitud de fusión nueva con la plantilla de inspección, vista con GitLab en inglés: <i>Title</i> (título), <i>Description</i> (descripción) y la línea <code>Closes #</code> lista para completar con el número de la tarea.</figcaption></figure></li>
-    <li>En <b>Persona asignada</b> <i>(Assignee)</i> pónganse ustedes mismos; en <b>Revisor</b> <i>(Reviewer)</i>, a uno de los dos inspectores. Asignen el hito de la semana. Dejen marcada la opción de eliminar la rama de origen al fusionar.</li>
+    <li>En <b>Persona asignada</b> <i>(Assignee)</i>, el responsable de la tarea se asigna a sí mismo; en <b>Revisor</b> <i>(Reviewer)</i>, a uno de los dos inspectores. Asignen el hito de la semana. Dejen marcada la opción de eliminar la rama de origen al fusionar.</li>
     <li>Seleccionen <b>Crear solicitud de fusión</b> <i>(Create merge request)</i>. En la descripción publicada, <code>#20</code> queda enlazado a la tarea.</li>
   </ol>
   <div class="note">Si la solicitud aparece como borrador <i>(Draft)</i>, seleccionen <b>Marcar como listo</b> <i>(Mark as ready)</i> cuando esté lista para la inspección.</div>
@@ -171,11 +172,11 @@
     <li>Cada inspector abre la solicitud de fusión y la pestaña <b>Cambios</b> <i>(Changes)</i>. Allí se ven en verde las líneas agregadas y en rojo las eliminadas. Calculen el tiempo mínimo de inspección: líneas agregadas dividido entre 150 da las horas.</li>
     <li>Cuando un inspector encuentra un defecto, pasa el cursor sobre el número de la línea, selecciona el ícono de comentario y escribe qué está mal. Seleccionen <b>Iniciar una revisión</b> <i>(Start a review)</i> en el primer comentario y <b>Agregar a la revisión</b> <i>(Add to review)</i> en los siguientes.
       <figure><img src="etapas/img/e4-inspeccion-comentario.webp" alt="Comentario de un inspector sobre una línea de código"><figcaption>Comentario de inspección sobre la línea donde está el defecto.</figcaption></figure></li>
-    <li>Al terminar, el inspector selecciona <b>Su revisión</b> <i>(Your review)</i>, escribe un resumen y envía la revisión. Si encontró defectos, elige la opción de solicitar cambios; si no, solo comenta.</li>
+    <li>Al terminar, el inspector selecciona <b>Su revisión</b> <i>(Your review)</i>. En el panel elige <b>Solicitar cambios</b> <i>(Request changes)</i> si encontró defectos, o <b>Comentario</b> <i>(Comment)</i> si no encontró; escribe un resumen y selecciona <b>Enviar evaluación</b> <i>(Submit review)</i>.</li>
     <li>Cada inspector registra su tiempo en la tarea con la fase <code>Inspección</code>, y escribe su tiempo en la tabla de inspección de la descripción.</li>
-    <li>El autor registra como defecto cada comentario que señala un error, con la fase removida <code>Inspección</code>, y escribe sus números en la tabla de inspección.</li>
+    <li>Cada inspector registra como defecto cada error que señaló, con la fase removida <code>Inspección</code>, como se explica en <a href="#defectos">Defectos: tipo y fases</a>. El autor escribe los números de esos defectos en la tabla de inspección.</li>
   </ol>
-  <div class="note">La versión gratuita de GitLab permite un solo revisor por solicitud. El segundo inspector participa igual: revisa la pestaña Cambios, comenta y registra su tiempo.</div>
+  <div class="note">La versión gratuita de GitLab permite un solo revisor por solicitud. El segundo inspector participa igual: revisa la pestaña Cambios, comenta y registra su tiempo. En equipos de dos integrantes, la inspección la hace el integrante que no es autor de la tarea, y en la tabla de inspección se escribe <i>No aplica</i> en el segundo inspector.</div>
 </section>
 
 <section id="fusion">
@@ -186,7 +187,7 @@
   <h3>Cómo se hace</h3>
   <ol class="steps">
     <li>El autor corrige los defectos en la misma rama, con el editor web, y registra el tiempo de cada corrección en el elemento del defecto, con la fase <code>Corrección</code>. Al terminar cada corrección, cierra el defecto.</li>
-    <li>Los inspectores verifican las correcciones. Cuando todo está bien, el revisor selecciona <b>Su revisión</b> &gt; <b>Aprobar</b> <i>(Approve)</i>. GitLab no permite que el autor apruebe su propia solicitud.
+    <li>Los inspectores verifican las correcciones. Cuando todo está bien, el revisor selecciona <b>Su revisión</b>, elige <b>Aprobar</b> <i>(Approve)</i> y selecciona <b>Enviar evaluación</b> <i>(Submit review)</i>. GitLab no permite que el autor apruebe su propia solicitud.
       <figure><img src="etapas/img/e4-aprobar.webp" alt="Solicitud de fusión aprobada lista para fusionar"><figcaption>Solicitud aprobada por la revisora, lista para fusionar, vista con GitLab en inglés: <i>Approved by</i> (aprobada por), <i>Ready to merge!</i> (lista para fusionar) y el botón <i>Merge</i> (Fusionar).</figcaption></figure></li>
     <li>El autor completa en la tabla de inspección el resultado y selecciona <b>Fusionar</b> <i>(Merge)</i>. La tarea se cierra y la rama se elimina.</li>
     <li>El autor registra en la tarea el tiempo de la fusión y de verificar que el producto sigue funcionando, con la fase <code>Integración</code>.</li>
@@ -234,7 +235,7 @@
     <li><b>Fase inyectada</b>: la fase en que se cometió el error. Etiqueta <code>inyectado:</code> seguida de la fase, por ejemplo <code>inyectado: Implementación</code>.</li>
     <li><b>Fase removida</b>: la fase en que se encontró y se corrigió. Etiqueta <code>removido:</code> seguida de la fase, por ejemplo <code>removido: Inspección</code>.</li>
   </ul>
-  <p>Escriban la fase exactamente como aparece en la tabla de fases de la etapa 2. Una persona del equipo crea las diez etiquetas de tipo al iniciar esta etapa; las de fase se crean en <b>Administrar</b> &gt; <b>Etiquetas</b> la primera vez que se necesitan.</p>
+  <p>Escriban la fase exactamente como aparece en la tabla de fases de la etapa 2. Una persona del equipo crea las diez etiquetas de tipo al iniciar esta etapa; las de fase se crean en <b>Gestionar</b> &gt; <b>Etiquetas</b> la primera vez que se necesitan.</p>
   <h3>Cómo se registra un defecto</h3>
   <ol class="steps">
     <li>Creen un elemento de tipo <b><i>Issue</i></b> con un título como <code>Defecto D04: el saldo acepta valores negativos</code>.</li>
@@ -244,6 +245,21 @@
     <li>Quien lo corrige registra el tiempo en ese elemento con la fase <code>Corrección</code> y lo cierra cuando la corrección está hecha.</li>
   </ol>
   <div class="note">Los defectos que registraron en la etapa 2 también se etiquetan: agréguenles el tipo y las fases que ya escribieron en su descripción.</div>
+</section>
+
+<section id="prototipo">
+  <span class="who">Lo hace cualquier integrante</span>
+  <h2>Ver el prototipo funcionando</h2>
+  <p><b>Qué es.</b> Es la copia del código de la rama <code>main</code> en su computador, para abrir el prototipo en el navegador y probarlo.</p>
+  <p><b>Para qué sirve.</b> Permite ejecutar las pruebas de las tareas y grabar el prototipo en funcionamiento para el video de la sustentación.</p>
+  <div class="where">En GitLab: página principal del proyecto, botón <b>Código</b> <span class="en">(Code)</span> &gt; <b>zip</b>, en la sección de descarga del código fuente.</div>
+  <h3>Cómo se hace</h3>
+  <ol class="steps">
+    <li>En la página principal del proyecto, con la rama <code>main</code> seleccionada, seleccionen el botón <b>Código</b> <i>(Code)</i> y, en la descarga del código fuente, <b>zip</b>.</li>
+    <li>Descompriman el archivo en una carpeta de su computador.</li>
+    <li>Si el prototipo está hecho con HTML, CSS y JavaScript, abran el archivo <code>index.html</code> con el navegador. Si usaron otra tecnología, ejecútenlo como lo indique esa tecnología; dejen escritos los pasos en el archivo <code>README.md</code> del repositorio para que cualquier integrante pueda hacerlo.</li>
+  </ol>
+  <div class="note">Para probar una tarea antes de fusionarla, descarguen el código de su rama: seleccionen la rama en el selector y luego <b>Código</b> &gt; <b>zip</b>.</div>
 </section>
 
 <section id="terminal">
