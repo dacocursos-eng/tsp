@@ -10,7 +10,7 @@
 <header class="top"><div class="wrap">
   <p class="kicker">Proyecto TSP en GitLab · Etapa 5</p>
   <h1>Análisis y cierre</h1>
-  <p>En esta etapa el equipo consolida los registros del proyecto, los analiza, hace el postmortem con sus conclusiones y prepara la sustentación en video con el prototipo y la línea de tiempo del proyecto.</p>
+  <p>En esta etapa el equipo consolida los registros del proyecto, los analiza, hace el <i>postmortem</i> con sus conclusiones y prepara la sustentación en video con el prototipo y la línea de tiempo del proyecto.</p>
   <div class="alert" style="margin:1rem 0 0;background:#fff;color:var(--ink)"><strong>Este material corresponde a la Entrega 3.</strong></div>
   <nav><a href="index.html">Inicio</a><a href="etapa-1.html">Etapa 1: montaje</a><a href="etapa-2.html">Etapa 2: planeación y registro de tiempo</a><a href="etapa-3.html">Etapa 3: seguimiento semanal</a><a href="etapa-4.html">Etapa 4: código y calidad</a><a class="on" href="etapa-5.html">Etapa 5: análisis y cierre</a><a href="entrega-2.html">Entrega 2</a><a href="entrega-3.html">Entrega 3</a></nav>
 </div></header>
@@ -19,11 +19,11 @@
 <nav class="side" aria-label="Contenido de la etapa">
   <ul>
     <li><a href="#datos">Datos del proyecto en Excel</a></li>
-    <li><a href="#token">El token personal</a></li>
+    <li><a href="#token">El <i>token</i> personal</a></li>
     <li><a href="#generar">Cómo se genera el Excel</a></li>
-    <li><a href="#sin-token">Sin token: desde el CSV</a></li>
+    <li><a href="#sin-token">Sin <i>token</i>: desde el CSV</a></li>
     <li><a href="#leer">Cómo se leen los datos</a></li>
-    <li><a href="#postmortem">Postmortem</a></li>
+    <li><a href="#postmortem"><i>Postmortem</i></a></li>
     <li><a href="#conclusiones">Conclusiones</a></li>
     <li><a href="#video">Línea de tiempo y video</a></li>
     <li><a href="#verificar">Verificación de la etapa</a></li>
@@ -36,7 +36,7 @@
   <span class="who">Lo hace una persona del equipo</span>
   <h2>Datos del proyecto en Excel</h2>
   <p><b>Qué es.</b> Es un libro de Excel con todos los registros del proyecto: tareas, tiempo, solicitudes de fusión, defectos y riesgos, y con tablas que resumen esos registros. Lo arma el <a href="generador.html">generador de evidencias</a>, una página de este material que lee los datos de su proyecto en GitLab.</p>
-  <p><b>Para qué sirve.</b> El postmortem de TSP compara los resultados reales con el plan y deja registrados los datos del proceso (Lectura 1, sección 5.2). El Excel reúne esos datos en un solo archivo para que el equipo los analice y saque sus conclusiones. Los datos se recopilan a medida que avanza el proyecto y se guardan para estimar mejor los proyectos siguientes (Lectura 7, sección 1).</p>
+  <p><b>Para qué sirve.</b> El <i>postmortem</i> de TSP compara los resultados reales con el plan y deja registrados los datos del proceso (Lectura 1, sección 5.2). El Excel reúne esos datos en un solo archivo para que el equipo los analice y saque sus conclusiones. Los datos se recopilan a medida que avanza el proyecto y se guardan para estimar mejor los proyectos siguientes (Lectura 7, sección 1).</p>
   <h3>Hojas del Excel</h3>
   <table>
     <tr><th>Hoja</th><th>Contenido</th></tr>
@@ -55,21 +55,21 @@
 
 <section id="token">
   <span class="who">Lo hace la persona que genera el Excel</span>
-  <h2>El token personal</h2>
-  <p><b>Qué es.</b> Un token de acceso personal <i>(personal access token)</i> es una clave que GitLab entrega para que un programa consulte sus datos en nombre de ustedes. Tiene permisos limitados, que GitLab llama alcances <i>(scopes)</i>, y una fecha de vencimiento, y se puede revocar en cualquier momento sin cambiar la contraseña. El generador necesita un token con el alcance <code>read_api</code>, que solo permite leer.</p>
-  <p><b>Para qué sirve.</b> Con el token, el generador lee los datos del proyecto directamente desde GitLab, incluido el detalle de cada registro de tiempo, que el CSV no trae.</p>
-  <div class="alert"><strong>El token es personal, como una contraseña.</strong> No lo compartan, no lo escriban en la wiki ni en el repositorio y no lo envíen por correo o chat. El generador lo usa solo en su navegador para consultar a GitLab y no lo guarda. Cuando terminen la entrega, revóquenlo.</div>
-  <div class="where">En GitLab: su avatar, arriba a la derecha &gt; <b>Editar perfil</b> <span class="en">(Edit profile)</span> &gt; <b>Tokens de acceso personal</b> <span class="en">(Personal access tokens)</span>. También se abre con la dirección <a href="https://gitlab.com/-/user_settings/personal_access_tokens" target="_blank" rel="noopener">gitlab.com/-/user_settings/personal_access_tokens</a>.</div>
+  <h2>El <i>token</i> personal</h2>
+  <p><b>Qué es.</b> Un <i>token</i> de acceso personal <i>(personal access token)</i> es una clave que GitLab entrega para que un programa consulte sus datos en nombre de ustedes. Tiene permisos limitados, que GitLab llama alcances <i>(scopes)</i>, y una fecha de vencimiento, y se puede revocar en cualquier momento sin cambiar la contraseña. El generador necesita un <i>token</i> con el alcance <code>read_api</code>, que solo permite leer.</p>
+  <p><b>Para qué sirve.</b> Con el <i>token</i>, el generador lee los datos del proyecto directamente desde GitLab, incluido el detalle de cada registro de tiempo, que el CSV no trae.</p>
+  <div class="alert"><strong>El <i>token</i> es personal, como una contraseña.</strong> No lo compartan, no lo escriban en la wiki ni en el repositorio y no lo envíen por correo o chat. El generador lo usa solo en su navegador para consultar a GitLab y no lo guarda. Cuando terminen la entrega, revóquenlo.</div>
+  <div class="where">En GitLab: su avatar, arriba a la derecha &gt; <b>Editar perfil</b> <span class="en">(Edit profile)</span> &gt; <b>Tokens de acceso personal</b> <span class="en">(Personal access <i>tokens</i>)</span>. También se abre con la dirección <a href="https://gitlab.com/-/user_settings/personal_access_tokens" target="_blank" rel="noopener">gitlab.com/-/user_settings/personal_access_tokens</a>.</div>
   <h3>Cómo se crea</h3>
   <ol class="steps">
     <li>Seleccionen su avatar, arriba a la derecha, y luego <b>Editar perfil</b> <i>(Edit profile)</i>. En el menú izquierdo seleccionen <b>Tokens de acceso personal</b> <i>(Personal access tokens)</i>.</li>
-    <li>Seleccionen <b>Generar token</b> <i>(Generate token)</i> y, en el menú, <b>Token heredado</b> <i>(Legacy token)</i>. En <b>Nombre del token</b> <i>(Token name)</i> escriban <code>generador-tsp</code>. En <b>Fecha de vencimiento</b> <i>(Expiration date)</i> dejen una fecha posterior a la entrega.</li>
-    <li>En <b>Seleccionar alcances</b> <i>(Select scopes)</i> marquen solo <code>read_api</code>. Al final del formulario seleccionen <b>Generar token</b> <i>(Generate token)</i>.
-      <figure><img src="etapas/img/e5-token.webp" alt="Formulario de un token de acceso personal con el alcance read_api"><figcaption>Token con el alcance <code>read_api</code> y fecha de vencimiento.</figcaption></figure></li>
-    <li>GitLab muestra el token una sola vez. Cópienlo con el botón de copiar y péguenlo en el generador. Si lo pierden, revóquenlo y creen otro.</li>
+    <li>Seleccionen <b>Generar <i>token</i></b> <i>(Generate token)</i> y, en el menú, <b><i>Token</i> heredado</b> <i>(Legacy token)</i>. En <b>Nombre del <i>token</i></b> <i>(Token name)</i> escriban <code>generador-tsp</code>. En <b>Fecha de vencimiento</b> <i>(Expiration date)</i> dejen una fecha posterior a la entrega.</li>
+    <li>En <b>Seleccionar alcances</b> <i>(Select scopes)</i> marquen solo <code>read_api</code>. Al final del formulario seleccionen <b>Generar <i>token</i></b> <i>(Generate token)</i>.
+      <figure><img src="etapas/img/e5-token.webp" alt="Formulario de un token de acceso personal con el alcance read_api"><figcaption><i>Token</i> con el alcance <code>read_api</code> y fecha de vencimiento.</figcaption></figure></li>
+    <li>GitLab muestra el <i>token</i> una sola vez. Cópienlo con el botón de copiar y péguenlo en el generador. Si lo pierden, revóquenlo y creen otro.</li>
   </ol>
   <h3>Cómo se revoca</h3>
-  <p>En la misma página de <b>Tokens de acceso personal</b>, busquen <code>generador-tsp</code> en la lista de tokens activos y seleccionen <b>Revocar</b> <i>(Revoke)</i>. Desde ese momento el token deja de funcionar.</p>
+  <p>En la misma página de <b>Tokens de acceso personal</b>, busquen <code>generador-tsp</code> en la lista de <i>tokens</i> activos y seleccionen <b>Revocar</b> <i>(Revoke)</i>. Desde ese momento el <i>token</i> deja de funcionar.</p>
 </section>
 
 <section id="generar">
@@ -78,18 +78,17 @@
   <ol class="steps">
     <li>Abran el <a href="generador.html">generador de evidencias</a>.</li>
     <li>En <b>Dirección del proyecto</b> peguen la dirección de su proyecto en GitLab, la que aparece en el navegador al abrir la página principal del proyecto, por ejemplo <code>https://gitlab.com/equipo-finanzas-tsp/finanzas-personales</code>.</li>
-    <li>En <b>Token</b> peguen su token. En <b>Subgrupo</b> escriban su número de subgrupo, por ejemplo <code>SG05</code>.</li>
-    <li>Seleccionen <b>Generar Excel</b>. La página muestra el avance de la consulta y, al terminar, un resumen y el botón para descargar <code>TSP_E3_SGxx_datos.xlsx</code>.
-      <figure><img src="etapas/img/e5-generador.webp" alt="Generador de evidencias con el resumen del proyecto"><figcaption>El generador después de leer el proyecto: resumen y botón de descarga.</figcaption></figure></li>
+    <li>En <b><i>Token</i></b> peguen su <i>token</i>. En <b>Subgrupo</b> escriban su número de subgrupo, por ejemplo <code>SG05</code>.</li>
+    <li>Seleccionen <b>Generar Excel</b>. La página muestra el avance de la consulta y, al terminar, un resumen y el botón para descargar <code>TSP_E3_SGxx_datos.xlsx</code>.</li>
     <li>Revisen los avisos que muestra el generador, por ejemplo registros de tiempo con una fase que no está en la tabla de fases o defectos sin tipo. Corríjanlos en GitLab y generen el Excel de nuevo.</li>
   </ol>
   <div class="note">Pueden generar el Excel todas las veces que quieran, por ejemplo antes de cada reunión semanal para el reporte de estado del proyecto. Cada vez se generan los datos actualizados.</div>
 </section>
 
 <section id="sin-token">
-  <span class="who">Alternativa sin token</span>
-  <h2>Sin token: desde el CSV</h2>
-  <p>Si prefieren no crear un token, el generador también arma el Excel a partir del CSV de elementos de trabajo, el mismo que exportaron en la Entrega 2. El archivo se procesa en su navegador y no se envía a ningún servidor.</p>
+  <span class="who">Alternativa sin <i>token</i></span>
+  <h2>Sin <i>token</i>: desde el CSV</h2>
+  <p>Si prefieren no crear un <i>token</i>, el generador también arma el Excel a partir del CSV de elementos de trabajo, el mismo que exportaron en la Entrega 2. El archivo se procesa en su navegador y no se envía a ningún servidor.</p>
   <ol class="steps">
     <li>Exporten el CSV de elementos de trabajo como en la Entrega 2, con <b>Estado</b> en <b>Cualquiera</b>.</li>
     <li>En el generador, en <b>Generar desde el CSV</b>, seleccionen el archivo y su subgrupo, y seleccionen <b>Generar Excel</b>.</li>
@@ -116,15 +115,15 @@
 
 <section id="postmortem">
   <span class="who">Lo hace todo el equipo</span>
-  <h2>Postmortem</h2>
-  <p><b>Qué es.</b> El postmortem es la evaluación final del ciclo del proyecto. El equipo analiza qué salió bien, qué se puede mejorar y cómo desempeñó cada uno su rol (Lectura 5, sección 4.10); compara los resultados reales con el plan, registra los datos del proceso y documenta sus ideas de mejora (Lectura 1, sección 5.2).</p>
+  <h2><i>Postmortem</i></h2>
+  <p><b>Qué es.</b> El <i>postmortem</i> es la evaluación final del ciclo del proyecto. El equipo analiza qué salió bien, qué se puede mejorar y cómo desempeñó cada uno su rol (Lectura 5, sección 4.10); compara los resultados reales con el plan, registra los datos del proceso y documenta sus ideas de mejora (Lectura 1, sección 5.2).</p>
   <p><b>Para qué sirve.</b> Deja el proyecto documentado con sus datos y sus aprendizajes, como referencia para los proyectos siguientes. Responde las preguntas de la Entrega 3: qué pasó durante el desarrollo, cómo resolvieron las dificultades, cómo fue el manejo de los roles y si los reportes de trabajo reflejan el compromiso individual y del equipo.</p>
-  <div class="where">En GitLab: <b>Planificación</b> <span class="en">(Plan)</span> &gt; <b>Wiki</b> &gt; <b>Nueva página</b> <span class="en">(New page)</span>, página <b>Postmortem</b>.</div>
+  <div class="where">En GitLab: <b>Planificación</b> <span class="en">(Plan)</span> &gt; <b>Wiki</b> &gt; <b>Nueva página</b> <span class="en">(New page)</span>, página <b><i>Postmortem</i></b>.</div>
   <h3>Cómo se hace</h3>
   <ol class="steps">
-    <li>Creen una tarea sin requisito llamada <code>Postmortem del proyecto</code>, con la etiqueta <code>tarea</code>, el hito de la última semana, responsable y estimación. Allí registra cada uno su tiempo del postmortem con la fase <code>Gestión</code>.</li>
+    <li>Creen una tarea sin requisito llamada <code>Postmortem del proyecto</code>, con la etiqueta <code>tarea</code>, el hito de la última semana, responsable y estimación. Allí registra cada uno su tiempo del <i>postmortem</i> con la fase <code>Gestión</code>.</li>
     <li>Generen el Excel del proyecto con los datos al cierre.</li>
-    <li>Creen en la wiki la página <b>Postmortem</b> con el contenido de este archivo:
+    <li>Creen en la wiki la página <b><i>Postmortem</i></b> con el contenido de este archivo:
       <div class="tpl"><button type="button" data-copy="anexos/postmortem.md">Copiar</button><pre>Cargando la plantilla…</pre></div>
       También pueden <a href="anexos/postmortem.md" download>descargar el archivo</a>.</li>
     <li>Reúnanse para diligenciarla. Llenen el resumen consolidado con los valores del Excel y respondan cada sección con datos del proyecto: horas, valor ganado, defectos, actas y reportes semanales.</li>
@@ -141,7 +140,7 @@
   <ul>
     <li>Cada conclusión dice qué encontró el equipo, con el dato que lo muestra y su fuente. Por ejemplo: <i>La implementación tomó 40 % más tiempo del estimado en las tareas de búsqueda avanzada (hoja Tablas, estimado frente a dedicado); en el próximo proyecto el equipo estimará esas tareas a partir de este dato.</i></li>
     <li>Cubran los temas de la entrega: el plan y su cumplimiento, el trabajo con los roles, la calidad del producto y el compromiso del equipo.</li>
-    <li>Escríbanlas en la sección <b>Conclusiones</b> de la página Postmortem.</li>
+    <li>Escríbanlas en la sección <b>Conclusiones</b> de la página <i>Postmortem</i>.</li>
   </ul>
 </section>
 
@@ -163,7 +162,7 @@
     <li>Escriban el título, por ejemplo <code>TSP SG05 · Catálogo virtual</code>, y en la pregunta de público elijan que el video no es para niños.</li>
     <li>En <b>Visibilidad</b> elijan <b>No listado</b> y seleccionen <b>Guardar</b>. Copien el enlace del video.</li>
     <li>Abran el enlace en una ventana privada del navegador para comprobar que se ve sin iniciar sesión.</li>
-    <li>Peguen el enlace en la sección <b>Sustentación en video</b> de la página Postmortem.</li>
+    <li>Peguen el enlace en la sección <b>Sustentación en video</b> de la página <i>Postmortem</i>.</li>
   </ol>
 </section>
 
@@ -172,9 +171,9 @@
   <p>Al terminar esta etapa, su equipo debe tener:</p>
   <ul>
     <li>El Excel del proyecto generado con los datos al cierre y la hoja <b>Análisis</b> diligenciada.</li>
-    <li>La página <b>Postmortem</b> de la wiki con el resumen consolidado, las respuestas a las cuatro preguntas de la entrega, la tabla de roles y entre 6 y 10 conclusiones.</li>
-    <li>El video de máximo 5 minutos publicado como no listado y su enlace en la página Postmortem.</li>
-    <li>El token del generador revocado.</li>
+    <li>La página <b><i>Postmortem</i></b> de la wiki con el resumen consolidado, las respuestas a las cuatro preguntas de la entrega, la tabla de roles y entre 6 y 10 conclusiones.</li>
+    <li>El video de máximo 5 minutos publicado como no listado y su enlace en la página <i>Postmortem</i>.</li>
+    <li>El <i>token</i> del generador revocado.</li>
   </ul>
 </section>
 

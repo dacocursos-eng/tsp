@@ -84,7 +84,7 @@
   <h3>Cómo se hace</h3>
   <ol class="steps">
     <li>Abran <b>Configuración</b> &gt; <b>Repositorio</b> y expandan <b>Ramas protegidas</b>. La rama <code>main</code> ya aparece en la lista.</li>
-    <li>En la columna <b>Tiene permiso para hacer push</b> <i>(Allowed to push and merge)</i>, elijan <b>No one</b>. En la columna <b>Tiene permiso para fusionar</b> <i>(Allowed to merge)</i>, dejen <b>Maintainers</b>. Estas opciones aparecen en inglés aunque GitLab esté en español.
+    <li>En la columna <b>Tiene permiso para hacer <i>push</i></b> <i>(Allowed to push and merge)</i>, elijan <b><i>No one</i></b>. En la columna <b>Tiene permiso para fusionar</b> <i>(Allowed to merge)</i>, dejen <b><i>Maintainers</i></b>. Estas opciones aparecen en inglés aunque GitLab esté en español.
       <figure><img src="etapas/img/e4-ramas-protegidas.webp" alt="Configuración de la rama main protegida"><figcaption>La rama <code>main</code> recibe cambios solo por solicitud de fusión.</figcaption></figure></li>
   </ol>
   <div class="note">Hagan este paso después de crear las plantillas de esta etapa y de la etapa 3, porque desde ese momento cualquier archivo nuevo en <code>main</code>, incluidas las plantillas, entra por una solicitud de fusión.</div>
@@ -125,14 +125,14 @@
   <h2>Programar en el editor web</h2>
   <p><b>Qué es.</b> El editor web de GitLab <i>(Web IDE)</i> es un editor de código que se abre en el navegador, con la estructura de carpetas del repositorio a la izquierda. No requiere instalar nada en el computador.</p>
   <p><b>Para qué sirve.</b> Permite crear y modificar los archivos del prototipo y guardarlos como confirmaciones en la rama de la tarea.</p>
-  <div class="where">En GitLab: en el repositorio, con la rama de la tarea seleccionada, <b>Editar</b> <span class="en">(Edit)</span> &gt; <b>Web IDE</b>. También se abre presionando la tecla punto (<code>.</code>) en la página del repositorio.</div>
+  <div class="where">En GitLab: en el repositorio, con la rama de la tarea seleccionada, <b>Editar</b> <span class="en">(Edit)</span> &gt; <b><i>Web IDE</i></b>. También se abre presionando la tecla punto (<code>.</code>) en la página del repositorio.</div>
   <h3>Cómo se hace</h3>
   <ol class="steps">
     <li>Vayan a <b>Código</b> &gt; <b>Repositorio</b>. En el selector de rama, arriba a la izquierda, elijan la rama de su tarea.</li>
-    <li>Seleccionen <b>Editar</b> <i>(Edit)</i> &gt; <b>Web IDE</b>. El editor se abre en una pestaña nueva.
-      <figure><img src="etapas/img/e4-webide.webp" alt="Editor web con el árbol de archivos y un archivo abierto"><figcaption>El editor web: archivos a la izquierda y el código en el centro. Abajo a la izquierda aparece la rama en la que están trabajando.</figcaption></figure></li>
+    <li>Seleccionen <b>Editar</b> <i>(Edit)</i> &gt; <b><i>Web IDE</i></b>. El editor se abre en una pestaña nueva.
+      <figure><img src="etapas/img/e4-webide.webp" alt="Editor web con el árbol de archivos y un archivo abierto"><figcaption>El editor web con la corrección de un defecto en la línea 19: archivos a la izquierda y el código en el centro. Abajo a la izquierda aparece la rama en la que están trabajando.</figcaption></figure></li>
     <li>Creen o modifiquen los archivos. Para crear uno, usen el ícono de archivo nuevo en el árbol de la izquierda.</li>
-    <li>Para guardar los cambios en el repositorio, seleccionen el ícono de control de código fuente <i>(Source Control)</i> en la barra de la izquierda, el que muestra un número con la cantidad de archivos cambiados. Escriban un mensaje que describa el cambio, por ejemplo <code>T05: formulario de cuentas con validación de saldo</code>, y seleccionen <b>Commit and push</b> a la rama de la tarea.
+    <li>Para guardar los cambios en el repositorio, seleccionen el ícono de control de código fuente <i>(Source Control)</i> en la barra de la izquierda, el que muestra un número con la cantidad de archivos cambiados. Escriban un mensaje que describa el cambio, por ejemplo <code>T05: formulario de cuentas con validación de saldo</code>, y seleccionen <b><i>Commit and push</i></b> a la rama de la tarea.
       <figure><img src="etapas/img/e4-webide-commit.webp" alt="Panel de control de código fuente con el mensaje de la confirmación"><figcaption>Confirmación de los cambios en la rama de la tarea.</figcaption></figure></li>
     <li>Si el editor pregunta si desean crear una rama nueva o confirmar en la rama actual, elijan la rama actual, que es la de su tarea.</li>
     <li>Registren en la tarea el tiempo de programación con la fase <code>Implementación</code>.</li>
@@ -151,8 +151,8 @@
     <li>Antes de crear la solicitud, el responsable revisa su código con la lista de chequeo de revisión de código y registra el tiempo con la fase <code>Revisión de código</code>.</li>
     <li>Vayan a <b>Código</b> &gt; <b>Solicitudes de fusión</b> y seleccionen <b>Nueva solicitud de fusión</b>. En <b>Rama de origen</b> <i>(Source branch)</i> elijan la rama de la tarea; en <b>Rama de destino</b> <i>(Target branch)</i>, <code>main</code>. Seleccionen <b>Comparar ramas y continuar</b> <i>(Compare branches and continue)</i>. Si GitLab muestra arriba un aviso con el botón <b>Crear solicitud de fusión</b> para su rama, pueden usarlo directamente.</li>
     <li>En el título escriban el identificador y el nombre de la tarea, por ejemplo <code>T05: pantalla de cuentas</code>.</li>
-    <li>En <b>Descripción</b>, en la lista de plantillas, elijan <code>inspeccion</code>. En la línea <code>Closes #</code> escriban el número de la tarea, por ejemplo <code>Closes #20</code>, y completen <b>Qué cambia</b>, <b>Cómo se prueba</b> y la revisión personal.
-      <figure><img src="etapas/img/e4-mr-nueva.webp" alt="Solicitud de fusión nueva con la plantilla de inspección"><figcaption>Solicitud de fusión con la plantilla de inspección y la tarea que cierra.</figcaption></figure></li>
+    <li>En <b>Descripción</b>, en la lista de plantillas, elijan <code>inspeccion</code>. Si GitLab pregunta si desean reemplazar la descripción, seleccionen <b>Aplicar plantilla</b> <i>(Apply template)</i>. En la línea <code>Closes #</code> escriban el número de la tarea, por ejemplo <code>Closes #20</code>, y completen <b>Qué cambia</b>, <b>Cómo se prueba</b> y la revisión personal.
+      <figure><img src="etapas/img/e4-mr-nueva.webp" alt="Solicitud de fusión nueva con la plantilla de inspección"><figcaption>Solicitud de fusión nueva con la plantilla de inspección, vista con GitLab en inglés: <i>Title</i> (título), <i>Description</i> (descripción) y la línea <code>Closes #</code> lista para completar con el número de la tarea.</figcaption></figure></li>
     <li>En <b>Persona asignada</b> <i>(Assignee)</i> pónganse ustedes mismos; en <b>Revisor</b> <i>(Reviewer)</i>, a uno de los dos inspectores. Asignen el hito de la semana. Dejen marcada la opción de eliminar la rama de origen al fusionar.</li>
     <li>Seleccionen <b>Crear solicitud de fusión</b> <i>(Create merge request)</i>. En la descripción publicada, <code>#20</code> queda enlazado a la tarea.</li>
   </ol>
@@ -187,11 +187,11 @@
   <ol class="steps">
     <li>El autor corrige los defectos en la misma rama, con el editor web, y registra el tiempo de cada corrección en el elemento del defecto, con la fase <code>Corrección</code>. Al terminar cada corrección, cierra el defecto.</li>
     <li>Los inspectores verifican las correcciones. Cuando todo está bien, el revisor selecciona <b>Su revisión</b> &gt; <b>Aprobar</b> <i>(Approve)</i>. GitLab no permite que el autor apruebe su propia solicitud.
-      <figure><img src="etapas/img/e4-aprobar.webp" alt="Solicitud de fusión aprobada lista para fusionar"><figcaption>Solicitud aprobada por el revisor, lista para fusionar.</figcaption></figure></li>
+      <figure><img src="etapas/img/e4-aprobar.webp" alt="Solicitud de fusión aprobada lista para fusionar"><figcaption>Solicitud aprobada por la revisora, lista para fusionar, vista con GitLab en inglés: <i>Approved by</i> (aprobada por), <i>Ready to merge!</i> (lista para fusionar) y el botón <i>Merge</i> (Fusionar).</figcaption></figure></li>
     <li>El autor completa en la tabla de inspección el resultado y selecciona <b>Fusionar</b> <i>(Merge)</i>. La tarea se cierra y la rama se elimina.</li>
     <li>El autor registra en la tarea el tiempo de la fusión y de verificar que el producto sigue funcionando, con la fase <code>Integración</code>.</li>
   </ol>
-  <div class="note">Si GitLab pide verificar la identidad para ejecutar pipelines, cierren el aviso: este proyecto no usa pipelines y la fusión funciona sin ellos.</div>
+  <div class="note">Si GitLab pide verificar la identidad para ejecutar <i>pipelines</i>, cierren el aviso: este proyecto no usa <i>pipelines</i> y la fusión funciona sin ellos.</div>
 </section>
 
 <section id="tamano">
@@ -237,9 +237,9 @@
   <p>Escriban la fase exactamente como aparece en la tabla de fases de la etapa 2. Una persona del equipo crea las diez etiquetas de tipo al iniciar esta etapa; las de fase se crean en <b>Administrar</b> &gt; <b>Etiquetas</b> la primera vez que se necesitan.</p>
   <h3>Cómo se registra un defecto</h3>
   <ol class="steps">
-    <li>Creen un elemento de tipo <b>Issue</b> con un título como <code>Defecto D04: el saldo acepta valores negativos</code>.</li>
+    <li>Creen un elemento de tipo <b><i>Issue</i></b> con un título como <code>Defecto D04: el saldo acepta valores negativos</code>.</li>
     <li>En la descripción indiquen dónde está el defecto (archivo y línea, o documento), qué falla, quién lo detectó y, si viene de una inspección, el enlace al comentario de la solicitud de fusión.</li>
-    <li>En el panel derecho pongan las etiquetas <code>defecto</code>, la de tipo, la de fase inyectada y la de fase removida; el hito de la semana; y en <b>Persona asignada</b>, a quien lo corrige. Seleccionen <b>Crear issue</b>.
+    <li>En el panel derecho pongan las etiquetas <code>defecto</code>, la de tipo, la de fase inyectada y la de fase removida; el hito de la semana; y en <b>Persona asignada</b>, a quien lo corrige. Seleccionen <b>Crear <i>issue</i></b>.
       <figure><img src="etapas/img/e4-defecto.webp" alt="Defecto con etiquetas de tipo, fase inyectada y fase removida"><figcaption>Un defecto encontrado en la inspección, con su tipo y sus fases.</figcaption></figure></li>
     <li>Quien lo corrige registra el tiempo en ese elemento con la fase <code>Corrección</code> y lo cierra cuando la corrección está hecha.</li>
   </ol>
@@ -256,7 +256,7 @@ git switch -c 20-t05-pantalla-de-cuentas
 git add .
 git commit -m "T05: formulario de cuentas con validación de saldo"
 git push -u origin 20-t05-pantalla-de-cuentas</pre>
-  <p>La primera vez que GitLab pida usuario y contraseña desde la terminal, usen su usuario de GitLab y, como contraseña, un token personal con el alcance <code>write_repository</code>. La <a href="etapa-5.html#token">etapa 5</a> explica qué es un token y cómo se crea.</p>
+  <p>La primera vez que GitLab pida usuario y contraseña desde la terminal, usen su usuario de GitLab y, como contraseña, un <i>token</i> personal con el alcance <code>write_repository</code>. La <a href="etapa-5.html#token">etapa 5</a> explica qué es un <i>token</i> y cómo se crea.</p>
 </section>
 
 <section id="verificar">

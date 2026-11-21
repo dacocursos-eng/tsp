@@ -26,19 +26,19 @@ button.go:disabled{opacity:.55;cursor:wait}
 <header class="top"><div class="wrap">
   <p class="kicker">Proyecto TSP en GitLab · Herramienta</p>
   <h1>Generador de evidencias</h1>
-  <p>Lee los datos de su proyecto en GitLab y arma un Excel con los registros del proyecto y las tablas para su análisis. La consulta se hace desde su navegador directamente a GitLab; los datos y el token no se envían a ningún otro sitio.</p>
+  <p>Lee los datos de su proyecto en GitLab y arma un Excel con los registros del proyecto y las tablas para su análisis. La consulta se hace desde su navegador directamente a GitLab; los datos y el <i>token</i> no se envían a ningún otro sitio.</p>
   <nav><a href="index.html">Inicio</a><a href="etapa-5.html">Etapa 5: análisis y cierre</a><a href="entrega-3.html">Entrega 3</a><a class="on" href="generador.html">Generador de evidencias</a></nav>
 </div></header>
 
 <div class="gen">
 <section>
   <h2>Generar desde GitLab</h2>
-  <p>Necesitan un token personal con el alcance <code>read_api</code>. La <a href="etapa-5.html#token">etapa 5</a> explica cómo crearlo y cómo revocarlo.</p>
+  <p>Necesitan un <i>token</i> personal con el alcance <code>read_api</code>. La <a href="etapa-5.html#token">etapa 5</a> explica cómo crearlo y cómo revocarlo.</p>
   <form id="f1" autocomplete="off">
     <label for="url">Dirección del proyecto</label>
     <input type="text" id="url" placeholder="https://gitlab.com/grupo/proyecto" required>
     <p class="hint">La dirección de la página principal del proyecto en GitLab.</p>
-    <label for="tok">Token</label>
+    <label for="tok"><i>Token</i></label>
     <input type="password" id="tok" placeholder="glpat-..." required>
     <label for="sg1">Subgrupo</label>
     <input type="text" id="sg1" placeholder="SG05" required>
@@ -48,7 +48,7 @@ button.go:disabled{opacity:.55;cursor:wait}
 
 <section>
   <h2>Generar desde el CSV</h2>
-  <p>Sin token: usen el CSV de elementos de trabajo que exporta GitLab. Las hojas Tiempo y Fusiones quedan para diligenciar a mano.</p>
+  <p>Sin <i>token</i>: usen el CSV de elementos de trabajo que exporta GitLab. Las hojas Tiempo y Fusiones quedan para diligenciar a mano.</p>
   <form id="f2">
     <label for="csv">Archivo CSV de elementos de trabajo</label>
     <input type="file" id="csv" accept=".csv,text/csv" required>

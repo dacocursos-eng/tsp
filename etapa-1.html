@@ -41,16 +41,16 @@
   <table>
     <tr><th>En GitLab</th><th>Qué es</th></tr>
     <tr><td><b>Elemento de trabajo</b> <i>(Work item)</i></td><td>Cada registro del proyecto: un requisito, una tarea, un acta o un defecto. Todos se ven en la lista <b>Elementos de trabajo</b>.</td></tr>
-    <tr><td><b>Issue</b></td><td>Un tipo de elemento de trabajo. En este proyecto se usa para requisitos, actas y defectos.</td></tr>
+    <tr><td><b><i>Issue</i></b></td><td>Un tipo de elemento de trabajo. En este proyecto se usa para requisitos, actas y defectos.</td></tr>
     <tr><td><b>Task</b> (tarea)</td><td>Otro tipo de elemento de trabajo, más pequeño. En este proyecto se usa para las tareas del plan, casi siempre dentro de un requisito.</td></tr>
     <tr><td><b>Repositorio</b> <i>(Repository)</i></td><td>El lugar donde se guardan los archivos del proyecto, con el historial de cada cambio.</td></tr>
     <tr><td><b>Rama</b> <i>(Branch)</i> <code>main</code></td><td>La versión principal de los archivos del repositorio.</td></tr>
     <tr><td><b>Confirmar cambios</b> <i>(Commit)</i></td><td>Guardar un cambio en el repositorio, con un mensaje que dice qué se cambió.</td></tr>
-    <tr><td><b>Markdown</b> (<code>.md</code>)</td><td>Formato de texto sencillo que GitLab convierte en títulos, listas y tablas.</td></tr>
+    <tr><td><b><i>Markdown</i></b> (<code>.md</code>)</td><td>Formato de texto sencillo que GitLab convierte en títulos, listas y tablas.</td></tr>
   </table>
   <h3>Idioma de la interfaz</h3>
   <p>GitLab muestra los menús en el idioma configurado en cada cuenta, así que algunos de ustedes lo verán en español y otros en inglés. En este manual cada nombre aparece en los dos idiomas, por ejemplo <b>Elementos de trabajo</b> <i>(Work items)</i>. Para cambiar el idioma: avatar &gt; <b>Preferencias</b> <i>(Preferences)</i> &gt; <b>Idioma</b> <i>(Language)</i>.</p>
-  <p>En el desarrollo de software es común usar los términos en inglés o anglicismos, como <i>issue</i>, <i>commit</i>, <i>merge request</i> o <i>milestone</i>, incluso cuando se habla en español. Familiarizarse con ellos desde ahora les facilita leer documentación, trabajar con otras herramientas y comunicarse en equipos de la industria.</p>
+  <p>En el desarrollo de <i>software</i> es común usar los términos en inglés o anglicismos, como <i>issue</i>, <i>commit</i>, <i>merge request</i> o <i>milestone</i>, incluso cuando se habla en español. Familiarizarse con ellos desde ahora les facilita leer documentación, trabajar con otras herramientas y comunicarse en equipos de la industria.</p>
   <h3>Versión gratuita</h3>
   <p>Todo lo que se explica aquí funciona en la versión gratuita de GitLab. Al crear un grupo, GitLab puede ofrecer una prueba de 30 días de la versión de pago (Ultimate). No la necesitan, y si la activan, tengan en cuenta que las funciones adicionales desaparecen cuando termina. Usen solo lo que indica este manual.</p>
   <div class="note">En algunas páginas se abre a la derecha un panel llamado <b>GitLab Duo</b> que pide verificar la cuenta. Es un asistente de inteligencia artificial que este proyecto no usa. Pueden cerrarlo con la <b>X</b>.</div>
@@ -199,7 +199,7 @@
   <h2>Plantillas</h2>
   <p><b>Qué es.</b> En TSP los registros siguen formatos definidos: actas de reunión, reportes semanales, registros de defectos (Lectura 2, sección 3). En GitLab un formato es una <b>plantilla de descripción</b> <i>(description template)</i>: un texto que se carga en la descripción de un elemento de trabajo nuevo, con los campos que hay que diligenciar.</p>
   <p><b>Para qué sirve.</b> Con una plantilla todos registran los mismos datos, en el mismo orden, sin tener que recordar el formato. Una plantilla puede, además, poner sola su etiqueta al crear el elemento.</p>
-  <p><b>Cómo funciona.</b> Una plantilla es un archivo de texto en formato Markdown (<code>.md</code>) guardado en la carpeta <code>.gitlab/issue_templates</code> del repositorio. El nombre del archivo es el nombre con que aparece la plantilla en la lista <b>Elegir una plantilla</b> <i>(Choose a template)</i>. Si la última línea del archivo es <code>/label ~nombre</code>, GitLab pone esa etiqueta al crear el elemento.</p>
+  <p><b>Cómo funciona.</b> Una plantilla es un archivo de texto en formato <i>Markdown</i> (<code>.md</code>) guardado en la carpeta <code>.gitlab/issue_templates</code> del repositorio. El nombre del archivo es el nombre con que aparece la plantilla en la lista <b>Elegir una plantilla</b> <i>(Choose a template)</i>. Si la última línea del archivo es <code>/label ~nombre</code>, GitLab pone esa etiqueta al crear el elemento.</p>
   <div class="where">En GitLab: <b>Código</b> <span class="en">(Code)</span> &gt; <b>Repositorio</b> <span class="en">(Repository)</span>, botón <b>+</b> &gt; <b>Nuevo archivo</b> <span class="en">(New file)</span>.</div>
 
   <h3>Plantilla que se les entrega: acta de relanzamiento</h3>
@@ -228,7 +228,7 @@
     <li>Tablas de decisiones tomadas y de compromisos (compromiso, responsable, fecha límite y tarea relacionada).</li>
     <li>Como última línea, <code>/label ~reunion-semanal</code>.</li>
   </ul>
-  <p>Así se escribe una tabla en Markdown: la primera fila tiene los títulos de las columnas, la segunda separa los títulos del contenido, y cada fila siguiente es un renglón de la tabla.</p>
+  <p>Así se escribe una tabla en <i>Markdown</i>: la primera fila tiene los títulos de las columnas, la segunda separa los títulos del contenido, y cada fila siguiente es un renglón de la tabla.</p>
   <pre>| Campo | Registro |
 | --- | --- |
 | Semana |  |
