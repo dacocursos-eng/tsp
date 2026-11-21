@@ -111,6 +111,17 @@
 
   function redondear(x) { return Math.round(x * 100) / 100; }
 
+  // Une una lista en español: "a", "a y b", "a, b y c". Si se indica, agrega al final "y otras" u "y otros".
+  function unir(xs, resto) {
+    xs = xs.slice();
+    if (resto) xs.push(resto);
+    if (xs.length <= 1) return xs.join("");
+    return xs.slice(0, -1).join(", ") + " y " + xs[xs.length - 1];
+  }
+
+  // Número con el sustantivo y el verbo en singular o en plural.
+  function cuenta(n, singular, plural) { return n + " " + (n === 1 ? singular : plural); }
+
   function cierres(texto) {
     var out = [], re = /\b(?:close[sd]?|closing|fix(?:e[sd])?|fixing|resolve[sd]?|resolving|implement(?:s|ed)?|implementing)\b:?\s+((?:(?:#\d+)(?:\s*(?:,|and|y)\s*)?)+)/gi, m;
     while ((m = re.exec(texto || ""))) {
@@ -437,25 +448,27 @@
     var av = d.avisos;
     var sinFase = d.tiempo.filter(function (t) { return !t.fase; });
     if (sinFase.length) {
-      var ej = sinFase.slice(0, 5).map(function (t) { return "\"" + (t.texto || "vacío") + "\" (" + t.persona + ", " + t.elemento + ")"; }).join("; ");
-      av.push(sinFase.length + " registros de tiempo no tienen una fase reconocible en el resumen. Ejemplos: " + ej + ".");
+      var ej = sinFase.slice(0, 5).map(function (t) { return "\"" + (t.texto || "vacío") + "\" (" + t.persona + ", " + t.elemento + ")"; });
+      ej = ej.length > 1 ? ej.slice(0, -1).join("; ") + " y " + ej[ej.length - 1] : ej.join("");
+      av.push(sinFase.length === 1 ? "1 registro de tiempo no tiene una fase reconocible en el resumen: " + ej + "."
+        : sinFase.length + " registros de tiempo no tienen una fase reconocible en el resumen. " + (sinFase.length > 5 ? "Algunos ejemplos: " : "Son estos: ") + ej + ".");
     }
     var tareas = d.items.filter(function (it) { return it.clase === "Tarea" && it.hito; });
-    function lista(xs) { return xs.slice(0, 8).map(function (it) { return "#" + it.iid; }).join(", ") + (xs.length > 8 ? " y otras" : ""); }
+    function lista(xs, otros) { return unir(xs.slice(0, 8).map(function (it) { return "#" + it.iid; }), xs.length > 8 ? otros : ""); }
     var sinEst = tareas.filter(function (it) { return !it.estimado; });
-    if (sinEst.length) av.push(sinEst.length + " tareas no tienen estimación: " + lista(sinEst) + ".");
+    if (sinEst.length) av.push(cuenta(sinEst.length, "tarea no tiene", "tareas no tienen") + " estimación: " + lista(sinEst, "otras") + ".");
     var sinHito = d.items.filter(function (it) { return it.clase === "Tarea" && !it.hito && it.estado !== "Cerrado"; });
-    if (sinHito.length) av.push(sinHito.length + " tareas abiertas no tienen hito: " + lista(sinHito) + ".");
+    if (sinHito.length) av.push(cuenta(sinHito.length, "tarea abierta no tiene", "tareas abiertas no tienen") + " hito: " + lista(sinHito, "otras") + ".");
     var sinResp = tareas.filter(function (it) { return !it.responsable; });
-    if (sinResp.length) av.push(sinResp.length + " tareas no tienen persona asignada: " + lista(sinResp) + ".");
+    if (sinResp.length) av.push(cuenta(sinResp.length, "tarea no tiene", "tareas no tienen") + " persona asignada: " + lista(sinResp, "otras") + ".");
     var defInc = d.defectos.filter(function (x) { return !x.tipo || !x.inyectado || !x.removido; });
-    if (defInc.length) av.push(defInc.length + " defectos no tienen completas las etiquetas de tipo, fase inyectada y fase removida: " + lista(defInc.map(function (x) { return x.it; })) + ".");
+    if (defInc.length) av.push(cuenta(defInc.length, "defecto no tiene", "defectos no tienen") + " completas las etiquetas de tipo, fase inyectada y fase removida: " + lista(defInc.map(function (x) { return x.it; }), "otros") + ".");
     var riInc = d.riesgos.filter(function (x) { return !x.impacto || !x.probabilidad; });
-    if (riInc.length) av.push(riInc.length + " riesgos no tienen etiqueta de impacto o de probabilidad: " + lista(riInc.map(function (x) { return x.it; })) + ".");
+    if (riInc.length) av.push(cuenta(riInc.length, "riesgo no tiene", "riesgos no tienen") + " etiqueta de impacto o de probabilidad: " + lista(riInc.map(function (x) { return x.it; }), "otros") + ".");
     var mrSin = d.fusiones.filter(function (f) { return !f.tareas.length; });
-    if (mrSin.length) av.push(mrSin.length + " solicitudes de fusión no indican la tarea que cierran con Closes #: " + mrSin.slice(0, 8).map(function (f) { return "!" + f.iid; }).join(", ") + ".");
+    if (mrSin.length) av.push(cuenta(mrSin.length, "solicitud de fusión no indica la tarea que cierra", "solicitudes de fusión no indican la tarea que cierran") + " con Closes #: " + unir(mrSin.slice(0, 8).map(function (f) { return "!" + f.iid; }), mrSin.length > 8 ? "otras" : "") + ".");
     var hSin = d.hitos.filter(function (h) { return !h.inicio; });
-    if (hSin.length) av.push("Los hitos " + hSin.map(function (h) { return h.titulo; }).join(", ") + " no tienen fecha de inicio. Escríbanla en la hoja Semanas para que el tiempo se asigne a la semana correcta.");
+    if (hSin.length) av.push((hSin.length === 1 ? "El hito " : "Los hitos ") + unir(hSin.map(function (h) { return h.titulo; })) + (hSin.length === 1 ? " no tiene" : " no tienen") + " fecha de inicio. Escríbanla en la hoja Semanas para que el tiempo se asigne a la semana correcta.");
     return d;
   }
 
@@ -847,7 +860,7 @@
 
   var api = { FASES: FASES, TIPOS: TIPOS, fase: fase, horas: horas, cierres: cierres, rutaProyecto: rutaProyecto,
     parseCSV: parseCSV, leerCSV: leerCSV, leerGitLab: leerGitLab, completar: completar, construir: construir,
-    resumen: resumen, fechaLocal: fechaLocal, tipoDefecto: tipoDefecto, faseEtiqueta: faseEtiqueta };
+    resumen: resumen, unir: unir, fechaLocal: fechaLocal, tipoDefecto: tipoDefecto, faseEtiqueta: faseEtiqueta };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else root.TSPGen = api;
 })(this);
