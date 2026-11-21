@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Generador de evidencias · TSP en GitLab</title>
+<link rel="stylesheet" href="etapas/manual.css">
+<style>
+.gen{max-width:900px;margin:0 auto;padding:1.5rem}
+.gen section{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:1.3rem 1.5rem;margin-bottom:1.5rem}
+.gen h2{font-size:1.35rem;margin:0 0 .4rem}
+label{display:block;font-weight:600;margin:.9rem 0 .25rem}
+input[type=text],input[type=password],input[type=file]{width:100%;font:inherit;padding:.5rem .6rem;border:1px solid #c9c6bf;border-radius:6px;background:#fff}
+.hint{font-size:.88rem;color:var(--muted);margin:.2rem 0 0}
+button.go{margin-top:1.1rem;font:inherit;font-weight:600;background:var(--accent);color:#fff;border:0;border-radius:8px;padding:.55rem 1.2rem;cursor:pointer}
+button.go:disabled{opacity:.55;cursor:wait}
+#estado{margin-top:1rem}
+.prog{color:var(--accent);font-weight:600}
+.err{border-left:5px solid var(--warn);background:var(--warn-soft);padding:.7rem .9rem;border-radius:4px}
+.ok{border-left:5px solid var(--ok);background:var(--ok-soft);padding:.7rem .9rem;border-radius:4px}
+.res td:first-child{font-weight:600;width:55%}
+#avisos li{margin:.3rem 0}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <p class="kicker">Proyecto TSP en GitLab · Herramienta</p>
+  <h1>Generador de evidencias</h1>
+  <p>Lee los datos de su proyecto en GitLab y arma un Excel con los registros del proyecto y las tablas para su análisis. La consulta se hace desde su navegador directamente a GitLab; los datos y el token no se envían a ningún otro sitio.</p>
+  <nav><a href="index.html">Inicio</a><a href="etapa-5.html">Etapa 5: análisis y cierre</a><a href="entrega-3.html">Entrega 3</a><a class="on" href="generador.html">Generador de evidencias</a></nav>
+</div></header>
+
+<div class="gen">
+<section>
+  <h2>Generar desde GitLab</h2>
+  <p>Necesitan un token personal con el alcance <code>read_api</code>. La <a href="etapa-5.html#token">etapa 5</a> explica cómo crearlo y cómo revocarlo.</p>
+  <form id="f1" autocomplete="off">
+    <label for="url">Dirección del proyecto</label>
+    <input type="text" id="url" placeholder="https://gitlab.com/grupo/proyecto" required>
+    <p class="hint">La dirección de la página principal del proyecto en GitLab.</p>
+    <label for="tok">Token</label>
+    <input type="password" id="tok" placeholder="glpat-..." required>
+    <label for="sg1">Subgrupo</label>
+    <input type="text" id="sg1" placeholder="SG05" required>
+    <button class="go" type="submit">Generar Excel</button>
+  </form>
+</section>
+
+<section>
+  <h2>Generar desde el CSV</h2>
+  <p>Sin token: usen el CSV de elementos de trabajo que exporta GitLab. Las hojas Tiempo y Fusiones quedan para diligenciar a mano.</p>
+  <form id="f2">
+    <label for="csv">Archivo CSV de elementos de trabajo</label>
+    <input type="file" id="csv" accept=".csv,text/csv" required>
+    <label for="sg2">Subgrupo</label>
+    <input type="text" id="sg2" placeholder="SG05" required>
+    <button class="go" type="submit">Generar Excel</button>
+  </form>
+</section>
+
+<section id="salida" hidden>
+  <h2>Resultado</h2>
+  <div id="estado"></div>
+</section>
+</div>
+
+<script src="herramientas/exceljs.min.js"></script>
+<script src="herramientas/generador.js"></script>
+<script>
+(function(){
+  var salida=document.getElementById("salida"), estado=document.getElementById("estado");
+  function botones(on){document.querySelectorAll("button.go").forEach(function(b){b.disabled=!on;});}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+  function sg(v){var m=String(v||"").toUpperCase().replace(/\s+/g,"").match(/(\d+)/);return m?"SG"+(m[1].length<2?"0":"")+m[1]:"SGxx";}
+  function prog(t){salida.hidden=false;estado.innerHTML='<p class="prog">'+esc(t)+'…</p>';}
+  function error(e){estado.innerHTML='<div class="err"><strong>No fue posible generar el Excel.</strong><br>'+esc(e.message||e)+'</div>';botones(true);}
+  function listo(d,sub){
+    var r=TSPGen.resumen(d);
+    var wb=TSPGen.construir(ExcelJS,d);
+    return wb.xlsx.writeBuffer().then(function(buf){
+      var nombre="TSP_E3_"+sub+"_datos.xlsx";
+      var url=URL.createObjectURL(new Blob([buf],{type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"}));
+      var filas=[["Elementos de trabajo",r.elementos],["Tareas del plan",r.tareas],["Tareas terminadas",r.terminadas],["Valor ganado (%)",r.valorGanado],
+        ["Registros de tiempo",r.registros],["Horas registradas",r.horas],["Integrantes con registros",r.personas],["Solicitudes de fusión",r.fusiones],
+        ["Líneas agregadas",r.lineas],["Defectos",r.defectos],["Riesgos",r.riesgos]];
+      var h='<div class="ok"><strong>Excel listo.</strong> '+esc(d.proyecto.nombre||"")+'</div>';
+      h+='<p><a class="go" style="display:inline-block;text-decoration:none;background:var(--accent);color:#fff;border-radius:8px;padding:.55rem 1.2rem;font-weight:600" href="'+url+'" download="'+nombre+'">Descargar '+esc(nombre)+'</a></p>';
+      h+='<table class="res">'+filas.map(function(f){return"<tr><td>"+esc(f[0])+"</td><td>"+esc(f[1])+"</td></tr>";}).join("")+"</table>";
+      if(d.avisos.length){h+='<h3>Avisos sobre los datos</h3><p>Revísenlos en GitLab y, si corrigen algo, generen el Excel de nuevo. También quedan en la hoja Resumen.</p><ul id="avisos">'+d.avisos.map(function(a){return"<li>"+esc(a)+"</li>";}).join("")+"</ul>";}
+      estado.innerHTML=h; botones(true);
+    });
+  }
+  document.getElementById("f1").addEventListener("submit",function(e){
+    e.preventDefault(); botones(false);
+    var tok=document.getElementById("tok").value.trim(), sub=sg(document.getElementById("sg1").value);
+    TSPGen.leerGitLab(document.getElementById("url").value,tok,prog).then(function(d){prog("Armando el Excel");return listo(d,sub);})
+      .catch(function(err){ if(err instanceof TypeError) err=new Error("No hubo respuesta de GitLab. Revisen su conexión a internet y la dirección del proyecto."); error(err); });
+  });
+  document.getElementById("f2").addEventListener("submit",function(e){
+    e.preventDefault(); botones(false);
+    var f=document.getElementById("csv").files[0], sub=sg(document.getElementById("sg2").value);
+    if(!f){error(new Error("Seleccionen el archivo CSV."));return;}
+    prog("Leyendo el CSV");
+    f.text().then(function(t){ var d=TSPGen.leerCSV(t,f.name.replace(/\.csv$/i,"")); prog("Armando el Excel"); return listo(d,sub); }).catch(error);
+  });
+})();
+</script>
+</body>
+</html>

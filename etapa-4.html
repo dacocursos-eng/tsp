@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Etapa 4: código y calidad · TSP en GitLab</title>
+<link rel="stylesheet" href="etapas/manual.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <p class="kicker">Proyecto TSP en GitLab · Etapa 4</p>
+  <h1>Código y calidad</h1>
+  <p>En esta etapa el equipo construye el prototipo en el repositorio del proyecto: cada tarea se programa en su propia rama, pasa por la revisión personal de su autor y por la inspección de dos compañeros, y se incorpora al producto cuando queda aprobada. Los defectos que aparecen en el camino se registran con su tipo y sus fases.</p>
+  <div class="alert" style="margin:1rem 0 0;background:#fff;color:var(--ink)"><strong>Este material corresponde a la Entrega 3.</strong></div>
+  <nav><a href="index.html">Inicio</a><a href="etapa-1.html">Etapa 1: montaje</a><a href="etapa-2.html">Etapa 2: planeación y registro de tiempo</a><a href="etapa-3.html">Etapa 3: seguimiento semanal</a><a class="on" href="etapa-4.html">Etapa 4: código y calidad</a><a href="etapa-5.html">Etapa 5: análisis y cierre</a><a href="entrega-2.html">Entrega 2</a><a href="entrega-3.html">Entrega 3</a></nav>
+</div></header>
+
+<div class="layout">
+<nav class="side" aria-label="Contenido de la etapa">
+  <ul>
+    <li><a href="#conceptos">Conceptos del repositorio</a></li>
+    <li><a href="#plantilla">Plantilla de la solicitud de fusión</a></li>
+    <li><a href="#proteger">Rama principal protegida</a></li>
+    <li><a href="#listas">Listas de chequeo</a></li>
+    <li><a href="#rama">Una rama por tarea</a></li>
+    <li><a href="#editor">Programar en el editor web</a></li>
+    <li><a href="#solicitud">Solicitud de fusión</a></li>
+    <li><a href="#inspeccion">Inspección</a></li>
+    <li><a href="#fusion">Aprobación y fusión</a></li>
+    <li><a href="#tamano">Tamaño del producto</a></li>
+    <li><a href="#defectos">Defectos: tipo y fases</a></li>
+    <li><a href="#terminal">Trabajar con Git en el computador</a></li>
+    <li><a href="#verificar">Verificación de la etapa</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<section id="conceptos">
+  <h2>Conceptos del repositorio</h2>
+  <p>El código del prototipo se guarda en el repositorio del proyecto en GitLab. El control de versiones registra quién cambió cada línea y cuándo, y por eso permite saber quién y cuándo inyectó un defecto (Lectura 8, sección 3). Estos son los términos que se usan en esta etapa:</p>
+  <table>
+    <tr><th>Concepto</th><th>Qué es</th><th>En GitLab</th></tr>
+    <tr><td>Repositorio</td><td>La carpeta del proyecto con todos sus archivos y la historia de sus cambios</td><td><b>Código</b> <i>(Code)</i> &gt; <b>Repositorio</b> <i>(Repository)</i></td></tr>
+    <tr><td>Confirmación</td><td>Un cambio guardado en el repositorio, con su autor, su fecha y un mensaje que lo describe. También se le llama versión</td><td><b>Código</b> &gt; <b>Confirmaciones</b> <i>(Commits)</i></td></tr>
+    <tr><td>Rama</td><td>Una línea de trabajo separada. La rama principal, <code>main</code>, tiene el producto aprobado; cada tarea se trabaja en una rama propia y se une a <code>main</code> cuando está lista</td><td><b>Código</b> &gt; <b>Ramas</b> <i>(Branches)</i></td></tr>
+    <tr><td>Solicitud de fusión</td><td>La petición de unir una rama a <code>main</code>. Muestra las líneas que cambiaron y permite comentarlas, aprobarlas y fusionarlas</td><td><b>Código</b> &gt; <b>Solicitudes de fusión</b> <i>(Merge requests)</i></td></tr>
+    <tr><td>Fusión</td><td>La incorporación de los cambios de una rama a <code>main</code></td><td>Botón <b>Fusionar</b> <i>(Merge)</i> de la solicitud</td></tr>
+  </table>
+  <h3>Recorrido de una tarea de implementación</h3>
+  <table>
+    <tr><th>Paso</th><th>Quién</th><th>Fase del tiempo</th></tr>
+    <tr><td>Crear la rama de la tarea y programar</td><td>Responsable de la tarea</td><td>Implementación</td></tr>
+    <tr><td>Revisar el propio código con la lista de chequeo</td><td>Responsable de la tarea</td><td>Revisión de código</td></tr>
+    <tr><td>Crear la solicitud de fusión</td><td>Responsable de la tarea</td><td>Implementación</td></tr>
+    <tr><td>Inspeccionar los cambios</td><td>Dos compañeros</td><td>Inspección</td></tr>
+    <tr><td>Corregir los defectos encontrados</td><td>Responsable de la tarea</td><td>Corrección, en el elemento del defecto</td></tr>
+    <tr><td>Aprobar y fusionar</td><td>Revisor y responsable</td><td>Inspección e Integración</td></tr>
+  </table>
+  <p>Todo el tiempo de este recorrido se registra en la tarea, salvo el de las correcciones, que va en el elemento de cada defecto.</p>
+</section>
+
+<section id="plantilla">
+  <span class="who">Lo hace una persona del equipo</span>
+  <h2>Plantilla de la solicitud de fusión</h2>
+  <p><b>Qué es.</b> Es el formato de la descripción de cada solicitud de fusión. Incluye la tarea que cierra, qué cambia, cómo se prueba, la revisión personal del autor y el registro de la inspección. Funciona como las plantillas de la etapa 1, pero se guarda en otra carpeta.</p>
+  <p><b>Para qué sirve.</b> Hace que cada solicitud tenga los mismos datos y deja la inspección registrada junto al código inspeccionado.</p>
+  <div class="where">En GitLab: archivo <code>.gitlab/merge_request_templates/inspeccion.md</code> en el repositorio.</div>
+  <h3>Cómo se hace</h3>
+  <ol class="steps">
+    <li>Creen el archivo <code>.gitlab/merge_request_templates/inspeccion.md</code> con este contenido, de la misma forma que la plantilla del acta en la etapa 1:
+      <div class="tpl"><button type="button" data-copy="anexos/inspeccion.md">Copiar</button><pre>Cargando la plantilla…</pre></div>
+      También pueden <a href="anexos/inspeccion.md" download>descargar el archivo</a>.</li>
+    <li>En la misma sesión, creen también el archivo <code>.gitlab/issue_templates/riesgo.md</code> de la <a href="etapa-3.html#riesgos">etapa 3</a>, si aún no lo tienen.</li>
+  </ol>
+</section>
+
+<section id="proteger">
+  <span class="who one">Solo una persona del equipo</span>
+  <h2>Rama principal protegida</h2>
+  <p><b>Qué es.</b> Una rama protegida no admite cambios directos: solo recibe cambios a través de una solicitud de fusión.</p>
+  <p><b>Para qué sirve.</b> Así, todo el código que llega al producto pasa por una solicitud de fusión y, con ella, por la inspección.</p>
+  <div class="where">En GitLab: <b>Configuración</b> <span class="en">(Settings)</span> &gt; <b>Repositorio</b> <span class="en">(Repository)</span> &gt; <b>Ramas protegidas</b> <span class="en">(Protected branches)</span>.</div>
+  <h3>Cómo se hace</h3>
+  <ol class="steps">
+    <li>Abran <b>Configuración</b> &gt; <b>Repositorio</b> y expandan <b>Ramas protegidas</b>. La rama <code>main</code> ya aparece en la lista.</li>
+    <li>En la columna <b>Tiene permiso para hacer push</b> <i>(Allowed to push and merge)</i>, elijan <b>No one</b>. En la columna <b>Tiene permiso para fusionar</b> <i>(Allowed to merge)</i>, dejen <b>Maintainers</b>. Estas opciones aparecen en inglés aunque GitLab esté en español.
+      <figure><img src="etapas/img/e4-ramas-protegidas.webp" alt="Configuración de la rama main protegida"><figcaption>La rama <code>main</code> recibe cambios solo por solicitud de fusión.</figcaption></figure></li>
+  </ol>
+  <div class="note">Hagan este paso después de crear las plantillas de esta etapa y de la etapa 3, porque desde ese momento cualquier archivo nuevo en <code>main</code>, incluidas las plantillas, entra por una solicitud de fusión.</div>
+</section>
+
+<section id="listas">
+  <span class="who">Las crea una persona del equipo; las usan todos</span>
+  <h2>Listas de chequeo para la revisión personal</h2>
+  <p><b>Qué es.</b> La revisión personal es la que hace cada autor sobre su propio diseño o su propio código, antes de que lo use cualquier otra persona y antes de la inspección. Se hace con una lista de chequeo que reúne los tipos de defecto más frecuentes, y cada integrante la adapta a los errores que más comete (Lectura 8, sección 2.1).</p>
+  <p><b>Para qué sirve.</b> Cuanto antes se detectan y se corrigen los defectos, menos esfuerzo requieren (Lectura 1, sección 5.1). TSP recomienda dedicar a revisar el diseño al menos la mitad del tiempo que se dedicó a diseñarlo (Lectura 8, sección 1.3).</p>
+  <div class="where">En GitLab: <b>Planificación</b> <span class="en">(Plan)</span> &gt; <b>Wiki</b>, páginas <b>Lista de chequeo de revisión de diseño</b> y <b>Lista de chequeo de revisión de código</b>.</div>
+  <h3>Cómo se hace</h3>
+  <ol class="steps">
+    <li>Creen en la wiki las dos páginas con el contenido de estos archivos, y ajústenlas a su proyecto: <a href="anexos/lista-revision-diseno.md" download>lista de revisión de diseño</a> y <a href="anexos/lista-revision-codigo.md" download>lista de revisión de código</a>.</li>
+    <li>Al terminar el diseño o el código de una tarea, su responsable abre la lista y revisa su trabajo punto por punto. Registra el tiempo en la tarea con la fase <code>Revisión de diseño</code> o <code>Revisión de código</code>.</li>
+    <li>Cada error que encuentra lo registra como defecto, como se explica en <a href="#defectos">Defectos: tipo y fases</a>, con la fase removida <code>Revisión de diseño</code> o <code>Revisión de código</code>.</li>
+    <li>Cuando un tipo de defecto se repite, el gerente de calidad y proceso lo agrega a la lista, en la sección de defectos frecuentes del equipo.</li>
+  </ol>
+</section>
+
+<section id="rama">
+  <span class="who">Lo hace el responsable de la tarea</span>
+  <h2>Una rama por tarea</h2>
+  <p><b>Qué es.</b> Cada tarea de implementación se programa en una rama propia, que se crea a partir de <code>main</code>.</p>
+  <p><b>Para qué sirve.</b> El trabajo de cada integrante queda separado mientras está en curso, y cada rama llega a <code>main</code> con su propia solicitud de fusión e inspección.</p>
+  <div class="where">En GitLab: <b>Código</b> <span class="en">(Code)</span> &gt; <b>Ramas</b> <span class="en">(Branches)</span> &gt; <b>Nueva rama</b> <span class="en">(New branch)</span>.</div>
+  <h3>Cómo se hace</h3>
+  <ol class="steps">
+    <li>Vayan a <b>Código</b> &gt; <b>Ramas</b> y seleccionen <b>Nueva rama</b> <i>(New branch)</i>.</li>
+    <li>En <b>Nombre de la rama</b> <i>(Branch name)</i> escriban el número y el identificador de la tarea, en minúsculas y con guiones, por ejemplo <code>20-t05-pantalla-de-cuentas</code>. En <b>Crear desde</b> <i>(Create from)</i> dejen <code>main</code>. Seleccionen <b>Crear rama</b> <i>(Create branch)</i>.
+      <figure><img src="etapas/img/e4-rama-nueva.webp" alt="Formulario de una rama nueva"><figcaption>Rama nueva con el número y el identificador de la tarea.</figcaption></figure></li>
+  </ol>
+  <div class="note">El número al inicio del nombre de la rama es el número del elemento de trabajo de la tarea, el que aparece después de <code>#</code>. Con él, cualquier integrante sabe a qué tarea corresponde cada rama.</div>
+</section>
+
+<section id="editor">
+  <span class="who">Lo hace el responsable de la tarea</span>
+  <h2>Programar en el editor web</h2>
+  <p><b>Qué es.</b> El editor web de GitLab <i>(Web IDE)</i> es un editor de código que se abre en el navegador, con la estructura de carpetas del repositorio a la izquierda. No requiere instalar nada en el computador.</p>
+  <p><b>Para qué sirve.</b> Permite crear y modificar los archivos del prototipo y guardarlos como confirmaciones en la rama de la tarea.</p>
+  <div class="where">En GitLab: en el repositorio, con la rama de la tarea seleccionada, <b>Editar</b> <span class="en">(Edit)</span> &gt; <b>Web IDE</b>. También se abre presionando la tecla punto (<code>.</code>) en la página del repositorio.</div>
+  <h3>Cómo se hace</h3>
+  <ol class="steps">
+    <li>Vayan a <b>Código</b> &gt; <b>Repositorio</b>. En el selector de rama, arriba a la izquierda, elijan la rama de su tarea.</li>
+    <li>Seleccionen <b>Editar</b> <i>(Edit)</i> &gt; <b>Web IDE</b>. El editor se abre en una pestaña nueva.
+      <figure><img src="etapas/img/e4-webide.webp" alt="Editor web con el árbol de archivos y un archivo abierto"><figcaption>El editor web: archivos a la izquierda y el código en el centro. Abajo a la izquierda aparece la rama en la que están trabajando.</figcaption></figure></li>
+    <li>Creen o modifiquen los archivos. Para crear uno, usen el ícono de archivo nuevo en el árbol de la izquierda.</li>
+    <li>Para guardar los cambios en el repositorio, seleccionen el ícono de control de código fuente <i>(Source Control)</i> en la barra de la izquierda, el que muestra un número con la cantidad de archivos cambiados. Escriban un mensaje que describa el cambio, por ejemplo <code>T05: formulario de cuentas con validación de saldo</code>, y seleccionen <b>Commit and push</b> a la rama de la tarea.
+      <figure><img src="etapas/img/e4-webide-commit.webp" alt="Panel de control de código fuente con el mensaje de la confirmación"><figcaption>Confirmación de los cambios en la rama de la tarea.</figcaption></figure></li>
+    <li>Si el editor pregunta si desean crear una rama nueva o confirmar en la rama actual, elijan la rama actual, que es la de su tarea.</li>
+    <li>Registren en la tarea el tiempo de programación con la fase <code>Implementación</code>.</li>
+  </ol>
+  <div class="note">El editor web tiene la interfaz en inglés aunque GitLab esté en español. Pueden hacer varias confirmaciones en la misma rama; cada una queda con su fecha y su mensaje.</div>
+</section>
+
+<section id="solicitud">
+  <span class="who">Lo hace el responsable de la tarea</span>
+  <h2>Solicitud de fusión</h2>
+  <p><b>Qué es.</b> Es la petición de unir la rama de la tarea a <code>main</code>. Reúne en una página las confirmaciones de la rama, las líneas que cambiaron y la conversación de la inspección.</p>
+  <p><b>Para qué sirve.</b> Es el lugar de la inspección: allí los compañeros revisan el código línea por línea y, cuando lo aprueban, se fusiona. Al fusionarse, GitLab cierra la tarea.</p>
+  <div class="where">En GitLab: <b>Código</b> &gt; <b>Solicitudes de fusión</b> <span class="en">(Merge requests)</span> &gt; <b>Nueva solicitud de fusión</b> <span class="en">(New merge request)</span>.</div>
+  <h3>Cómo se hace</h3>
+  <ol class="steps">
+    <li>Antes de crear la solicitud, el responsable revisa su código con la lista de chequeo de revisión de código y registra el tiempo con la fase <code>Revisión de código</code>.</li>
+    <li>Vayan a <b>Código</b> &gt; <b>Solicitudes de fusión</b> y seleccionen <b>Nueva solicitud de fusión</b>. En <b>Rama de origen</b> <i>(Source branch)</i> elijan la rama de la tarea; en <b>Rama de destino</b> <i>(Target branch)</i>, <code>main</code>. Seleccionen <b>Comparar ramas y continuar</b> <i>(Compare branches and continue)</i>. Si GitLab muestra arriba un aviso con el botón <b>Crear solicitud de fusión</b> para su rama, pueden usarlo directamente.</li>
+    <li>En el título escriban el identificador y el nombre de la tarea, por ejemplo <code>T05: pantalla de cuentas</code>.</li>
+    <li>En <b>Descripción</b>, en la lista de plantillas, elijan <code>inspeccion</code>. En la línea <code>Closes #</code> escriban el número de la tarea, por ejemplo <code>Closes #20</code>, y completen <b>Qué cambia</b>, <b>Cómo se prueba</b> y la revisión personal.
+      <figure><img src="etapas/img/e4-mr-nueva.webp" alt="Solicitud de fusión nueva con la plantilla de inspección"><figcaption>Solicitud de fusión con la plantilla de inspección y la tarea que cierra.</figcaption></figure></li>
+    <li>En <b>Persona asignada</b> <i>(Assignee)</i> pónganse ustedes mismos; en <b>Revisor</b> <i>(Reviewer)</i>, a uno de los dos inspectores. Asignen el hito de la semana. Dejen marcada la opción de eliminar la rama de origen al fusionar.</li>
+    <li>Seleccionen <b>Crear solicitud de fusión</b> <i>(Create merge request)</i>. En la descripción publicada, <code>#20</code> queda enlazado a la tarea.</li>
+  </ol>
+  <div class="note">Si la solicitud aparece como borrador <i>(Draft)</i>, seleccionen <b>Marcar como listo</b> <i>(Mark as ready)</i> cuando esté lista para la inspección.</div>
+</section>
+
+<section id="inspeccion">
+  <span class="who">Lo hacen dos compañeros del equipo</span>
+  <h2>Inspección</h2>
+  <p><b>Qué es.</b> La inspección es una revisión detallada y estructurada del trabajo de un integrante, hecha por su autor y dos compañeros. Cada inspector revisa el producto por su cuenta para encontrar defectos; la inspección identifica los defectos y la corrección se hace después (Lectura 8, sección 2.2).</p>
+  <p><b>Para qué sirve.</b> Encuentra los defectos que el autor no vio en su revisión personal, antes de que lleguen al producto. TSP recomienda revisar máximo 150 líneas nuevas o modificadas por hora; a una velocidad mayor, muchos defectos pasan sin detectarse (Lectura 8, sección 1.2).</p>
+  <div class="where">En GitLab: en la solicitud de fusión, pestaña <b>Cambios</b> <span class="en">(Changes)</span>.</div>
+  <h3>Cómo se hace</h3>
+  <ol class="steps">
+    <li>El autor presenta brevemente el cambio a los dos inspectores: qué hace, qué archivos tocó y cómo se prueba. Puede hacerlo en la reunión semanal o en una sesión corta.</li>
+    <li>Cada inspector abre la solicitud de fusión y la pestaña <b>Cambios</b> <i>(Changes)</i>. Allí se ven en verde las líneas agregadas y en rojo las eliminadas. Calculen el tiempo mínimo de inspección: líneas agregadas dividido entre 150 da las horas.</li>
+    <li>Cuando un inspector encuentra un defecto, pasa el cursor sobre el número de la línea, selecciona el ícono de comentario y escribe qué está mal. Seleccionen <b>Iniciar una revisión</b> <i>(Start a review)</i> en el primer comentario y <b>Agregar a la revisión</b> <i>(Add to review)</i> en los siguientes.
+      <figure><img src="etapas/img/e4-inspeccion-comentario.webp" alt="Comentario de un inspector sobre una línea de código"><figcaption>Comentario de inspección sobre la línea donde está el defecto.</figcaption></figure></li>
+    <li>Al terminar, el inspector selecciona <b>Su revisión</b> <i>(Your review)</i>, escribe un resumen y envía la revisión. Si encontró defectos, elige la opción de solicitar cambios; si no, solo comenta.</li>
+    <li>Cada inspector registra su tiempo en la tarea con la fase <code>Inspección</code>, y escribe su tiempo en la tabla de inspección de la descripción.</li>
+    <li>El autor registra como defecto cada comentario que señala un error, con la fase removida <code>Inspección</code>, y escribe sus números en la tabla de inspección.</li>
+  </ol>
+  <div class="note">La versión gratuita de GitLab permite un solo revisor por solicitud. El segundo inspector participa igual: revisa la pestaña Cambios, comenta y registra su tiempo.</div>
+</section>
+
+<section id="fusion">
+  <span class="who">Lo hacen el revisor y el responsable de la tarea</span>
+  <h2>Aprobación y fusión</h2>
+  <p><b>Qué es.</b> La aprobación es la confirmación del revisor de que el código está listo; la fusión incorpora el código a <code>main</code>.</p>
+  <p><b>Para qué sirve.</b> Solo llega al producto el código inspeccionado y aprobado. Al fusionar, GitLab cierra la tarea indicada en <code>Closes #</code> y así el plan refleja el avance.</p>
+  <h3>Cómo se hace</h3>
+  <ol class="steps">
+    <li>El autor corrige los defectos en la misma rama, con el editor web, y registra el tiempo de cada corrección en el elemento del defecto, con la fase <code>Corrección</code>. Al terminar cada corrección, cierra el defecto.</li>
+    <li>Los inspectores verifican las correcciones. Cuando todo está bien, el revisor selecciona <b>Su revisión</b> &gt; <b>Aprobar</b> <i>(Approve)</i>. GitLab no permite que el autor apruebe su propia solicitud.
+      <figure><img src="etapas/img/e4-aprobar.webp" alt="Solicitud de fusión aprobada lista para fusionar"><figcaption>Solicitud aprobada por el revisor, lista para fusionar.</figcaption></figure></li>
+    <li>El autor completa en la tabla de inspección el resultado y selecciona <b>Fusionar</b> <i>(Merge)</i>. La tarea se cierra y la rama se elimina.</li>
+    <li>El autor registra en la tarea el tiempo de la fusión y de verificar que el producto sigue funcionando, con la fase <code>Integración</code>.</li>
+  </ol>
+  <div class="note">Si GitLab pide verificar la identidad para ejecutar pipelines, cierren el aviso: este proyecto no usa pipelines y la fusión funciona sin ellos.</div>
+</section>
+
+<section id="tamano">
+  <span class="who">Lo hace el responsable de la tarea</span>
+  <h2>Tamaño del producto</h2>
+  <p><b>Qué es.</b> TSP mide el tamaño del producto en líneas de código. Para seguir el crecimiento del producto se cuentan las líneas agregadas y modificadas (Lectura 7, sección 2.1).</p>
+  <p><b>Para qué sirve.</b> Con el tamaño se calcula la densidad de defectos, que es la cantidad de defectos por cada mil líneas nuevas y modificadas (Lectura 8, sección 1.1), y la tasa de inspección, que es la cantidad de líneas inspeccionadas por hora (Lectura 8, sección 1.2). Con estos datos, el equipo estima mejor sus próximos proyectos.</p>
+  <div class="where">En GitLab: en la solicitud de fusión, pestaña <b>Cambios</b> <span class="en">(Changes)</span>, la línea que indica cuántos archivos cambiaron y cuántas líneas se agregaron y se eliminaron.</div>
+  <h3>Cómo se hace</h3>
+  <ol class="steps">
+    <li>Al crear la solicitud de fusión, abran la pestaña <b>Cambios</b> y lean el número de líneas agregadas.
+      <figure><img src="etapas/img/e4-cambios-lineas.webp" alt="Pestaña Cambios con el número de líneas agregadas y eliminadas"><figcaption>La pestaña Cambios indica las líneas agregadas y eliminadas en la solicitud.</figcaption></figure></li>
+    <li>Escriban ese número en la tabla de inspección de la descripción.</li>
+  </ol>
+  <p>El generador de evidencias de la etapa 5 lee estos datos de todas las solicitudes y calcula el tamaño total, la densidad de defectos y la tasa de inspección.</p>
+</section>
+
+<section id="defectos">
+  <span class="who">Lo hace quien encuentra el defecto</span>
+  <h2>Defectos: tipo y fases</h2>
+  <p><b>Qué es.</b> En la etapa 2 registraron los errores como elementos con la etiqueta <code>defecto</code>. Desde esta etapa cada defecto lleva además tres etiquetas: su tipo, la fase en que se inyectó y la fase en que se removió. Con ellas se mide la calidad del producto: dónde se introducen los defectos, dónde se encuentran y cuánto cuesta corregirlos (Lectura 8, secciones 1 y 3).</p>
+  <p><b>Para qué sirve.</b> Al contar los defectos por tipo y por fase, el equipo identifica qué errores comete con más frecuencia y en qué fase conviene reforzar la revisión.</p>
+  <h3>Tipos de defecto</h3>
+  <p>Esta es la clasificación estándar de PSP. Cada tipo es una etiqueta:</p>
+  <table>
+    <tr><th>Etiqueta</th><th>Qué incluye</th></tr>
+    <tr><td><code>tipo: 10 documentación</code></td><td>Comentarios, mensajes y textos</td></tr>
+    <tr><td><code>tipo: 20 sintaxis</code></td><td>Ortografía del código, puntuación, formato de las instrucciones</td></tr>
+    <tr><td><code>tipo: 30 construcción</code></td><td>Control de versiones, librerías, empaquetado</td></tr>
+    <tr><td><code>tipo: 40 asignación</code></td><td>Declaraciones, nombres duplicados, alcance de variables, límites</td></tr>
+    <tr><td><code>tipo: 50 interfaz</code></td><td>Llamadas entre componentes, entrada y salida, pantallas y formatos de usuario</td></tr>
+    <tr><td><code>tipo: 60 chequeo</code></td><td>Mensajes de error y validaciones faltantes o incorrectas</td></tr>
+    <tr><td><code>tipo: 70 datos</code></td><td>Estructura y contenido de los datos</td></tr>
+    <tr><td><code>tipo: 80 función</code></td><td>Lógica, ciclos, cálculos, recursión</td></tr>
+    <tr><td><code>tipo: 90 sistema</code></td><td>Configuración, tiempos de respuesta, memoria</td></tr>
+    <tr><td><code>tipo: 100 entorno</code></td><td>Problemas de las herramientas de diseño, programación o pruebas</td></tr>
+  </table>
+  <h3>Fase inyectada y fase removida</h3>
+  <ul>
+    <li><b>Fase inyectada</b>: la fase en que se cometió el error. Etiqueta <code>inyectado:</code> seguida de la fase, por ejemplo <code>inyectado: Implementación</code>.</li>
+    <li><b>Fase removida</b>: la fase en que se encontró y se corrigió. Etiqueta <code>removido:</code> seguida de la fase, por ejemplo <code>removido: Inspección</code>.</li>
+  </ul>
+  <p>Escriban la fase exactamente como aparece en la tabla de fases de la etapa 2. Una persona del equipo crea las diez etiquetas de tipo al iniciar esta etapa; las de fase se crean en <b>Administrar</b> &gt; <b>Etiquetas</b> la primera vez que se necesitan.</p>
+  <h3>Cómo se registra un defecto</h3>
+  <ol class="steps">
+    <li>Creen un elemento de tipo <b>Issue</b> con un título como <code>Defecto D04: el saldo acepta valores negativos</code>.</li>
+    <li>En la descripción indiquen dónde está el defecto (archivo y línea, o documento), qué falla, quién lo detectó y, si viene de una inspección, el enlace al comentario de la solicitud de fusión.</li>
+    <li>En el panel derecho pongan las etiquetas <code>defecto</code>, la de tipo, la de fase inyectada y la de fase removida; el hito de la semana; y en <b>Persona asignada</b>, a quien lo corrige. Seleccionen <b>Crear issue</b>.
+      <figure><img src="etapas/img/e4-defecto.webp" alt="Defecto con etiquetas de tipo, fase inyectada y fase removida"><figcaption>Un defecto encontrado en la inspección, con su tipo y sus fases.</figcaption></figure></li>
+    <li>Quien lo corrige registra el tiempo en ese elemento con la fase <code>Corrección</code> y lo cierra cuando la corrección está hecha.</li>
+  </ol>
+  <div class="note">Los defectos que registraron en la etapa 2 también se etiquetan: agréguenles el tipo y las fases que ya escribieron en su descripción.</div>
+</section>
+
+<section id="terminal">
+  <h2>Trabajar con Git en el computador</h2>
+  <p>Quienes ya usan Git en su computador pueden trabajar así en lugar del editor web. El recorrido de la tarea es el mismo: una rama por tarea, confirmaciones con mensajes que identifiquen la tarea y una solicitud de fusión con la plantilla de inspección.</p>
+  <pre>git clone https://gitlab.com/grupo/proyecto.git
+cd proyecto
+git switch -c 20-t05-pantalla-de-cuentas
+# programar y guardar los archivos
+git add .
+git commit -m "T05: formulario de cuentas con validación de saldo"
+git push -u origin 20-t05-pantalla-de-cuentas</pre>
+  <p>La primera vez que GitLab pida usuario y contraseña desde la terminal, usen su usuario de GitLab y, como contraseña, un token personal con el alcance <code>write_repository</code>. La <a href="etapa-5.html#token">etapa 5</a> explica qué es un token y cómo se crea.</p>
+</section>
+
+<section id="verificar">
+  <h2>Verificación de la etapa</h2>
+  <p>Al terminar esta etapa, su proyecto debe tener:</p>
+  <ul>
+    <li>La rama <code>main</code> protegida, con el código del prototipo.</li>
+    <li>La plantilla <code>inspeccion</code> de solicitud de fusión y las listas de chequeo en la wiki.</li>
+    <li>Una solicitud de fusión por cada tarea de implementación, con <code>Closes #</code>, la tabla de inspección completa, comentarios de los inspectores, aprobación y fusión.</li>
+    <li>En cada tarea, el tiempo con las fases <code>Implementación</code>, <code>Revisión de código</code>, <code>Inspección</code> e <code>Integración</code>.</li>
+    <li>Los defectos con sus etiquetas de tipo, fase inyectada y fase removida, y el tiempo de su corrección.</li>
+  </ul>
+</section>
+
+<div class="next"><a href="etapa-3.html">Etapa 3: seguimiento semanal</a><a href="etapa-5.html">Etapa 5: análisis y cierre</a></div>
+</main>
+</div>
+<div class="lb" id="lb"><img alt=""></div>
+<script>
+document.querySelectorAll("figure img").forEach(i=>i.addEventListener("click",()=>{const lb=document.getElementById("lb");lb.querySelector("img").src=i.src;lb.classList.add("on");}));
+document.getElementById("lb").addEventListener("click",e=>e.currentTarget.classList.remove("on"));
+document.querySelectorAll(".tpl button").forEach(async b=>{
+  const pre=b.parentElement.querySelector("pre");
+  if(b.dataset.copy){ try{ const t=await (await fetch(b.dataset.copy)).text(); pre.textContent=t; }catch(e){ pre.textContent="Descarguen el archivo con el enlace de abajo."; } }
+  b.addEventListener("click",async()=>{ try{ await navigator.clipboard.writeText(pre.textContent); b.textContent="Copiado"; setTimeout(()=>b.textContent="Copiar",1500);}catch(e){} });
+});
+</script>
+</body>
+</html>

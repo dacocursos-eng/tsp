@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entrega 3: consolidado, postmortem y sustentación · TSP</title>
+<link rel="stylesheet" href="etapas/manual.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <p class="kicker">Proyecto TSP en GitLab · Entrega 3</p>
+  <h1>Cómo preparar la Entrega 3</h1>
+  <p>La Entrega 3 reúne el consolidado de los registros del proyecto, el análisis del equipo, el postmortem con sus conclusiones y la sustentación en video con el prototipo y la línea de tiempo.</p>
+  <div class="alert" style="margin:1rem 0 0;background:#fff;color:var(--ink)"><strong>Este material corresponde a la Entrega 3.</strong></div>
+  <nav><a href="index.html">Inicio</a><a href="etapa-1.html">Etapa 1: montaje</a><a href="etapa-2.html">Etapa 2: planeación y registro de tiempo</a><a href="etapa-3.html">Etapa 3: seguimiento semanal</a><a href="etapa-4.html">Etapa 4: código y calidad</a><a href="etapa-5.html">Etapa 5: análisis y cierre</a><a href="entrega-2.html">Entrega 2</a><a class="on" href="entrega-3.html">Entrega 3</a></nav>
+</div></header>
+
+<div class="layout">
+<nav class="side" aria-label="Contenido">
+  <ul>
+    <li><a href="#que">Qué se entrega</a></li>
+    <li><a href="#excel">Excel del proyecto</a></li>
+    <li><a href="#postmortem">Postmortem y video</a></li>
+    <li><a href="#reuniones">Reuniones semanales</a></li>
+    <li><a href="#inspeccion">Una inspección</a></li>
+    <li><a href="#subir">Cómo subir los archivos</a></li>
+    <li><a href="#rubrica">Cómo se evalúa</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<section id="que">
+  <h2>Qué se entrega</h2>
+  <p>La Entrega 3 pide el resumen consolidado del desarrollo, de las actas y del proceso; la reflexión del equipo sobre lo que pasó en el proyecto, las dificultades, los roles y el compromiso de cada uno; entre 6 y 10 conclusiones; y un video con el prototipo del catálogo virtual y la línea de tiempo del proyecto. Cada una de esas evidencias corresponde a un archivo:</p>
+  <table>
+    <tr><th>Evidencia</th><th>Archivo</th><th>De dónde sale</th></tr>
+    <tr><td>Consolidado de los registros: tareas, tiempo, solicitudes de fusión, defectos, riesgos, tablas, línea de tiempo y análisis del equipo</td><td><code>TSP_E3_SGxx_datos.xlsx</code></td><td>Generador de evidencias, con la hoja Análisis diligenciada</td></tr>
+    <tr><td>Postmortem: resumen consolidado, reflexión, roles, compromiso, calidad, conclusiones y enlace del video</td><td><code>TSP_E3_SGxx_postmortem.pdf</code></td><td>Wiki: Postmortem</td></tr>
+    <tr><td>Seguimiento semanal: actas con los reportes de cada rol</td><td><code>TSP_E3_SGxx_reunion1.pdf</code>, <code>TSP_E3_SGxx_reunion2.pdf</code> y así sucesivamente</td><td>Cada acta de reunión semanal posterior a la Entrega 2</td></tr>
+    <tr><td>Una inspección completa</td><td><code>TSP_E3_SGxx_inspeccion.pdf</code></td><td>Una solicitud de fusión inspeccionada, aprobada y fusionada</td></tr>
+  </table>
+  <p>En los nombres, <code>SGxx</code> es el número de su subgrupo, por ejemplo <code>SG05</code>. Si generaron el Excel desde el CSV, sin token, agreguen también <code>TSP_E3_SGxx_tiempo.pdf</code> con el informe de tiempo del grupo, como en la Entrega 2.</p>
+  <p>Para guardar una página de GitLab como PDF sigan los pasos de la <a href="entrega-2.html#pdf">Entrega 2</a>.</p>
+</section>
+
+<section id="excel">
+  <h2>Excel del proyecto</h2>
+  <ol class="steps">
+    <li>Cuando el proyecto esté cerrado, generen el Excel con el <a href="generador.html">generador de evidencias</a>, como se explica en la <a href="etapa-5.html#generar">etapa 5</a>.</li>
+    <li>Revisen los avisos del generador y corrijan en GitLab lo que corresponda. Generen el Excel de nuevo.</li>
+    <li>Diligencien la hoja <b>Análisis</b> con lo que muestra cada tabla.</li>
+    <li>Guarden el archivo con el nombre <code>TSP_E3_SGxx_datos.xlsx</code> y revoquen el token.</li>
+  </ol>
+</section>
+
+<section id="postmortem">
+  <h2>Postmortem y video</h2>
+  <ol class="steps">
+    <li>Completen la página <b>Postmortem</b> de la wiki, como se explica en la <a href="etapa-5.html#postmortem">etapa 5</a>, con las conclusiones y el enlace del video.</li>
+    <li>Comprueben que el enlace del video abre en una ventana privada del navegador y que el video dura máximo 5 minutos.</li>
+    <li>Guarden la página como PDF con el nombre <code>TSP_E3_SGxx_postmortem.pdf</code>. Revisen que en el PDF se vean completas las tablas y el enlace.</li>
+  </ol>
+</section>
+
+<section id="reuniones">
+  <h2>Reuniones semanales</h2>
+  <ol class="steps">
+    <li>En <b>Elementos de trabajo</b>, con <b>Estado</b> en <b>Cualquiera</b>, filtren por la etiqueta <code>reunion-semanal</code>.</li>
+    <li>Abran cada acta posterior a la Entrega 2 y guárdenla como PDF, con los comentarios de los reportes visibles: <code>TSP_E3_SGxx_reunion1.pdf</code>, <code>TSP_E3_SGxx_reunion2.pdf</code> y así sucesivamente, en orden de fecha.</li>
+  </ol>
+</section>
+
+<section id="inspeccion">
+  <h2>Una inspección</h2>
+  <ol class="steps">
+    <li>Elijan una solicitud de fusión que muestre bien el recorrido de la etapa 4: tabla de inspección completa, comentarios de los inspectores, defectos registrados, aprobación y fusión.</li>
+    <li>Abran la solicitud en la pestaña <b>Resumen</b> <i>(Overview)</i>, donde se ven la descripción, los comentarios y la aprobación, y guárdenla como PDF con el nombre <code>TSP_E3_SGxx_inspeccion.pdf</code>.</li>
+  </ol>
+</section>
+
+<section id="subir">
+  <h2>Cómo subir los archivos</h2>
+  <ul>
+    <li>Suban los archivos sueltos, uno por uno, en la misma entrega. No los suban dentro de una carpeta ni comprimidos.</li>
+    <li>Antes de subir, abran cada archivo y revisen que se vea completo.</li>
+    <li>La entrega la sube un integrante del equipo; los demás revisan que haya quedado completa.</li>
+    <li>Se consideran participantes de la entrega los integrantes que tienen registros a su nombre en el proyecto: tiempo, tareas, actas o solicitudes de fusión.</li>
+  </ul>
+</section>
+
+<section id="rubrica">
+  <h2>Cómo se evalúa</h2>
+  <p>La Entrega 3 se califica sobre 200 puntos con esta rúbrica. En cada criterio se asigna el nivel que mejor describe lo que muestran los archivos: <b>Completo</b> (100 % de los puntos del criterio), <b>Adecuado</b> (70 %), <b>Parcial</b> (40 %) o <b>Ausente</b> (0). La nota es la suma de los criterios.</p>
+  <div style="overflow-x:auto"><table>
+    <tr><th>Criterio y puntos</th><th>Completo</th><th>Adecuado</th><th>Parcial</th><th>Ausente</th></tr>
+    <tr><td><b>Seguimiento semanal</b><br><span style="color:var(--muted)">30 puntos</span></td><td><b>30</b> · Hay un acta por semana con el reporte de cada integrante como comentario y el reporte de estado del proyecto con horas, valor planeado y valor ganado; los riesgos están registrados con responsable, impacto, probabilidad y seguimiento; los cambios al plan aparecen como nuevas versiones con su motivo y su efecto.</td><td><b>21</b> · Las actas están, pero falta el reporte de algún integrante, el reporte de estado está incompleto o los riesgos no tienen seguimiento.</td><td><b>12</b> · Falta el acta de alguna semana, o las actas no tienen reportes de los roles.</td><td><b>0</b> · No hay actas de reunión semanal.</td></tr>
+    <tr><td><b>Control de versiones</b><br><span style="color:var(--muted)">25 puntos</span></td><td><b>25</b> · El código del prototipo está en el repositorio; cada tarea de implementación tiene su rama y su solicitud de fusión con <code>Closes #</code>, y la rama principal recibe cambios solo por solicitudes de fusión.</td><td><b>17,5</b> · La mayoría de las tareas tiene su rama y su solicitud, pero hay cambios hechos directamente en la rama principal o solicitudes sin la tarea que cierran.</td><td><b>10</b> · Hay código en el repositorio, pero sin ramas por tarea o con muy pocas solicitudes de fusión.</td><td><b>0</b> · No hay código en el repositorio.</td></tr>
+    <tr><td><b>Inspección y defectos</b><br><span style="color:var(--muted)">30 puntos</span></td><td><b>30</b> · Las solicitudes de fusión tienen la tabla de inspección completa, comentarios de los inspectores, aprobación de alguien distinto al autor y tiempo de inspección registrado; los defectos tienen tipo, fase inyectada, fase removida y tiempo de corrección.</td><td><b>21</b> · Hay inspecciones y defectos, pero faltan datos en algunas tablas de inspección o etiquetas en algunos defectos.</td><td><b>12</b> · Las solicitudes se aprueban sin comentarios de inspección, o los defectos no tienen tipo ni fases.</td><td><b>0</b> · No hay inspecciones ni defectos registrados.</td></tr>
+    <tr><td><b>Consolidado de datos</b><br><span style="color:var(--muted)">30 puntos</span></td><td><b>30</b> · El Excel tiene los datos del proyecto al cierre, sin avisos pendientes de importancia, y la hoja Análisis interpreta cada tabla con sus valores: horas por fase, estimado frente a dedicado, valor planeado frente a valor ganado y defectos.</td><td><b>21</b> · El Excel está completo, pero el análisis es general o deja tablas sin interpretar.</td><td><b>12</b> · El Excel está incompleto o sin análisis.</td><td><b>0</b> · No se entregó el Excel.</td></tr>
+    <tr><td><b>Postmortem</b><br><span style="color:var(--muted)">25 puntos</span></td><td><b>25</b> · La página responde con datos del proyecto las cuatro preguntas de la entrega: qué pasó durante el desarrollo, cómo resolvieron las dificultades, cómo fue el manejo de los roles y si los registros reflejan el compromiso individual y del equipo.</td><td><b>17,5</b> · Responde las cuatro preguntas, pero algunas respuestas no se apoyan en datos.</td><td><b>10</b> · Responde parte de las preguntas o lo hace de forma general.</td><td><b>0</b> · No hay postmortem.</td></tr>
+    <tr><td><b>Conclusiones</b><br><span style="color:var(--muted)">20 puntos</span></td><td><b>20</b> · Entre 6 y 10 conclusiones, cada una sustentada en un dato del proyecto, que cubren el plan, los roles, la calidad y el compromiso del equipo.</td><td><b>14</b> · Entre 6 y 10 conclusiones, pero algunas sin dato que las sustente.</td><td><b>8</b> · Menos de 6 conclusiones, o conclusiones generales que no se refieren al proyecto.</td><td><b>0</b> · No hay conclusiones.</td></tr>
+    <tr><td><b>Video: prototipo</b><br><span style="color:var(--muted)">20 puntos</span></td><td><b>20</b> · El video muestra el catálogo funcionando con los módulos construidos: registro e inicio de sesión, búsquedas, artículos con sus características, compra y carrito.</td><td><b>14</b> · Muestra el catálogo funcionando, pero sin algunos de los módulos construidos.</td><td><b>8</b> · Muestra pantallas sin funcionamiento o una parte mínima del catálogo.</td><td><b>0</b> · No hay video o el enlace no abre.</td></tr>
+    <tr><td><b>Video: línea de tiempo</b><br><span style="color:var(--muted)">15 puntos</span></td><td><b>15</b> · La línea de tiempo muestra, semana por semana, los avances, los roles y las actividades del equipo, con datos del proyecto; el video dura máximo 5 minutos y está publicado como no listado.</td><td><b>10,5</b> · La línea de tiempo está, pero le falta alguno de los tres elementos, o el video supera los 5 minutos.</td><td><b>6</b> · La línea de tiempo es general o no corresponde a los registros del proyecto.</td><td><b>0</b> · El video no presenta línea de tiempo.</td></tr>
+    <tr><td><b>Archivos de la entrega</b><br><span style="color:var(--muted)">5 puntos</span></td><td><b>5</b> · Están todos los archivos, sueltos, con los nombres indicados, y cada uno se abre completo.</td><td><b>3,5</b> · Falta un archivo o algún nombre no sigue la indicación.</td><td><b>2</b> · Faltan varios archivos o vienen en carpetas o comprimidos.</td><td><b>0</b> · No se entregaron los archivos.</td></tr>
+    <tr><td><b>Total</b></td><td><b>200</b></td><td></td><td></td><td></td></tr>
+  </table></div>
+  <p>La calificación del equipo se asigna a cada integrante que tiene registros a su nombre en el proyecto: tiempo, tareas, actas o solicitudes de fusión.</p>
+</section>
+
+<div class="next"><a href="etapa-5.html">Etapa 5: análisis y cierre</a><a href="index.html">Volver al inicio</a></div>
+</main>
+</div>
+</body>
+</html>

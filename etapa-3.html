@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Etapa 3: seguimiento semanal · TSP en GitLab</title>
+<link rel="stylesheet" href="etapas/manual.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <p class="kicker">Proyecto TSP en GitLab · Etapa 3</p>
+  <h1>Seguimiento semanal</h1>
+  <p>En esta etapa el equipo ejecuta el plan y lo controla cada semana: se reúne, cada rol presenta su reporte, revisa el avance frente al plan, hace seguimiento a los riesgos y registra los cambios que el plan necesite.</p>
+  <div class="alert" style="margin:1rem 0 0;background:#fff;color:var(--ink)"><strong>Este material corresponde a la Entrega 3.</strong></div>
+  <nav><a href="index.html">Inicio</a><a href="etapa-1.html">Etapa 1: montaje</a><a href="etapa-2.html">Etapa 2: planeación y registro de tiempo</a><a class="on" href="etapa-3.html">Etapa 3: seguimiento semanal</a><a href="etapa-4.html">Etapa 4: código y calidad</a><a href="etapa-5.html">Etapa 5: análisis y cierre</a><a href="entrega-2.html">Entrega 2</a><a href="entrega-3.html">Entrega 3</a></nav>
+</div></header>
+
+<div class="layout">
+<nav class="side" aria-label="Contenido de la etapa">
+  <ul>
+    <li><a href="#reunion">La reunión semanal</a></li>
+    <li><a href="#reportes">Reportes de cada rol</a></li>
+    <li><a href="#estado">Estado del proyecto</a></li>
+    <li><a href="#riesgos">Riesgos</a></li>
+    <li><a href="#cambios">Cambios al plan</a></li>
+    <li><a href="#verificar">Verificación de la etapa</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<section id="reunion">
+  <span class="who">Lo hace todo el equipo</span>
+  <h2>La reunión semanal</h2>
+  <p><b>Qué es.</b> Es la reunión en la que el equipo revisa cada semana cómo va frente al plan. Cada integrante, según su rol, presenta un reporte breve, y al final el gerente de planeación presenta el estado del proyecto. Es una de las herramientas principales de TSP para el seguimiento (Lectura 6, sección 3).</p>
+  <p><b>Para qué sirve.</b> Con los datos de la semana el equipo sabe si va al día, atrasado o adelantado, identifica a tiempo quién necesita ayuda y decide las acciones de la semana siguiente. El acta deja constancia de esas decisiones y de los compromisos.</p>
+  <div class="where">En GitLab: <b>Elementos de trabajo</b> <span class="en">(Work items)</span> &gt; <b>Nuevo elemento</b> <span class="en">(New item)</span>, tipo <b>Issue</b>, plantilla <code>reunion-semanal</code>.</div>
+  <h3>Cómo se hace</h3>
+  <ol class="steps">
+    <li>Antes de la reunión, quien la modera crea el acta: un elemento de trabajo de tipo <b>Issue</b> con un título como <code>Reunión semanal: semana 6</code>. En <b>Elegir una plantilla</b> <i>(Choose a template)</i> selecciona <code>reunion-semanal</code>, la plantilla que el equipo creó en la etapa 1.
+      <figure><img src="etapas/img/e3-reunion-nueva.webp" alt="Elemento nuevo con la plantilla reunion-semanal"><figcaption>Acta de la reunión semanal creada con la plantilla del equipo.</figcaption></figure></li>
+    <li>En el panel derecho asigna el hito de la semana y, en <b>Persona asignada</b> <i>(Assignee)</i>, a quien registra el acta. Selecciona <b>Crear issue</b>. La etiqueta <code>reunion-semanal</code> la pone la plantilla.</li>
+    <li>Antes o durante la reunión, cada integrante abre el acta y agrega su reporte como comentario, con el modelo de la sección <a href="#reportes">Reportes de cada rol</a>.</li>
+    <li>Durante la reunión, quien registra el acta completa en la descripción la revisión de los compromisos anteriores, el estado del proyecto, las decisiones y los compromisos nuevos. Para editarla, selecciona <b>Editar</b> <i>(Edit)</i>, arriba a la derecha.</li>
+    <li>Cada participante registra en el acta el tiempo de la reunión, con la fase <code>Gestión</code>, como se explica en la etapa 2.</li>
+    <li>Al terminar, quien registró el acta la cierra con <b>Cerrar issue</b> <i>(Close issue)</i>. Los compromisos quedan como tareas del plan o como comentarios en las tareas que ya existen.</li>
+  </ol>
+  <div class="note">Hagan una reunión semanal por cada semana de trabajo, también la semana de la entrega. Si un integrante no puede asistir, agrega su reporte como comentario antes de la reunión.</div>
+</section>
+
+<section id="reportes">
+  <span class="who">Lo hacen todos, cada uno por su cuenta</span>
+  <h2>Reportes de cada rol</h2>
+  <p><b>Qué es.</b> TSP organiza la reunión semanal en reportes breves, presentados por quien tiene la responsabilidad correspondiente (Lectura 6, secciones 3.1 a 3.6). En GitLab cada reporte es un comentario en el acta de la reunión.</p>
+  <table>
+    <tr><th>Reporte</th><th>Quién lo presenta</th><th>Qué incluye</th></tr>
+    <tr><td>Reporte del líder</td><td>Líder del equipo</td><td>Novedades del proyecto, problemas conocidos y acciones principales de la semana siguiente</td></tr>
+    <tr><td>Reporte de roles de gestión</td><td>Gerentes de desarrollo, de calidad y proceso, y de soporte</td><td>Actividades del rol en la semana, actividades previstas y novedades del rol</td></tr>
+    <tr><td>Reporte de metas</td><td>Responsable de cada meta del equipo</td><td>Cómo va cada meta y si hay cambios o temas críticos</td></tr>
+    <tr><td>Reporte de riesgos</td><td>Responsable de cada riesgo</td><td>Cambios en el impacto o la probabilidad de cada riesgo y acciones preventivas o correctivas</td></tr>
+    <tr><td>Reporte de estado individual</td><td>Cada integrante</td><td>Horas trabajadas, tareas terminadas, tareas de la semana siguiente y lo que afecte su plan</td></tr>
+    <tr><td>Reporte de estado del proyecto</td><td>Gerente de planeación, al final</td><td>Horas planeadas y dedicadas, valor planeado y valor ganado, y si el equipo va al día, atrasado o adelantado</td></tr>
+  </table>
+  <p>Como cada integrante tiene un rol, su comentario reúne el reporte de su rol y su estado individual. Las metas y los riesgos los reporta quien es responsable de cada uno.</p>
+  <h3>Modelo del comentario</h3>
+  <div class="tpl"><button type="button" data-copy-text>Copiar</button><pre>**Reporte de [rol] · [nombre]**
+
+- Horas trabajadas en la semana:
+- Tareas terminadas: #
+- Tareas para la próxima semana: #
+- Novedades del rol:
+- Metas o riesgos a mi cargo:
+- Dificultades: </pre></div>
+  <p>Al escribir <code>#</code> seguido del número de una tarea, GitLab la enlaza y muestra su título. Así el reporte queda conectado con el plan.</p>
+  <figure><img src="etapas/img/e3-reunion-comentario.webp" alt="Comentario con el reporte de un rol en el acta de la reunión semanal"><figcaption>Reporte de un rol agregado como comentario en el acta de la reunión.</figcaption></figure>
+</section>
+
+<section id="estado">
+  <span class="who">Lo hace el gerente de planeación</span>
+  <h2>Estado del proyecto</h2>
+  <p><b>Qué es.</b> Es el reporte que cierra la reunión semanal. El gerente de planeación compara lo que el equipo hizo con lo que planeó, con cuatro datos: las horas planeadas para la semana, las horas que realmente se trabajaron, el valor planeado y el valor ganado (Lectura 6, sección 3.6).</p>
+  <p><b>Para qué sirve.</b> Le dice al equipo si va al día, atrasado o adelantado, y permite tomar acciones antes de que un atraso crezca. Si el atraso es grande, el equipo lo informa a la gerencia, que en este curso es su docente.</p>
+  <h3>Valor planeado y valor ganado</h3>
+  <ul>
+    <li><b>Valor planeado</b> <i>(Planned Value, PV)</i>: cada tarea vale el porcentaje que su estimación representa sobre el total estimado del plan. Una tarea de 3 horas en un plan de 60 horas vale 5 %. El valor planeado de una semana es la suma del valor de las tareas planeadas para esa semana.</li>
+    <li><b>Valor ganado</b> <i>(Earned Value, EV)</i>: una tarea suma su valor completo cuando se termina, sin importar cuántas horas tomó. Las tareas sin terminar no suman.</li>
+    <li>Si el valor ganado acumulado es menor que el planeado acumulado, el equipo va atrasado; si es mayor, va adelantado (Lectura 7, sección 3).</li>
+  </ul>
+  <div class="where">En GitLab: <b>Planificación</b> <span class="en">(Plan)</span> &gt; <b>Hitos</b> <span class="en">(Milestones)</span>, el hito de la semana, panel derecho.</div>
+  <h3>Cómo se hace</h3>
+  <ol class="steps">
+    <li>Abran el hito de la semana y, con el botón de doble flecha, el panel derecho. Allí está el <b>tiempo dedicado frente al estimado</b> de las tareas de la semana y el porcentaje de elementos cerrados.
+      <figure><img src="etapas/img/e2-hito.webp" alt="Página del hito con el tiempo dedicado y estimado"><figcaption>Página del hito: tareas de la semana y, a la derecha, dedicado frente a estimado.</figcaption></figure></li>
+    <li>Para el valor planeado y el valor ganado, generen el Excel del proyecto con el <a href="generador.html">generador de evidencias</a>, como se explica en la <a href="etapa-5.html#datos">etapa 5</a>. La hoja <b>Valor ganado</b> trae, por semana, el valor planeado, el valor ganado y sus acumulados.</li>
+    <li>Agreguen el reporte como comentario en el acta, con este modelo:
+      <div class="tpl"><button type="button" data-copy-text>Copiar</button><pre>**Estado del proyecto · semana [n]**
+
+| Dato | Semana | Acumulado |
+| --- | --- | --- |
+| Horas planeadas |  |  |
+| Horas dedicadas |  |  |
+| Valor planeado (%) |  |  |
+| Valor ganado (%) |  |  |
+
+Estado: al día / atrasado / adelantado.
+Acciones propuestas: </pre></div></li>
+  </ol>
+  <div class="note">El porcentaje que muestra la página del hito cuenta elementos cerrados, sin tener en cuenta sus horas. El valor ganado pondera cada tarea por su estimación, por eso los dos porcentajes pueden ser distintos.</div>
+</section>
+
+<section id="riesgos">
+  <span class="who">Lo hace todo el equipo; cada riesgo tiene un responsable</span>
+  <h2>Riesgos</h2>
+  <p><b>Qué es.</b> Un riesgo es un suceso que puede ocurrir o no y que afectaría el proyecto, como la enfermedad de un integrante o la falla de un equipo de cómputo; lo que ya se sabe que va a pasar es un problema y se trata en el plan. TSP evalúa cada riesgo por su impacto (alto, medio o bajo) y su probabilidad (alta, media o baja), y les asigna a los más importantes un responsable y planes para evitarlos y para mitigarlos (Lectura 5, sección 4.7).</p>
+  <p><b>Para qué sirve.</b> Con los riesgos registrados el equipo se prepara antes de que ocurran. En cada reunión semanal el responsable informa si cambió su impacto o su probabilidad (Lectura 6, sección 3.4).</p>
+  <h3>Prioridad de los riesgos</h3>
+  <p>Los riesgos se priorizan en este orden. Los que no están en estas cuatro combinaciones no se evalúan; los que sí, tienen un responsable y sus planes.</p>
+  <table>
+    <tr><th>Prioridad</th><th>Impacto</th><th>Probabilidad</th></tr>
+    <tr><td>Primera</td><td>Alto</td><td>Alta</td></tr>
+    <tr><td>Segunda</td><td>Alto</td><td>Media</td></tr>
+    <tr><td>Tercera</td><td>Medio</td><td>Alta</td></tr>
+    <tr><td>Cuarta</td><td>Medio</td><td>Media</td></tr>
+  </table>
+  <div class="where">En GitLab: <b>Elementos de trabajo</b> &gt; <b>Nuevo elemento</b>, tipo <b>Issue</b>, plantilla <code>riesgo</code>, con una etiqueta de impacto y una de probabilidad.</div>
+  <h3>Etiquetas y plantilla</h3>
+  <p>Una persona del equipo crea estas siete etiquetas en <b>Administrar</b> <i>(Manage)</i> &gt; <b>Etiquetas</b> <i>(Labels)</i>, como se hizo en la etapa 1:</p>
+  <table>
+    <tr><th>Etiqueta</th><th>Uso</th></tr>
+    <tr><td><code>riesgo</code></td><td>Identifica el elemento como riesgo; la pone la plantilla</td></tr>
+    <tr><td><code>impacto: alto</code>, <code>impacto: medio</code>, <code>impacto: bajo</code></td><td>Impacto del riesgo</td></tr>
+    <tr><td><code>probabilidad: alta</code>, <code>probabilidad: media</code>, <code>probabilidad: baja</code></td><td>Probabilidad de que ocurra</td></tr>
+  </table>
+  <p>La misma persona crea el archivo <code>.gitlab/issue_templates/riesgo.md</code> con este contenido, de la misma forma que la plantilla del acta en la etapa 1:</p>
+  <div class="tpl"><button type="button" data-copy="anexos/riesgo.md">Copiar</button><pre>Cargando la plantilla…</pre></div>
+  <p>También pueden <a href="anexos/riesgo.md" download>descargar el archivo</a>.</p>
+  <h3>Cómo se registra un riesgo</h3>
+  <ol class="steps">
+    <li>Creen un elemento de tipo <b>Issue</b> con un título como <code>Riesgo: un integrante no puede trabajar una semana</code> y, en <b>Elegir una plantilla</b>, seleccionen <code>riesgo</code>.</li>
+    <li>Diligencien la descripción: el riesgo, su consecuencia, los planes para evitarlo y para mitigarlo.</li>
+    <li>En el panel derecho pongan una etiqueta de impacto y una de probabilidad y, en <b>Persona asignada</b>, al responsable del seguimiento. Seleccionen <b>Crear issue</b>.
+      <figure><img src="etapas/img/e3-riesgo.webp" alt="Riesgo registrado con etiquetas de impacto y probabilidad"><figcaption>Un riesgo con su responsable y sus etiquetas de impacto y probabilidad.</figcaption></figure></li>
+    <li>En cada reunión semanal, el responsable agrega en el riesgo un comentario con su estado. Si cambia el impacto o la probabilidad, cambia también la etiqueta.</li>
+    <li>Cuando el riesgo deja de aplicar, o cuando ocurrió y el equipo ya lo atendió, el responsable lo cierra con un comentario que explique qué pasó.</li>
+  </ol>
+  <div class="note">En <b>Elementos de trabajo</b>, filtren por la etiqueta <code>riesgo</code> para ver todos los riesgos del proyecto y su evaluación actual.</div>
+</section>
+
+<section id="cambios">
+  <span class="who">Lo hace todo el equipo, con el gerente de planeación</span>
+  <h2>Cambios al plan</h2>
+  <p><b>Qué es.</b> Un plan se ajusta cuando el equipo estimó mal una tarea, entiende mejor el trabajo, cambian sus recursos o sus prioridades, o termina una fase. Los ajustes menores, como agregar una tarea que no se había previsto o redistribuir la carga entre integrantes, se hacen sobre la marcha; los cambios grandes requieren un relanzamiento (Lectura 6, secciones 6 y 6.1).</p>
+  <p><b>Para qué sirve.</b> Mantiene el plan alineado con la realidad del equipo, de modo que el seguimiento de cada semana compare contra un plan vigente. El registro de cada cambio en el acta permite explicar después cómo evolucionó el proyecto.</p>
+  <h3>Cómo se registra cada cambio en GitLab</h3>
+  <table>
+    <tr><th>Cambio</th><th>Qué se hace en GitLab</th></tr>
+    <tr><td>Aparece una tarea que no estaba en el plan</td><td>Se crea dentro de su requisito, con responsable, estimación, fechas, hito y etiqueta <code>tarea</code>, como en la etapa 2.</td></tr>
+    <tr><td>Una tarea pasa a otra semana</td><td>Se cambian su hito y sus fechas.</td></tr>
+    <tr><td>Una tarea cambia de responsable</td><td>Se cambia la <b>Persona asignada</b>.</td></tr>
+    <tr><td>Una tarea se cancela</td><td>Se le quita el hito, se escribe el motivo en un comentario y se cierra.</td></tr>
+    <tr><td>Una tarea toma más tiempo del estimado</td><td>Se conserva la estimación original. El tiempo dedicado registrado muestra la diferencia.</td></tr>
+  </table>
+  <p>La estimación de una tarea ya planeada se conserva, porque el valor de cada tarea en el plan se mantiene constante y así el valor ganado refleja el avance real (Lectura 6, sección 3.6).</p>
+  <h3>Cómo se deja constancia</h3>
+  <ol class="steps">
+    <li>En el acta de la reunión semanal en que se decide el cambio, en <b>Decisiones tomadas</b>, registren la nueva versión del plan: <code>Versión 2.1 del plan</code>, <code>Versión 2.2 del plan</code> y así sucesivamente.</li>
+    <li>Para cada versión escriban el motivo del cambio y su efecto en tareas, horas y fechas, y enlacen las tareas afectadas con <code>#</code> y su número.</li>
+  </ol>
+</section>
+
+<section id="verificar">
+  <h2>Verificación de la etapa</h2>
+  <p>Cada semana, su proyecto debe tener:</p>
+  <ul>
+    <li>El acta de la reunión semanal, con la etiqueta <code>reunion-semanal</code>, el hito de la semana, el reporte de cada integrante como comentario y el tiempo de los participantes con la fase <code>Gestión</code>.</li>
+    <li>El reporte de estado del proyecto, con horas planeadas y dedicadas, valor planeado y valor ganado.</li>
+    <li>Los riesgos registrados, cada uno con su responsable, sus etiquetas de impacto y probabilidad y su seguimiento.</li>
+    <li>Los cambios al plan registrados en el acta como una nueva versión, con su motivo y su efecto.</li>
+  </ul>
+</section>
+
+<div class="next"><a href="etapa-2.html">Etapa 2: planeación y registro de tiempo</a><a href="etapa-4.html">Etapa 4: código y calidad</a></div>
+</main>
+</div>
+<div class="lb" id="lb"><img alt=""></div>
+<script>
+document.querySelectorAll("figure img").forEach(i=>i.addEventListener("click",()=>{const lb=document.getElementById("lb");lb.querySelector("img").src=i.src;lb.classList.add("on");}));
+document.getElementById("lb").addEventListener("click",e=>e.currentTarget.classList.remove("on"));
+document.querySelectorAll(".tpl button").forEach(async b=>{
+  const pre=b.parentElement.querySelector("pre");
+  if(b.dataset.copy){ try{ const t=await (await fetch(b.dataset.copy)).text(); pre.textContent=t; }catch(e){ pre.textContent="Descarguen el archivo con el enlace de abajo."; } }
+  b.addEventListener("click",async()=>{ try{ await navigator.clipboard.writeText(pre.textContent); b.textContent="Copiado"; setTimeout(()=>b.textContent="Copiar",1500);}catch(e){} });
+});
+</script>
+</body>
+</html>

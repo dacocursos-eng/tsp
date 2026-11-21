@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Etapa 5: análisis y cierre · TSP en GitLab</title>
+<link rel="stylesheet" href="etapas/manual.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <p class="kicker">Proyecto TSP en GitLab · Etapa 5</p>
+  <h1>Análisis y cierre</h1>
+  <p>En esta etapa el equipo consolida los registros del proyecto, los analiza, hace el postmortem con sus conclusiones y prepara la sustentación en video con el prototipo y la línea de tiempo del proyecto.</p>
+  <div class="alert" style="margin:1rem 0 0;background:#fff;color:var(--ink)"><strong>Este material corresponde a la Entrega 3.</strong></div>
+  <nav><a href="index.html">Inicio</a><a href="etapa-1.html">Etapa 1: montaje</a><a href="etapa-2.html">Etapa 2: planeación y registro de tiempo</a><a href="etapa-3.html">Etapa 3: seguimiento semanal</a><a href="etapa-4.html">Etapa 4: código y calidad</a><a class="on" href="etapa-5.html">Etapa 5: análisis y cierre</a><a href="entrega-2.html">Entrega 2</a><a href="entrega-3.html">Entrega 3</a></nav>
+</div></header>
+
+<div class="layout">
+<nav class="side" aria-label="Contenido de la etapa">
+  <ul>
+    <li><a href="#datos">Datos del proyecto en Excel</a></li>
+    <li><a href="#token">El token personal</a></li>
+    <li><a href="#generar">Cómo se genera el Excel</a></li>
+    <li><a href="#sin-token">Sin token: desde el CSV</a></li>
+    <li><a href="#leer">Cómo se leen los datos</a></li>
+    <li><a href="#postmortem">Postmortem</a></li>
+    <li><a href="#conclusiones">Conclusiones</a></li>
+    <li><a href="#video">Línea de tiempo y video</a></li>
+    <li><a href="#verificar">Verificación de la etapa</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<section id="datos">
+  <span class="who">Lo hace una persona del equipo</span>
+  <h2>Datos del proyecto en Excel</h2>
+  <p><b>Qué es.</b> Es un libro de Excel con todos los registros del proyecto: tareas, tiempo, solicitudes de fusión, defectos y riesgos, y con tablas que resumen esos registros. Lo arma el <a href="generador.html">generador de evidencias</a>, una página de este material que lee los datos de su proyecto en GitLab.</p>
+  <p><b>Para qué sirve.</b> El postmortem de TSP compara los resultados reales con el plan y deja registrados los datos del proceso (Lectura 1, sección 5.2). El Excel reúne esos datos en un solo archivo para que el equipo los analice y saque sus conclusiones. Los datos se recopilan a medida que avanza el proyecto y se guardan para estimar mejor los proyectos siguientes (Lectura 7, sección 1).</p>
+  <h3>Hojas del Excel</h3>
+  <table>
+    <tr><th>Hoja</th><th>Contenido</th></tr>
+    <tr><td>Resumen</td><td>Totales del proyecto: horas, tareas, valor ganado, líneas de código, defectos y densidad de defectos</td></tr>
+    <tr><td>Elementos</td><td>Una fila por elemento de trabajo, con tipo, requisito, responsable, hito, estimación, tiempo dedicado, estado y valor planeado</td></tr>
+    <tr><td>Tiempo</td><td>Una fila por registro de tiempo, con fecha, semana, persona, elemento, horas y fase</td></tr>
+    <tr><td>Fusiones</td><td>Una fila por solicitud de fusión, con autor, tarea, líneas agregadas, comentarios de inspección, aprobación y tasa de inspección</td></tr>
+    <tr><td>Defectos</td><td>Una fila por defecto, con tipo, fase inyectada, fase removida y tiempo de corrección</td></tr>
+    <tr><td>Riesgos</td><td>Una fila por riesgo, con impacto, probabilidad, responsable y estado</td></tr>
+    <tr><td>Tablas</td><td>Horas por fase; estimado frente a dedicado por persona y por semana; valor planeado frente a valor ganado; defectos por tipo y por fase</td></tr>
+    <tr><td>Línea de tiempo</td><td>Por semana: tareas terminadas, horas, reuniones, fusiones y defectos</td></tr>
+    <tr><td>Análisis</td><td>Espacio para que el equipo escriba lo que muestra cada tabla</td></tr>
+  </table>
+  <p>Las tablas están hechas con fórmulas sobre las hojas de datos: al seleccionar una celda se ve cómo se calcula.</p>
+</section>
+
+<section id="token">
+  <span class="who">Lo hace la persona que genera el Excel</span>
+  <h2>El token personal</h2>
+  <p><b>Qué es.</b> Un token de acceso personal <i>(personal access token)</i> es una clave que GitLab entrega para que un programa consulte sus datos en nombre de ustedes. Tiene permisos limitados, que GitLab llama alcances <i>(scopes)</i>, y una fecha de vencimiento, y se puede revocar en cualquier momento sin cambiar la contraseña. El generador necesita un token con el alcance <code>read_api</code>, que solo permite leer.</p>
+  <p><b>Para qué sirve.</b> Con el token, el generador lee los datos del proyecto directamente desde GitLab, incluido el detalle de cada registro de tiempo, que el CSV no trae.</p>
+  <div class="alert"><strong>El token es personal, como una contraseña.</strong> No lo compartan, no lo escriban en la wiki ni en el repositorio y no lo envíen por correo o chat. El generador lo usa solo en su navegador para consultar a GitLab y no lo guarda. Cuando terminen la entrega, revóquenlo.</div>
+  <div class="where">En GitLab: su avatar, arriba a la derecha &gt; <b>Editar perfil</b> <span class="en">(Edit profile)</span> &gt; <b>Tokens de acceso personal</b> <span class="en">(Personal access tokens)</span>. También se abre con la dirección <a href="https://gitlab.com/-/user_settings/personal_access_tokens" target="_blank" rel="noopener">gitlab.com/-/user_settings/personal_access_tokens</a>.</div>
+  <h3>Cómo se crea</h3>
+  <ol class="steps">
+    <li>Seleccionen su avatar, arriba a la derecha, y luego <b>Editar perfil</b> <i>(Edit profile)</i>. En el menú izquierdo seleccionen <b>Tokens de acceso personal</b> <i>(Personal access tokens)</i>.</li>
+    <li>Seleccionen <b>Generar token</b> <i>(Generate token)</i> y, en el menú, <b>Token heredado</b> <i>(Legacy token)</i>. En <b>Nombre del token</b> <i>(Token name)</i> escriban <code>generador-tsp</code>. En <b>Fecha de vencimiento</b> <i>(Expiration date)</i> dejen una fecha posterior a la entrega.</li>
+    <li>En <b>Seleccionar alcances</b> <i>(Select scopes)</i> marquen solo <code>read_api</code>. Al final del formulario seleccionen <b>Generar token</b> <i>(Generate token)</i>.
+      <figure><img src="etapas/img/e5-token.webp" alt="Formulario de un token de acceso personal con el alcance read_api"><figcaption>Token con el alcance <code>read_api</code> y fecha de vencimiento.</figcaption></figure></li>
+    <li>GitLab muestra el token una sola vez. Cópienlo con el botón de copiar y péguenlo en el generador. Si lo pierden, revóquenlo y creen otro.</li>
+  </ol>
+  <h3>Cómo se revoca</h3>
+  <p>En la misma página de <b>Tokens de acceso personal</b>, busquen <code>generador-tsp</code> en la lista de tokens activos y seleccionen <b>Revocar</b> <i>(Revoke)</i>. Desde ese momento el token deja de funcionar.</p>
+</section>
+
+<section id="generar">
+  <span class="who">Lo hace la persona que genera el Excel</span>
+  <h2>Cómo se genera el Excel</h2>
+  <ol class="steps">
+    <li>Abran el <a href="generador.html">generador de evidencias</a>.</li>
+    <li>En <b>Dirección del proyecto</b> peguen la dirección de su proyecto en GitLab, la que aparece en el navegador al abrir la página principal del proyecto, por ejemplo <code>https://gitlab.com/equipo-finanzas-tsp/finanzas-personales</code>.</li>
+    <li>En <b>Token</b> peguen su token. En <b>Subgrupo</b> escriban su número de subgrupo, por ejemplo <code>SG05</code>.</li>
+    <li>Seleccionen <b>Generar Excel</b>. La página muestra el avance de la consulta y, al terminar, un resumen y el botón para descargar <code>TSP_E3_SGxx_datos.xlsx</code>.
+      <figure><img src="etapas/img/e5-generador.webp" alt="Generador de evidencias con el resumen del proyecto"><figcaption>El generador después de leer el proyecto: resumen y botón de descarga.</figcaption></figure></li>
+    <li>Revisen los avisos que muestra el generador, por ejemplo registros de tiempo con una fase que no está en la tabla de fases o defectos sin tipo. Corríjanlos en GitLab y generen el Excel de nuevo.</li>
+  </ol>
+  <div class="note">Pueden generar el Excel todas las veces que quieran, por ejemplo antes de cada reunión semanal para el reporte de estado del proyecto. Cada vez se generan los datos actualizados.</div>
+</section>
+
+<section id="sin-token">
+  <span class="who">Alternativa sin token</span>
+  <h2>Sin token: desde el CSV</h2>
+  <p>Si prefieren no crear un token, el generador también arma el Excel a partir del CSV de elementos de trabajo, el mismo que exportaron en la Entrega 2. El archivo se procesa en su navegador y no se envía a ningún servidor.</p>
+  <ol class="steps">
+    <li>Exporten el CSV de elementos de trabajo como en la Entrega 2, con <b>Estado</b> en <b>Cualquiera</b>.</li>
+    <li>En el generador, en <b>Generar desde el CSV</b>, seleccionen el archivo y su subgrupo, y seleccionen <b>Generar Excel</b>.</li>
+    <li>El CSV no trae el detalle de cada registro de tiempo ni las solicitudes de fusión. Diligencien a mano en el Excel las hojas <b>Tiempo</b> y <b>Fusiones</b>, a partir del informe de tiempo del grupo y de cada solicitud de fusión. Las tablas se calculan solas al llenar esas hojas.</li>
+    <li>Guarden también el informe de tiempo del grupo como PDF, como en la Entrega 2: <code>TSP_E3_SGxx_tiempo.pdf</code>.</li>
+  </ol>
+</section>
+
+<section id="leer">
+  <span class="who">Lo hace todo el equipo</span>
+  <h2>Cómo se leen los datos</h2>
+  <p>Cada tabla responde una pregunta sobre el proyecto. Lean cada una en equipo y escriban en la hoja <b>Análisis</b> lo que muestra, con los valores que lo sustentan.</p>
+  <table>
+    <tr><th>Tabla</th><th>Preguntas para el análisis</th><th>Referencia</th></tr>
+    <tr><td>Horas por fase</td><td>¿En qué fases se concentró el trabajo? ¿El tiempo de diseño fue al menos igual al de implementación? ¿La revisión de diseño tomó al menos la mitad del tiempo de diseño?</td><td>Lectura 8, sección 1.3</td></tr>
+    <tr><td>Estimado frente a dedicado, por persona</td><td>¿Cada integrante dedicó las horas que se comprometió a dedicar? ¿Quién subestimó o sobreestimó sus tareas, y por cuánto?</td><td>Lectura 6, secciones 3.5 y 3.6</td></tr>
+    <tr><td>Estimado frente a dedicado, por semana</td><td>¿En qué semanas el equipo trabajó más o menos de lo planeado? ¿Qué pasó en esas semanas?</td><td>Lectura 6, sección 3.6</td></tr>
+    <tr><td>Valor planeado frente a valor ganado</td><td>¿En qué semanas el equipo estuvo al día, atrasado o adelantado? ¿Con qué valor ganado cerró el proyecto?</td><td>Lectura 7, sección 3</td></tr>
+    <tr><td>Defectos por tipo</td><td>¿Qué tipos de defecto se repiten más? ¿Qué debe agregarse a las listas de chequeo?</td><td>Lectura 8, sección 2.1</td></tr>
+    <tr><td>Defectos por fase inyectada y removida</td><td>¿En qué fases se introducen los defectos y en cuáles se encuentran? ¿Cuántos llegaron hasta las pruebas?</td><td>Lectura 8, sección 3</td></tr>
+    <tr><td>Densidad de defectos y tasa de inspección</td><td>¿Cuántos defectos hay por cada mil líneas? ¿Las inspecciones se hicieron a máximo 150 líneas por hora?</td><td>Lectura 8, secciones 1.1 y 1.2</td></tr>
+  </table>
+</section>
+
+<section id="postmortem">
+  <span class="who">Lo hace todo el equipo</span>
+  <h2>Postmortem</h2>
+  <p><b>Qué es.</b> El postmortem es la evaluación final del ciclo del proyecto. El equipo analiza qué salió bien, qué se puede mejorar y cómo desempeñó cada uno su rol (Lectura 5, sección 4.10); compara los resultados reales con el plan, registra los datos del proceso y documenta sus ideas de mejora (Lectura 1, sección 5.2).</p>
+  <p><b>Para qué sirve.</b> Deja el proyecto documentado con sus datos y sus aprendizajes, como referencia para los proyectos siguientes. Responde las preguntas de la Entrega 3: qué pasó durante el desarrollo, cómo resolvieron las dificultades, cómo fue el manejo de los roles y si los reportes de trabajo reflejan el compromiso individual y del equipo.</p>
+  <div class="where">En GitLab: <b>Planificación</b> <span class="en">(Plan)</span> &gt; <b>Wiki</b> &gt; <b>Nueva página</b> <span class="en">(New page)</span>, página <b>Postmortem</b>.</div>
+  <h3>Cómo se hace</h3>
+  <ol class="steps">
+    <li>Creen una tarea sin requisito llamada <code>Postmortem del proyecto</code>, con la etiqueta <code>tarea</code>, el hito de la última semana, responsable y estimación. Allí registra cada uno su tiempo del postmortem con la fase <code>Gestión</code>.</li>
+    <li>Generen el Excel del proyecto con los datos al cierre.</li>
+    <li>Creen en la wiki la página <b>Postmortem</b> con el contenido de este archivo:
+      <div class="tpl"><button type="button" data-copy="anexos/postmortem.md">Copiar</button><pre>Cargando la plantilla…</pre></div>
+      También pueden <a href="anexos/postmortem.md" download>descargar el archivo</a>.</li>
+    <li>Reúnanse para diligenciarla. Llenen el resumen consolidado con los valores del Excel y respondan cada sección con datos del proyecto: horas, valor ganado, defectos, actas y reportes semanales.</li>
+    <li>Escriban en la tabla de roles qué hizo cada integrante en su rol y dónde queda la evidencia en GitLab, por ejemplo las actas que registró o las inspecciones que hizo.</li>
+  </ol>
+</section>
+
+<section id="conclusiones">
+  <span class="who">Lo hace todo el equipo</span>
+  <h2>Conclusiones</h2>
+  <p><b>Qué es.</b> Son entre 6 y 10 afirmaciones del equipo sobre lo que aprendió en el proyecto, cada una sustentada en un dato de sus registros.</p>
+  <p><b>Para qué sirve.</b> Resumen el análisis y dejan claro qué haría el equipo igual y qué haría distinto en un próximo proyecto.</p>
+  <h3>Cómo se escriben</h3>
+  <ul>
+    <li>Cada conclusión dice qué encontró el equipo, con el dato que lo muestra y su fuente. Por ejemplo: <i>La implementación tomó 40 % más tiempo del estimado en las tareas de búsqueda avanzada (hoja Tablas, estimado frente a dedicado); en el próximo proyecto el equipo estimará esas tareas a partir de este dato.</i></li>
+    <li>Cubran los temas de la entrega: el plan y su cumplimiento, el trabajo con los roles, la calidad del producto y el compromiso del equipo.</li>
+    <li>Escríbanlas en la sección <b>Conclusiones</b> de la página Postmortem.</li>
+  </ul>
+</section>
+
+<section id="video">
+  <span class="who">Lo hace todo el equipo</span>
+  <h2>Línea de tiempo y video</h2>
+  <p><b>Qué es.</b> La sustentación es un video de máximo 5 minutos que presenta el prototipo del catálogo virtual en funcionamiento y una línea de tiempo con los avances del proyecto, los roles y las actividades que llevó a cabo el equipo.</p>
+  <h3>La línea de tiempo</h3>
+  <p>La hoja <b>Línea de tiempo</b> del Excel trae, por cada semana, las tareas terminadas, las horas del equipo, las reuniones, las solicitudes de fusión y los defectos. Con esos datos, con los roles de la wiki <b>Equipo y roles</b> y con las actas, armen la línea de tiempo en el formato que prefieran: una diapositiva, un diagrama o una tabla.</p>
+  <h3>El video</h3>
+  <ul>
+    <li>Duración máxima: 5 minutos.</li>
+    <li>Contenido: el prototipo funcionando, con los módulos que construyeron, y la línea de tiempo del proyecto.</li>
+    <li>Publicación: en YouTube, como video <b>No listado</b>. Así solo lo ve quien tiene el enlace.</li>
+  </ul>
+  <h3>Cómo se publica en YouTube como no listado</h3>
+  <ol class="steps">
+    <li>Con una cuenta de Google, entren a YouTube, seleccionen <b>Crear</b> &gt; <b>Subir video</b> y elijan el archivo.</li>
+    <li>Escriban el título, por ejemplo <code>TSP SG05 · Catálogo virtual</code>, y en la pregunta de público elijan que el video no es para niños.</li>
+    <li>En <b>Visibilidad</b> elijan <b>No listado</b> y seleccionen <b>Guardar</b>. Copien el enlace del video.</li>
+    <li>Abran el enlace en una ventana privada del navegador para comprobar que se ve sin iniciar sesión.</li>
+    <li>Peguen el enlace en la sección <b>Sustentación en video</b> de la página Postmortem.</li>
+  </ol>
+</section>
+
+<section id="verificar">
+  <h2>Verificación de la etapa</h2>
+  <p>Al terminar esta etapa, su equipo debe tener:</p>
+  <ul>
+    <li>El Excel del proyecto generado con los datos al cierre y la hoja <b>Análisis</b> diligenciada.</li>
+    <li>La página <b>Postmortem</b> de la wiki con el resumen consolidado, las respuestas a las cuatro preguntas de la entrega, la tabla de roles y entre 6 y 10 conclusiones.</li>
+    <li>El video de máximo 5 minutos publicado como no listado y su enlace en la página Postmortem.</li>
+    <li>El token del generador revocado.</li>
+  </ul>
+</section>
+
+<div class="next"><a href="etapa-4.html">Etapa 4: código y calidad</a><a href="entrega-3.html">Cómo preparar la Entrega 3</a></div>
+</main>
+</div>
+<div class="lb" id="lb"><img alt=""></div>
+<script>
+document.querySelectorAll("figure img").forEach(i=>i.addEventListener("click",()=>{const lb=document.getElementById("lb");lb.querySelector("img").src=i.src;lb.classList.add("on");}));
+document.getElementById("lb").addEventListener("click",e=>e.currentTarget.classList.remove("on"));
+document.querySelectorAll(".tpl button").forEach(async b=>{
+  const pre=b.parentElement.querySelector("pre");
+  if(b.dataset.copy){ try{ const t=await (await fetch(b.dataset.copy)).text(); pre.textContent=t; }catch(e){ pre.textContent="Descarguen el archivo con el enlace de abajo."; } }
+  b.addEventListener("click",async()=>{ try{ await navigator.clipboard.writeText(pre.textContent); b.textContent="Copiado"; setTimeout(()=>b.textContent="Copiar",1500);}catch(e){} });
+});
+</script>
+</body>
+</html>
