@@ -46,6 +46,11 @@ button.go:disabled{opacity:.55;cursor:wait}
   </form>
 </section>
 
+<section id="salida" hidden>
+  <h2>Resultado</h2>
+  <div id="estado"></div>
+</section>
+
 <section>
   <h2>Generar desde el CSV</h2>
   <p>Sin <i>token</i>: usen el CSV de elementos de trabajo que exporta GitLab. Las hojas Tiempo y Fusiones quedan para diligenciar a mano.</p>
@@ -58,10 +63,7 @@ button.go:disabled{opacity:.55;cursor:wait}
   </form>
 </section>
 
-<section id="salida" hidden>
-  <h2>Resultado</h2>
-  <div id="estado"></div>
-</section>
+
 </div>
 
 <script src="herramientas/exceljs.min.js"></script>
@@ -72,7 +74,7 @@ button.go:disabled{opacity:.55;cursor:wait}
   function botones(on){document.querySelectorAll("button.go").forEach(function(b){b.disabled=!on;});}
   function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
   function sg(v){var m=String(v||"").toUpperCase().replace(/\s+/g,"").match(/(\d+)/);return m?"SG"+(m[1].length<2?"0":"")+m[1]:"SGxx";}
-  function prog(t){salida.hidden=false;estado.innerHTML='<p class="prog">'+esc(t)+'…</p>';}
+  function prog(t){var nuevo=salida.hidden;salida.hidden=false;estado.innerHTML='<p class="prog">'+esc(t)+'…</p>';if(nuevo)salida.scrollIntoView({behavior:"smooth",block:"start"});}
   function error(e){estado.innerHTML='<div class="err"><strong>No fue posible generar el Excel.</strong><br>'+esc(e.message||e)+'</div>';botones(true);}
   function listo(d,sub){
     var r=TSPGen.resumen(d);

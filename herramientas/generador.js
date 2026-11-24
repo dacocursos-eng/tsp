@@ -133,7 +133,7 @@
   /* ---------- Lectura de GitLab ---------- */
 
   function rutaProyecto(url) {
-    var s = String(url || "").trim().replace(/\.git$/, "");
+    var s = String(url || "").trim().replace(/[\s.,;:)"']+$/, "").replace(/\.git$/, "");
     s = s.replace(/^https?:\/\/[^/]+\//, "").replace(/\/-\/.*$/, "").replace(/\/+$/, "");
     return s;
   }
