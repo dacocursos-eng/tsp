@@ -57,14 +57,16 @@
     return "";
   }
 
+  // Impacto en masculino (alto, medio, bajo) y probabilidad en femenino (alta, media, baja).
   function nivel(labels, prefijo) {
+    var fem = prefijo === "probabilidad";
     for (var i = 0; i < labels.length; i++) {
       var n = norm(labels[i]);
       if (n.indexOf(prefijo) === 0) {
         var v = n.slice(prefijo.length).replace(/^[: ]+/, "");
-        if (v.indexOf("alt") === 0) return "Alto";
-        if (v.indexOf("med") === 0) return "Medio";
-        if (v.indexOf("baj") === 0) return "Bajo";
+        if (v.indexOf("alt") === 0) return fem ? "Alta" : "Alto";
+        if (v.indexOf("med") === 0) return fem ? "Media" : "Medio";
+        if (v.indexOf("baj") === 0) return fem ? "Baja" : "Bajo";
       }
     }
     return "";
@@ -632,7 +634,7 @@
       return { iid: x.it.iid, titulo: x.it.titulo, imp: x.impacto, prob: x.probabilidad, resp: x.it.responsable, estado: x.it.estado };
     }));
     for (r = 2; r <= d.riesgos.length + 1; r++) {
-      wsR.getCell("E" + r).value = { formula: "IF(AND(C" + r + "=\"Alto\",D" + r + "=\"Alto\"),\"Primera\",IF(AND(C" + r + "=\"Alto\",D" + r + "=\"Medio\"),\"Segunda\",IF(AND(C" + r + "=\"Medio\",D" + r + "=\"Alto\"),\"Tercera\",IF(AND(C" + r + "=\"Medio\",D" + r + "=\"Medio\"),\"Cuarta\",\"Sin plan\"))))" };
+      wsR.getCell("E" + r).value = { formula: "IF(AND(C" + r + "=\"Alto\",D" + r + "=\"Alta\"),\"Primera\",IF(AND(C" + r + "=\"Alto\",D" + r + "=\"Media\"),\"Segunda\",IF(AND(C" + r + "=\"Medio\",D" + r + "=\"Alta\"),\"Tercera\",IF(AND(C" + r + "=\"Medio\",D" + r + "=\"Media\"),\"Cuarta\",\"Sin plan\"))))" };
     }
 
     // Tablas
